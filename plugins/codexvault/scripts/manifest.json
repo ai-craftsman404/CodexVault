@@ -1,0 +1,12 @@
+{
+  "versionLine": "v1a",
+  "scripts": [
+    "discover_workspace.ps1",
+    "write_manifest.ps1",
+    "create_snapshot.ps1",
+    "plan_restore.ps1",
+    "verify_restore.ps1",
+    "simulate_restore_team.ps1"
+  ]
+}
+

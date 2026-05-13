@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "v1a",
+  "workspaceId": "00000000-0000-0000-0000-000000000000",
+  "capturedAt": "20260513T000000Z",
+  "platform": "Windows",
+  "shell": "PowerShell",
+  "redactionPolicy": "deny-by-default"
+}
+

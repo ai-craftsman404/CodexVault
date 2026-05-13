@@ -1,0 +1,32 @@
+{
+  "name": "code-plugin-guru-local",
+  "interface": {
+    "displayName": "Code Plugin Guru Local Marketplace"
+  },
+  "plugins": [
+    {
+      "name": "orchex",
+      "source": {
+        "source": "local",
+        "path": "./plugins/orchex"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Engineering"
+    },
+    {
+      "name": "premortemx",
+      "source": {
+        "source": "local",
+        "path": "./plugins/premortemx"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Engineering"
+    }
+  ]
+}

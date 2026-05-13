@@ -1,0 +1,7 @@
+{
+  "schemaVersion": "v1a",
+  "status": "restore plan ready",
+  "approvalRequired": true,
+  "tempRestoreScope": "plugin-managed isolated temp-dir only"
+}
+

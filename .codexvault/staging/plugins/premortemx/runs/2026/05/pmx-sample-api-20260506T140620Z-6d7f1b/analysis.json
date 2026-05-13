@@ -1,0 +1,71 @@
+{
+    "generatedAt":  "2026-05-06T14:06:20.3309043Z",
+    "notes":  [
+                  "Mode: release-risk-gating",
+                  "Decision posture: Warn",
+                  "Primary gap type: evidence completeness, not direct design failure",
+                  "Most material concerns: rollback control, negative-path reliability, monitoring ownership"
+              ],
+    "findings":  [
+                     {
+                         "id":  "R-01",
+                         "title":  "Rollback criteria are not operationalized",
+                         "likelihood":  "medium",
+                         "impact":  "high",
+                         "currentRisk":  "medium-high",
+                         "residualRisk":  "low-medium",
+                         "evidenceStrength":  "medium",
+                         "response":  "mitigate",
+                         "riskOwner":  "Release manager",
+                         "treatmentOwner":  "Engineering lead",
+                         "reviewDate":  "before production cutover",
+                         "evidenceRefs":  [
+                                              "EV-01",
+                                              "EV-04"
+                                          ],
+                         "summary":  "The rollout intent is phased, but the release artifacts do not define trigger thresholds or the named checkpoint owner."
+                     },
+                     {
+                         "id":  "R-02",
+                         "title":  "Failure-path validation is not demonstrated",
+                         "likelihood":  "medium",
+                         "impact":  "medium-high",
+                         "currentRisk":  "medium",
+                         "residualRisk":  "low",
+                         "evidenceStrength":  "medium",
+                         "response":  "mitigate",
+                         "riskOwner":  "Engineering lead",
+                         "treatmentOwner":  "Test owner",
+                         "reviewDate":  "before release approval",
+                         "evidenceRefs":  [
+                                              "EV-02",
+                                              "EV-05"
+                                          ],
+                         "summary":  "The inspected test evidence does not show current validation for auth-refresh failures, upstream timeouts, or burst behavior."
+                     },
+                     {
+                         "id":  "R-03",
+                         "title":  "Operational watch coverage is under-specified",
+                         "likelihood":  "medium",
+                         "impact":  "medium",
+                         "currentRisk":  "medium",
+                         "residualRisk":  "low",
+                         "evidenceStrength":  "medium",
+                         "response":  "mitigate",
+                         "riskOwner":  "Operations lead",
+                         "treatmentOwner":  "SRE or release operations owner",
+                         "reviewDate":  "day before release",
+                         "evidenceRefs":  [
+                                              "EV-03",
+                                              "EV-06"
+                                          ],
+                         "summary":  "Monitoring is referenced, but alert thresholds, ownership, and the first-response path are not explicit."
+                     }
+                 ],
+    "decisionContext":  {
+                            "decisionOwner":  "Release manager",
+                            "decisionWindow":  "next planned production cutover",
+                            "scopeBoundary":  "current release bundle only",
+                            "recommendedAction":  "warn-until-remediated"
+                        }
+}

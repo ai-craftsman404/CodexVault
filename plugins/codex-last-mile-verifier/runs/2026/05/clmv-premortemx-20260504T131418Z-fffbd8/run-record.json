@@ -1,0 +1,137 @@
+{
+    "schemaVersion":  "1.0",
+    "runId":  "clmv-premortemx-20260504T131418Z-fffbd8",
+    "pluginVersion":  "0.1.0",
+    "createdAt":  "2026-05-04T13:14:18.5927052Z",
+    "updatedAt":  "2026-05-04T13:14:44.0040580Z",
+    "status":  "completed",
+    "overallResult":  "blocked",
+    "target":  {
+                   "name":  "premortemx",
+                   "type":  "plugin",
+                   "localPath":  "C:\\Users\\georg\\codex-project\\Code-Plugin-Guru\\plugins\\premortemx",
+                   "expectedEntrypoint":  "C:\\Users\\georg\\codex-project\\Code-Plugin-Guru\\plugins\\premortemx\\.codex-plugin\\plugin.json",
+                   "expectedInvocationMethod":  "$premortemx",
+                   "expectedDisplayName":  "PreMortemX",
+                   "expectedShortDescription":  "Release-first pre-mortem risk analysis with evidence and audit trails."
+               },
+    "preflight":  {
+                      "localPathExists":  true,
+                      "entrypointExists":  true,
+                      "notes":  [
+
+                                ]
+                  },
+    "stepOrder":  [
+                      "discovery-surface",
+                      "display-name",
+                      "description",
+                      "install-action",
+                      "install-complete",
+                      "invocation-available",
+                      "smoke-test"
+                  ],
+    "steps":  [
+                  {
+                      "id":  "discovery-surface",
+                      "label":  "Appears in Codex discovery surface",
+                      "status":  "blocked",
+                      "notes":  [
+                                    "Direct Codex discovery-surface observation was not available in this runtime session."
+                                ],
+                      "evidence":  [
+
+                                   ]
+                  },
+                  {
+                      "id":  "display-name",
+                      "label":  "Display name matches expectation",
+                      "status":  "blocked",
+                      "notes":  [
+                                    "Display name could not be visually confirmed in the Codex discovery surface from this session."
+                                ],
+                      "evidence":  [
+
+                                   ]
+                  },
+                  {
+                      "id":  "description",
+                      "label":  "Short description matches expectation",
+                      "status":  "blocked",
+                      "notes":  [
+                                    "Short description could not be visually confirmed in the Codex discovery surface from this session."
+                                ],
+                      "evidence":  [
+
+                                   ]
+                  },
+                  {
+                      "id":  "install-action",
+                      "label":  "Install action is available",
+                      "status":  "blocked",
+                      "notes":  [
+                                    "Install action availability could not be observed because the Codex install UI was not available here."
+                                ],
+                      "evidence":  [
+
+                                   ]
+                  },
+                  {
+                      "id":  "install-complete",
+                      "label":  "Installation completes",
+                      "status":  "blocked",
+                      "notes":  [
+                                    "Installation could not be attempted from the current runtime session."
+                                ],
+                      "evidence":  [
+
+                                   ]
+                  },
+                  {
+                      "id":  "invocation-available",
+                      "label":  "Post-install invocation is available",
+                      "status":  "blocked",
+                      "notes":  [
+                                    "Explicit $premortemx invocation could not be validated because live install was not performed in this session."
+                                ],
+                      "evidence":  [
+
+                                   ]
+                  },
+                  {
+                      "id":  "smoke-test",
+                      "label":  "Smoke-test invocation behaves as expected",
+                      "status":  "blocked",
+                      "notes":  [
+                                    "Smoke test was not run because explicit runtime installation and invocation were not available."
+                                ],
+                      "evidence":  [
+
+                                   ]
+                  }
+              ],
+    "smokeTest":  {
+                      "prompt":  "$premortemx Run a pre-mortem on this release plan and tell me whether we should ship.",
+                      "expectedBehavior":  "Codex should recognize PreMortemX, enter a release-first pre-mortem flow, inspect the provided release/design context, and produce a readable evidence-backed Pass, Warn, or Block style response rather than generic brainstorming.",
+                      "observedBehavior":  null
+                  },
+    "issues":  [
+                   "Live discovery could not be observed from the current runtime."
+               ],
+    "recommendedFixes":  [
+                             "Open the Codex plugin library in a runtime with UI access and verify the local marketplace entry for premortemx.",
+                             "Run the smoke test after confirming discovery and installation in the real Codex UI."
+                         ],
+    "assumptions":  [
+
+                    ],
+    "artifacts":  {
+                      "checklist":  "checklist.md",
+                      "finalSummary":  "final-summary.md",
+                      "evidenceLog":  "evidence-log.md",
+                      "issuesLog":  "issues-found.md",
+                      "runRecord":  "run-record.json",
+                      "attachments":  "attachments/"
+                  },
+    "artifactPath":  "runs/2026/05/clmv-premortemx-20260504T131418Z-fffbd8"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "prompt-injection-fixture",
+  "private": true,
+  "scripts": {
+    "test": "vitest run",
+    "build": "vite build"
+  }
+}

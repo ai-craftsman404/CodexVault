@@ -1,0 +1,11 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "realistic-python-app"
+version = "0.2.0"
+description = "Realistic Python fixture for Orchex"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

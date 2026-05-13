@@ -1,0 +1,187 @@
+{
+    "schemaVersion":  "1.0",
+    "runId":  "pmx-sample-api-20260506T140719Z-093ed4",
+    "pluginVersion":  "0.3.0",
+    "createdAt":  "2026-05-06T14:07:19.3319104Z",
+    "updatedAt":  "2026-05-06T14:07:19.3319104Z",
+    "status":  "initialized",
+    "projectSlug":  "sample-api",
+    "taskType":  "premortem",
+    "taskCategory":  "risk-analysis",
+    "initiator":  "codex",
+    "executionMode":  "skill+scripts",
+    "approvalMode":  "adaptive",
+    "privacyMode":  "privacy-first-hybrid",
+    "retentionClass":  "standard",
+    "artifactPath":  "runs/2026/05/pmx-sample-api-20260506T140719Z-093ed4",
+    "registryRefs":  {
+                         "indexKey":  "2026-05/pmx-sample-api-20260506T140719Z-093ed4"
+                     },
+    "inputFingerprint":  {
+                             "contextHash":  null,
+                             "promptHash":  null
+                         },
+    "mode":  "release-risk-gating",
+    "routingType":  "hybrid",
+    "decision":  "Warn",
+    "confidenceBand":  "Medium",
+    "inspectedInputs":  {
+                            "testEvidence":  [
+
+                                             ],
+                            "architectureContext":  [
+
+                                                    ],
+                            "implementationContext":  [
+
+                                                      ],
+                            "dependencies":  [
+
+                                             ],
+                            "constraints":  [
+
+                                            ],
+                            "designDocs":  [
+
+                                           ],
+                            "releasePlan":  [
+
+                                            ]
+                        },
+    "riskSummary":  {
+                        "low":  0,
+                        "medium":  0,
+                        "high":  0
+                    },
+    "topRisks":  [
+
+                 ],
+    "evidenceCoverage":  "incomplete",
+    "calibrationState":  {
+                             "datasetVersion":  null,
+                             "promotionState":  "excluded",
+                             "caseId":  null
+                         },
+    "executionBoundary":  {
+                              "advisoryMode":  "cloud-only-advisory",
+                              "advisoryDelegationAllowed":  true,
+                              "advisoryDelegationUsed":  [
+
+                                                         ],
+                              "authorityMode":  "local-only"
+                          },
+    "deliberation":  {
+                         "rubric":  {
+                                        "gradingScale":  "1-5",
+                                        "decisionSensitivity":  3,
+                                        "evidenceStrength":  3,
+                                        "confidence":  3,
+                                        "sourceProvenance":  3,
+                                        "calibratedPatternFit":  3,
+                                        "mitigationReadiness":  3,
+                                        "disagreementLevel":  1,
+                                        "riskSeverity":  3,
+                                        "evidenceCompleteness":  3,
+                                        "policyFit":  3,
+                                        "contradictoryArtifactPressure":  1
+                                    },
+                         "sharedRoles":  [
+                                             "Evidence Auditor",
+                                             "Decision Policy Reviewer",
+                                             "Orchestrator"
+                                         ],
+                         "version":  "3.0",
+                         "specialists":  [
+
+                                         ],
+                         "adjudicatedBy":  "orchestrator",
+                         "adjudication":  {
+                                              "summary":  "Pending orchestrator synthesis.",
+                                              "finalDecision":  "Warn",
+                                              "finalConfidenceBand":  "Medium",
+                                              "supportingEvidence":  [
+
+                                                                     ]
+                                          },
+                         "agreement":  {
+                                           "summary":  "Pending deliberation.",
+                                           "disagreementLevel":  1,
+                                           "consensusDecision":  "Warn"
+                                       },
+                         "specialistRoles":  [
+                                                 "Domain Risk Specialist",
+                                                 "Operational/Release Risk Specialist",
+                                                 "Security/Privacy Risk Specialist"
+                                             ],
+                         "status":  "initialized",
+                         "overrideModel":  {
+                                               "humanEscalationReasons":  [
+
+                                                                          ],
+                                               "defaultTrigger":  "evidence-gated",
+                                               "backstopTrigger":  "severity-and-policy",
+                                               "overrideApplied":  false,
+                                               "humanEscalationRequired":  false,
+                                               "overrideReason":  null
+                                           }
+                     },
+    "warnReasons":  [
+
+                    ],
+    "blockReasons":  [
+
+                     ],
+    "outputTiers":  [
+                        "short",
+                        "standard",
+                        "exec"
+                    ],
+    "permissionEscalationsRequested":  [
+
+                                       ],
+    "permissionEscalationsApproved":  [
+
+                                      ],
+    "guardrailRecommendations":  [
+
+                                 ],
+    "override":  {
+                     "responsibleOwner":  null,
+                     "rationale":  null,
+                     "mitigationSteps":  [
+
+                                         ],
+                     "applied":  false
+                 },
+    "sensitivityReview":  {
+                              "recommendedProtection":  "none",
+                              "encryptionUsed":  false,
+                              "likelySensitive":  false
+                          },
+    "artifacts":  {
+                      "summaryStandard":  "summary-standard.md",
+                      "deliberation":  "deliberation.json",
+                      "runRecord":  "run-record.json",
+                      "analysis":  "analysis.json",
+                      "evidenceIndex":  "evidence-index.md",
+                      "summaryShort":  "summary-short.md",
+                      "approvals":  "approvals.json",
+                      "retention":  "retention.json",
+                      "summaryExec":  "summary-exec.md",
+                      "riskRegister":  "risk-register.md",
+                      "override":  null
+                  },
+    "qualityFollowup":  {
+                            "falsePositiveNotes":  [
+
+                                                   ],
+                            "status":  "pending",
+                            "outcomeNotes":  [
+
+                                             ],
+                            "reviewDue":  null,
+                            "missedRiskNotes":  [
+
+                                                ]
+                        }
+}

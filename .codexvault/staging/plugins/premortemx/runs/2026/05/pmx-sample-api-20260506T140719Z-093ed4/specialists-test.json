@@ -1,0 +1,49 @@
+{
+  "specialists": [
+    {
+      "role": "Domain Risk Specialist",
+      "recommendation": "Warn",
+      "summary": "The delivery shape is fragile.",
+      "evidenceRefs": ["design/spec.md"],
+      "rubric": {
+        "confidence": 2,
+        "evidenceStrength": 2,
+        "riskSeverity": 3,
+        "evidenceCompleteness": 2,
+        "disagreementLevel": 4,
+        "policyFit": 3,
+        "decisionSensitivity": 3
+      }
+    },
+    {
+      "role": "Operational/Release Risk Specialist",
+      "recommendation": "Pass",
+      "summary": "Operational controls look manageable.",
+      "evidenceRefs": ["ops/checklist.md"],
+      "rubric": {
+        "confidence": 2,
+        "evidenceStrength": 2,
+        "riskSeverity": 2,
+        "evidenceCompleteness": 2,
+        "disagreementLevel": 4,
+        "policyFit": 3,
+        "decisionSensitivity": 4
+      }
+    },
+    {
+      "role": "Security/Privacy Risk Specialist",
+      "recommendation": "Block",
+      "summary": "Sensitive path lacks enough evidence controls.",
+      "evidenceRefs": ["security/review.md"],
+      "rubric": {
+        "confidence": 4,
+        "evidenceStrength": 5,
+        "riskSeverity": 5,
+        "evidenceCompleteness": 4,
+        "disagreementLevel": 4,
+        "policyFit": 2,
+        "decisionSensitivity": 5
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "timestamp": "20260513T000000Z",
+  "workspacePath": "/home/example/workspace",
+  "os": "Linux",
+  "shell": "bash",
+  "status": "discovered",
+  "summary": "Linux discovery fixture"
+}
+

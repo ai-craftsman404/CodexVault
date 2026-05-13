@@ -1,0 +1,12 @@
+{
+    "likelySensitive": false,
+    "recommendation": "none",
+    "encryptionDecision": "not-requested",
+    "contextContract": {
+        "name": "Release Risk Context Contract",
+        "path": "C:/Users/georg/codex-project/Code-Plugin-Guru/plugins/premortemx/runtime/context/context-contract-release-risk-synthetic.md"
+    },
+    "notes": [
+        "Retention and sensitivity decisions belong here."
+    ]
+}

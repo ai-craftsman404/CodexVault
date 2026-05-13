@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "v1a",
+  "status": "planning restore",
+  "checkpoints": [
+    "validate archive",
+    "prepare isolated temp dir",
+    "request approval for in-place changes"
+  ],
+  "approvalRequired": true
+}
+

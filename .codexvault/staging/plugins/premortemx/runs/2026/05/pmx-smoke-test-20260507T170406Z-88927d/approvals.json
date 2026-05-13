@@ -1,0 +1,12 @@
+{
+    "recommendation":  "stay-conservative",
+    "approvalsRequested":  [
+
+                           ],
+    "approvalsGranted":  [
+
+                         ],
+    "notes":  [
+                  "Permission escalation events belong here."
+              ]
+}

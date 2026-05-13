@@ -1,0 +1,23 @@
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Local editor and OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Dependency folders
+node_modules/
+.venv/
+venv/
+__pycache__/
+
+# Build and cache output
+dist/
+build/
+.cache/
+coverage/
+

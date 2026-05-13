@@ -1,0 +1,32 @@
+{
+    "decisionContext":  {
+                            "scopeBoundary":  null,
+                            "decisionWindow":  null,
+                            "decisionOwner":  null,
+                            "recommendedAction":  null
+                        },
+    "findings":  [
+                     {
+                         "treatmentOwner":  null,
+                         "id":  "R-01",
+                         "likelihood":  null,
+                         "impact":  null,
+                         "title":  "Add concise finding title here.",
+                         "residualRisk":  null,
+                         "evidenceRefs":  [
+
+                                          ],
+                         "summary":  "Add concise machine-readable finding summary here.",
+                         "reviewDate":  null,
+                         "riskOwner":  null,
+                         "evidenceStrength":  null,
+                         "currentRisk":  null,
+                         "response":  null
+                     }
+                 ],
+    "generatedAt":  "2026-05-07T17:04:06.6667650Z",
+    "notes":  [
+                  "Structured internal analysis output belongs here.",
+                  "Keep machine-oriented reasoning concise and auditable."
+              ]
+}
