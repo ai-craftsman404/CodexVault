@@ -67,5 +67,6 @@ Assert-Equal -Actual $report.validationStatus -Expected 'validated' -Label 'Veri
 $simulationJson = & "$root\scripts\simulate_restore_team.ps1" -ScenarioJson (@{ workspacePath = (Resolve-Path (Join-Path $root '..\..')).Path } | ConvertTo-Json)
 $simulationEnvelope = $simulationJson | ConvertFrom-Json
 if (-not $simulationEnvelope.adjudication) { throw 'Simulation adjudication envelope missing' }
+Assert-Equal -Actual $simulationEnvelope.cleanupStatus -Expected 'cleaned' -Label 'Simulation cleanupStatus'
 
 Write-Output 'CodexVault fixture tests passed.'

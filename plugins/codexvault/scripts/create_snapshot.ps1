@@ -17,10 +17,7 @@ if (-not (Test-Path -LiteralPath $outDir)) {
     New-Item -ItemType Directory -Path $outDir | Out-Null
 }
 
-$stagingDir = Join-Path $outDir 'staging'
-if (Test-Path -LiteralPath $stagingDir) {
-    Remove-Item -LiteralPath $stagingDir -Recurse -Force
-}
+$stagingDir = Join-Path ([System.IO.Path]::GetTempPath()) ("codexvault-staging-" + ([guid]::NewGuid().ToString('N')))
 New-Item -ItemType Directory -Path $stagingDir | Out-Null
 
 $workspacePath = $manifest.workspacePath
@@ -53,14 +50,20 @@ $sidecar = [pscustomobject]@{
 }
 ($sidecar | ConvertTo-Json -Depth 4) | Set-Content -LiteralPath (Join-Path $outDir ($archiveName + '.sha256.json')) -Encoding UTF8
 
-$snapshot = [pscustomobject]@{
-    schemaVersion = $manifest.schemaVersion
-    workspaceId = $manifest.workspaceId
-    createdAt = New-CvxTimestamp
-    archivePath = $archivePath
-    checksum = $checksum
-    checksumAlgorithm = 'SHA-256'
-    status = 'snapshot complete'
-}
+try {
+    $snapshot = [pscustomobject]@{
+        schemaVersion = $manifest.schemaVersion
+        workspaceId = $manifest.workspaceId
+        createdAt = New-CvxTimestamp
+        archivePath = $archivePath
+        checksum = $checksum
+        checksumAlgorithm = 'SHA-256'
+        status = 'snapshot complete'
+    }
 
-$snapshot | ConvertTo-Json -Depth 6
+    $snapshot | ConvertTo-Json -Depth 6
+} finally {
+    if (Test-Path -LiteralPath $stagingDir) {
+        Remove-Item -LiteralPath $stagingDir -Recurse -Force -ErrorAction SilentlyContinue
+    }
+}
