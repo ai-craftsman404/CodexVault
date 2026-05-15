@@ -60,6 +60,17 @@ Default behavior:
 - `backup --workspace-root` backs up every eligible plugin project under `plugins/`
 - `backup --workspace` backs up one targeted project when you need a narrower run
 
+Dry-run preview:
+
+```bash
+python plugins/codexvault/codexvault.py backup --workspace-root /path/to/codex-project --dry-run
+```
+
+- previews the full backup workflow
+- prints a structured step trace
+- creates no artifacts
+- is useful for new-user assurance and agent-team simulation
+
 ## Release wording
 
 Use concise, release-safe wording such as:
