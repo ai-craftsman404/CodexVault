@@ -335,6 +335,61 @@ def run_project_backup(project_path: Path) -> dict[str, Any]:
     }
 
 
+def dry_run_project_backup(project_path: Path) -> dict[str, Any]:
+    discovery = discover_workspace(project_path)
+    manifest_preview = manifest_from_discovery(discovery)
+    step_trace = [
+        {
+            "step": "discover",
+            "status": "would-run",
+            "detail": f"inspect {project_path}",
+        },
+        {
+            "step": "manifest",
+            "status": "would-run",
+            "detail": "derive workspace manifest and workspaceId",
+        },
+        {
+            "step": "snapshot",
+            "status": "would-skip-artifacts",
+            "detail": "preview allowlisted files, checksum, and archive naming",
+        },
+        {
+            "step": "plan",
+            "status": "would-run",
+            "detail": "preview restore checkpoints and approval gate",
+        },
+        {
+            "step": "verify",
+            "status": "would-run",
+            "detail": "preview restore validation decision",
+        },
+        {
+            "step": "simulate",
+            "status": "would-run",
+            "detail": "preview agent-team restore rehearsal in isolated temp dir",
+        },
+    ]
+    highlights = [
+        f"workspaceId={manifest_preview['workspaceId']}",
+        f"platform={manifest_preview['platform']}",
+        "no artifacts will be created",
+        "restore would require approval",
+    ]
+    return {
+        "projectPath": str(project_path),
+        "mode": "dry-run",
+        "headline": "Backup dry run complete",
+        "status": "preview only; no artifacts created",
+        "stepTrace": step_trace,
+        "summary": {
+            "headline": "Backup preview",
+            "status": "no artifacts created",
+            "highlights": highlights,
+        },
+    }
+
+
 def run_root_backup(workspace_root: Path) -> dict[str, Any]:
     projects = discover_projects(workspace_root)
     if not projects:
@@ -345,6 +400,28 @@ def run_root_backup(workspace_root: Path) -> dict[str, Any]:
         "status": f"{len(results)} project(s) backed up",
         "workspaceRoot": str(workspace_root_from_path(workspace_root)),
         "projects": results,
+    }
+
+
+def dry_run_root_backup(workspace_root: Path) -> dict[str, Any]:
+    projects = discover_projects(workspace_root)
+    if not projects:
+        projects = [workspace_root_from_path(workspace_root)]
+    results = [dry_run_project_backup(project) for project in projects]
+    return {
+        "headline": "Backup dry run complete",
+        "status": f"{len(results)} project(s) previewed; no artifacts created",
+        "workspaceRoot": str(workspace_root_from_path(workspace_root)),
+        "projects": results,
+        "summary": {
+            "headline": "Backup preview",
+            "status": f"{len(results)} project(s) would be backed up",
+            "highlights": [
+                "discover, manifest, snapshot, plan, verify, simulate would run",
+                "no manifest, archive, or verification artifacts would be written",
+                "agent-team rehearsal would stay isolated and non-destructive",
+            ],
+        },
     }
 
 
@@ -393,6 +470,7 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("backup")
     p.add_argument("--workspace-root", required=False, help="Main Codex project root containing plugin projects")
     p.add_argument("--workspace", required=False, help="Advanced override for a single project backup")
+    p.add_argument("--dry-run", action="store_true", help="Preview the full backup workflow without creating artifacts")
 
     return parser
 
@@ -426,7 +504,12 @@ def main(argv: list[str] | None = None) -> int:
         emit(simulate_restore_team(load_json(args.scenario), project))
         return 0
     if args.command == "backup":
-        if workspace and not workspace_root:
+        if getattr(args, "dry_run", False):
+            if workspace and not workspace_root:
+                emit(dry_run_project_backup(workspace))
+            else:
+                emit(dry_run_root_backup(workspace_root or workspace_root_from_path(Path.cwd())))
+        elif workspace and not workspace_root:
             emit(run_project_backup(workspace))
         else:
             emit(run_root_backup(workspace_root or workspace_root_from_path(Path.cwd())))

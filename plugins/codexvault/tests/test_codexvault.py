@@ -85,6 +85,28 @@ class CodexVaultCLITests(unittest.TestCase):
         self.assertEqual(summary["projects"][0]["checksumAlgorithm"], "SHA-256")
         self.assertEqual(summary["projects"][1]["simulationCleanup"], "cleaned")
 
+    def test_backup_dry_run_previews_full_workflow_without_artifacts(self) -> None:
+        summary = run_cli("backup", "--workspace-root", str(self.root), "--dry-run")
+        self.assertEqual(summary["headline"], "Backup dry run complete")
+        self.assertIn("previewed", summary["status"])
+        self.assertEqual(len(summary["projects"]), 2)
+        first = summary["projects"][0]
+        self.assertEqual(first["mode"], "dry-run")
+        self.assertEqual(first["summary"]["headline"], "Backup preview")
+        self.assertEqual(first["stepTrace"][0]["step"], "discover")
+        self.assertEqual(first["stepTrace"][-1]["step"], "simulate")
+        self.assertIn("no artifacts will be created", first["summary"]["highlights"])
+        self.assertFalse((self.project_a / ".codexvault").exists())
+        self.assertFalse((self.project_b / ".codexvault").exists())
+
+    def test_backup_dry_run_targeted_single_project_is_artifact_free(self) -> None:
+        summary = run_cli("backup", "--workspace", str(self.project_a), "--dry-run")
+        self.assertEqual(summary["mode"], "dry-run")
+        self.assertEqual(summary["projectPath"], str(self.project_a))
+        self.assertEqual(summary["summary"]["headline"], "Backup preview")
+        self.assertTrue(all(step["status"].startswith("would") for step in summary["stepTrace"]))
+        self.assertFalse((self.project_a / ".codexvault").exists())
+
     def test_backup_command_falls_back_to_root_when_no_projects_found(self) -> None:
         empty_root = self.root / "empty"
         empty_root.mkdir()
@@ -155,6 +177,7 @@ class CodexVaultCLITests(unittest.TestCase):
         self.assertIn("discover", proc.stdout)
         backup_help = subprocess.run([sys.executable, str(CLI), "backup", "--help"], cwd=str(ROOT), capture_output=True, text=True, check=True)
         self.assertIn("workspace-root", backup_help.stdout)
+        self.assertIn("dry-run", backup_help.stdout)
 
 
 if __name__ == "__main__":
