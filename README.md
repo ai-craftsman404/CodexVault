@@ -11,6 +11,10 @@ It focuses on:
 
 It is not a generic machine backup tool.
 
+## Security & Privacy
+
+CodexVault redacts secrets by default and does not expose sensitive content in dry-run preview output. It is designed to keep archived provenance minimal and non-secret, with destructive restore actions always requiring human approval.
+
 ## One-command experience
 
 The first-stop user experience is dry-run preview:
@@ -23,6 +27,7 @@ Dry-run:
 - previews the full backup workflow
 - prints a structured step trace
 - creates no artifacts
+- redacts secrets and sensitive details from preview output
 - helps new users understand what will happen before a real run
 - gives agent-team a safe simulation surface
 
