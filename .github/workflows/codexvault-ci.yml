@@ -17,8 +17,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Run CodexVault fixture harness
-        shell: pwsh
-        working-directory: plugins/codexvault
-        run: ./scripts/tests/Run-CodexVaultFixtureTests.ps1
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
+      - name: Run CodexVault test suite
+        run: python -m unittest discover -s plugins/codexvault/tests -p "test_*.py"
