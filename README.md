@@ -34,6 +34,10 @@ python plugins/codexvault/codexvault.py backup --workspace-root /path/to/codex-p
 
 ## Screenshots
 
+### Architecture diagram
+
+![CodexVault architecture diagram](assets/codexvault/architecture.png)
+
 ### Dry-run preview
 
 ![CodexVault dry-run preview](assets/codexvault/dry-run-preview.png)
