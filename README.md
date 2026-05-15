@@ -15,6 +15,18 @@ It is not a generic machine backup tool.
 
 CodexVault redacts secrets by default and does not expose sensitive content in dry-run preview output. It is designed to keep archived provenance minimal and non-secret, with destructive restore actions always requiring human approval.
 
+## Install in Codex
+
+To install CodexVault in Codex from this repository:
+
+1. Clone or download the repo.
+2. Keep the plugin under `plugins/codexvault/`.
+3. Make sure the plugin manifest exists at `plugins/codexvault/.codex-plugin/plugin.json`.
+4. Open Codex and load or discover the plugin from the local repo.
+5. Run the CLI from the repo root with the commands below.
+
+If you package the plugin for distribution later, keep the same plugin name and manifest shape so Codex can discover it consistently.
+
 ## One-command experience
 
 The first-stop user experience is dry-run preview:
