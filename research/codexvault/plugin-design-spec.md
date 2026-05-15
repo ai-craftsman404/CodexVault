@@ -18,9 +18,10 @@
 
 - Type: skill plus scripts
 - Reason for this type:
-  - V1 is primarily a repeatable workspace workflow, but it needs local scripts for manifesting, packaging, checksums, validation, and restore planning.
-  - Agent-team orchestration is part of the workflow model, but it should be implemented as a harnessed execution pattern rather than the core packaging type.
-  - The harness is a core differentiator for CodexVault, not an optional accessory.
+- V1 is primarily a repeatable workspace workflow, but it needs local scripts for manifesting, packaging, checksums, validation, and restore planning.
+- The user-facing workflow must be a single cross-platform Python CLI.
+- Agent-team orchestration is part of the workflow model, but it should be implemented as a harnessed execution pattern rather than the core packaging type.
+- The harness is a core differentiator for CodexVault, not an optional accessory.
 
 ## Complexity and Model Selection
 
@@ -108,6 +109,210 @@ Path rules:
 - keep temporary restore work inside isolated temp-dir boundaries
 - revisit the path contract later for validation and expansion
 
+## v1b Configuration Proposal
+
+v1b can introduce an optional user configuration layer for path customization while preserving safe defaults.
+
+### Goals
+
+- Allow users to override backup and artifact paths without changing the core product behavior.
+- Keep OS-specific path syntax explicit and validated.
+- Preserve the current workspace-local default contract as the fallback.
+- Make custom paths easy to understand in highlights-only output.
+- Default backup runs should operate from the main Codex project root and back up all eligible plugin projects under `plugins/`.
+
+### Default source of truth
+
+- If no config file is present, use the workspace-local `.codexvault/*` contract.
+- If a config file is present, resolve it relative to the workspace unless it is explicitly marked absolute.
+- If a user override fails validation, fall back to the default path contract and report a warning.
+
+### Proposed config file locations
+
+- Workspace-local: `.codexvault/codexvault.config.json`
+- Optional global config: `%USERPROFILE%\\.codexvault\\codexvault.config.json` on Windows, `$HOME/.codexvault/codexvault.config.json` on Linux/macOS
+
+### Proposed config shape
+
+```json
+{
+  "schemaVersion": "v1b",
+  "paths": {
+    "backupDestination": ".codexvault/snapshots",
+    "stagingDirectory": ".codexvault/staging",
+    "manifestDirectory": ".codexvault/manifests",
+    "restorePlanDirectory": ".codexvault/restores",
+    "verificationDirectory": ".codexvault/verification",
+    "simulationDirectory": ".codexvault/simulations"
+  },
+  "platformOverrides": {
+    "windows": {
+      "backupDestination": "D:\\CodexVault\\snapshots"
+    },
+    "linux": {
+      "backupDestination": "/var/lib/codexvault/snapshots"
+    },
+    "macos": {
+      "backupDestination": "/Users/alice/CodexVault/snapshots"
+    }
+  }
+}
+```
+
+### Schema reference
+
+- Canonical schema draft: [research/codexvault/codexvault.config.schema.json](C:/Users/georg/codex-project/Code-Plugin-Guru/research/codexvault/codexvault.config.schema.json)
+- The schema is intentionally minimal so v1b can validate overrides without changing the `v1a` runtime contract.
+
+### Example configs
+
+- Windows: [research/codexvault/examples/windows-codexvault.config.json](C:/Users/georg/codex-project/Code-Plugin-Guru/research/codexvault/examples/windows-codexvault.config.json)
+- Linux: [research/codexvault/examples/linux-codexvault.config.json](C:/Users/georg/codex-project/Code-Plugin-Guru/research/codexvault/examples/linux-codexvault.config.json)
+- macOS: [research/codexvault/examples/macos-codexvault.config.json](C:/Users/georg/codex-project/Code-Plugin-Guru/research/codexvault/examples/macos-codexvault.config.json)
+
+### Path validation rules
+
+- Windows paths should accept drive-letter paths and normalized backslash or slash input.
+- Linux and macOS paths should accept POSIX-style absolute paths and normalized slash input.
+- Relative paths should resolve from the workspace root unless explicitly documented as global.
+- Path traversal outside approved roots should be rejected unless the user explicitly enabled an advanced override.
+- Custom paths should never bypass secret redaction, allowlist filtering, or temp-dir isolation rules.
+
+### OS-specific user examples
+
+#### Windows example
+
+- User wants backups on `D:\CodexVault\snapshots`
+- Global config path:
+  - `%USERPROFILE%\.codexvault\codexvault.config.json`
+- Example override:
+  ```json
+  {
+    "paths": {
+      "backupDestination": "D:\\CodexVault\\snapshots"
+    }
+  }
+  ```
+
+#### Linux example
+
+- User wants backups under `/mnt/data/codexvault`
+- Global config path:
+  - `$HOME/.codexvault/codexvault.config.json`
+- Example override:
+  ```json
+  {
+    "paths": {
+      "backupDestination": "/mnt/data/codexvault/snapshots"
+    }
+  }
+  ```
+
+#### macOS example
+
+- User wants backups under `/Users/alice/Library/CodexVault`
+- Global config path:
+  - `$HOME/.codexvault/codexvault.config.json`
+- Example override:
+  ```json
+  {
+    "paths": {
+      "backupDestination": "/Users/alice/Library/CodexVault/snapshots"
+    }
+  }
+  ```
+
+### Helper references
+
+- Windows helper: resolve `%USERPROFILE%` and normalize drive-letter paths before use.
+- Linux helper: resolve `$HOME` and normalize POSIX paths before use.
+- macOS helper: use the same POSIX resolution as Linux, but keep macOS-specific examples and CI coverage distinct.
+- All OS helpers should preserve the same manifest schema and only adapt the path resolution layer.
+
+### v1b recommendation
+
+- Keep customization opt-in.
+- Keep defaults deterministic.
+- Present the resolved path in the highlights-only backup output.
+- Defer advanced conflict resolution and path migration until a later version.
+
+### Default backup mode
+
+- `backup --workspace-root` is the primary user command.
+- The command should recurse through `plugins/` and back up each eligible plugin project in one run.
+- `backup --workspace` remains available as a targeted override for one project.
+
+## Self-Improvement Loop
+
+CodexVault should use the AI harness, temp-dir simulation, and agent-team orchestration as a closed learning loop for restore quality.
+
+### Core ideas
+
+- `Restore fidelity scoring`
+  - Measure how closely a temp-dir simulation matches the intended restore tree and behavior.
+  - Use a tiered label score rather than a numeric-first score to avoid false precision.
+- `Closed-loop agent refinement`
+  - Feed safe simulation deltas back into the agent-team so it can revise paths, allowlists, checkpoints, and cleanup rules.
+  - Keep the feedback machine-readable and auditable.
+- `Adversarial restore rehearsal`
+  - Run a red-team style pass that tries to break path mapping, cleanup, and restore assumptions.
+  - Limit mutations to non-destructive inputs and fixture behavior.
+
+### Fidelity score format
+
+- Use tiered labels:
+  - `pass`
+  - `pass-with-warnings`
+  - `partial`
+  - `fail`
+- Keep score interpretation simple and comparable across OSes and fixtures.
+- Avoid a numeric-first score in v1b unless a future use case proves the need for finer granularity.
+
+### Delta envelope
+
+Only safe, machine-readable simulation deltas should feed back into agent refinement.
+
+Allowed deltas include:
+
+- path mismatches
+- missing files
+- checksum issues
+- cleanup failures
+- validation warnings
+
+Not allowed:
+
+- live restore target changes without review
+- destructive behavior changes without review
+- any unreviewed auto-commit of restore rules
+
+### Rerun cadence
+
+- Rerun refinement only on material change.
+- Material change includes:
+  - failed restore simulation
+  - allowlist change
+  - path-rule change
+  - new negative-path failure
+- Avoid rerunning on every minor status update.
+
+### Adversarial rehearsal scope
+
+- Mutate only non-destructive inputs:
+  - path mappings
+  - fixture corruption
+  - ordering
+  - cleanup pressure
+- Never mutate live restore targets.
+- Never bypass human review for destructive restore behavior.
+
+### Safety boundary
+
+- Simulation can propose.
+- Agent-team can refine.
+- Human review still approves destructive restore behavior.
+- Self-improvement must never become self-modification of unsafe actions.
+
 ## Presentation Contract
 
 MVP output should stay highlights-only and action-first.
@@ -191,7 +396,7 @@ plugins/codexvault/
 - `interface.snapshotFormat`: OS-appropriate archive plus checksum sidecar
 - `interface.snapshotImplementation`: OS-native archive, no chunking in v1a
 - `interface.archiveInclusion`: explicit allowlist with secret redaction
-- `interface.archiveAllowlist`: `*.md`, `*.json`, `*.ps1`, `skills/**`, `scripts/**`, `tests/fixtures/**`, `assets/**`, `README*`, `LICENSE*`, `CHANGELOG*`
+- `interface.archiveAllowlist`: `*.md`, `*.json`, `skills/**`, `scripts/**`, `tests/fixtures/**`, `assets/**`, `README*`, `LICENSE*`, `CHANGELOG*`
 - `interface.archiveExclusions`: `.git`, `node_modules`, `__pycache__`, `.codexvault`, `.DS_Store`
 - `interface.checksumAlgorithm`: SHA-256
 - `interface.checksumSidecar`: plain JSON with archive path and digest
@@ -287,6 +492,7 @@ plugins/codexvault/
   - Harness-first QA and cross-check workflows for the highest-risk restore paths.
   - Local-first operation with secret redaction by default.
   - Windows and Linux first-class support.
+  - Cross-platform Python CLI as the only user-facing entrypoint.
 - `v1b`:
   - Temp-dir isolated partial restore tests.
   - Compact presentation layer for backup, restore, and validation highlights.

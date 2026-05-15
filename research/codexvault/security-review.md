@@ -33,6 +33,8 @@ CodexVault is security-sensitive because it inspects local workspace state, prod
 - Temp-dir restore tests must remain plugin-managed and isolated.
 - Temp-dir restore roots should be plugin-managed or OS temp only, with cleanup on success or failure.
 - Archive allowlist should stay root-relative and exclude `.git`, `node_modules`, `__pycache__`, `.codexvault`, and `.DS_Store`.
+- Risky implementation changes should receive an adversarial evaluator pass before merge or release.
+- Test-authoring for new behaviors should follow a failing-test-first loop, then implementation, then rerun.
 
 ## Testing Alignment
 
@@ -44,6 +46,8 @@ This review aligns with the agreed test matrix categories:
 - data lineage and provenance checks
 - dependency and plugin integrity checks
 - audit trail completeness and retention enforcement
+- adversarial evaluator review for restore-critical and security-sensitive changes
+- TDD change loop for new behavior and regression fixes
 
 ## Open Questions
 

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "v1b",
+  "paths": {
+    "backupDestination": "D:\\CodexVault\\snapshots",
+    "stagingDirectory": ".codexvault\\staging",
+    "manifestDirectory": ".codexvault\\manifests",
+    "restorePlanDirectory": ".codexvault\\restores",
+    "verificationDirectory": ".codexvault\\verification",
+    "simulationDirectory": ".codexvault\\simulations"
+  },
+  "platformOverrides": {
+    "windows": {
+      "backupDestination": "D:\\CodexVault\\snapshots"
+    }
+  }
+}

@@ -12,6 +12,7 @@ It is designed to:
 - guide restore planning and validation
 - use Codex agent-team orchestration as a core QA and simulation differentiator
 - use Codex subagents and agent-team workflows wherever they materially improve build and testing throughput
+- expose one cross-platform Python CLI for all users, regardless of workstation OS
 
 ## MVP rules
 
@@ -21,6 +22,7 @@ It is designed to:
 - validation is tiered and does not overstate restore success
 - temp-dir partial restore is allowed only in isolated, plugin-managed space
 - agent-team simulation is part of the product value proposition
+- the user-facing workflow is Python-based and OS-neutral
 
 ## Structure
 
@@ -34,6 +36,29 @@ plugins/codexvault/
 ## Status
 
 This plugin is scaffolded for spec and test work. Implementation work should follow the agreed MVP rules in `research/codexvault/`.
+
+## User entrypoint
+
+Use the Python CLI from the main Codex project root:
+
+```bash
+python plugins/codexvault/codexvault.py backup --workspace-root /path/to/codex-project
+```
+
+Available commands:
+
+- `discover`
+- `manifest`
+- `snapshot`
+- `plan`
+- `verify`
+- `simulate`
+- `backup`
+
+Default behavior:
+
+- `backup --workspace-root` backs up every eligible plugin project under `plugins/`
+- `backup --workspace` backs up one targeted project when you need a narrower run
 
 ## Release wording
 

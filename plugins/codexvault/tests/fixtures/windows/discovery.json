@@ -2,8 +2,7 @@
   "timestamp": "20260513T000000Z",
   "workspacePath": "C:\\Users\\example\\workspace",
   "os": "Windows",
-  "shell": "PowerShell",
+  "shell": "native-shell",
   "status": "discovered",
   "summary": "Windows discovery fixture"
 }
-

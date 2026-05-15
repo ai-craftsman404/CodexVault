@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "codexvault.config.schema.json",
+  "title": "CodexVault Config",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "paths"],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "enum": ["v1b"]
+    },
+    "paths": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "backupDestination",
+        "stagingDirectory",
+        "manifestDirectory",
+        "restorePlanDirectory",
+        "verificationDirectory",
+        "simulationDirectory"
+      ],
+      "properties": {
+        "backupDestination": { "type": "string", "minLength": 1 },
+        "stagingDirectory": { "type": "string", "minLength": 1 },
+        "manifestDirectory": { "type": "string", "minLength": 1 },
+        "restorePlanDirectory": { "type": "string", "minLength": 1 },
+        "verificationDirectory": { "type": "string", "minLength": 1 },
+        "simulationDirectory": { "type": "string", "minLength": 1 }
+      }
+    },
+    "platformOverrides": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "windows": { "$ref": "#/$defs/platformPathOverride" },
+        "linux": { "$ref": "#/$defs/platformPathOverride" },
+        "macos": { "$ref": "#/$defs/platformPathOverride" }
+      }
+    }
+  },
+  "$defs": {
+    "platformPathOverride": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "backupDestination": { "type": "string", "minLength": 1 },
+        "stagingDirectory": { "type": "string", "minLength": 1 },
+        "manifestDirectory": { "type": "string", "minLength": 1 },
+        "restorePlanDirectory": { "type": "string", "minLength": 1 },
+        "verificationDirectory": { "type": "string", "minLength": 1 },
+        "simulationDirectory": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

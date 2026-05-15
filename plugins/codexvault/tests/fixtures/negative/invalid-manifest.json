@@ -3,7 +3,6 @@
   "workspaceId": "",
   "capturedAt": "",
   "platform": "Windows",
-  "shell": "PowerShell",
+  "shell": "native-shell",
   "redactionPolicy": "deny-by-default"
 }
-

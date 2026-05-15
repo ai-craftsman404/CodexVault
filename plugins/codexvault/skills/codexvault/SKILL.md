@@ -15,6 +15,7 @@ CodexVault is the Codex workspace resilience skill. It should be used to inspect
 - Use Codex agent-team orchestration for discovery, restore rehearsal, validation cross-checks, and failure analysis where it materially improves confidence.
 - Keep destructive restore actions human-gated.
 - Use dry-run or temp-dir isolated restore tests before any in-place restore.
+- Use the cross-platform Python CLI as the user-facing entrypoint.
 
 ## Required behavior
 
@@ -35,6 +36,29 @@ CodexVault is the Codex workspace resilience skill. It should be used to inspect
 - Temp-dir restore: plugin-managed isolated temp-dir only, no subpath preview in v1a
 - Default output: highlights-only summary with one action, one status, one blocker, if any
 
+## User entrypoint
+
+Run the plugin from the main Codex project root with Python:
+
+```bash
+python plugins/codexvault/codexvault.py backup --workspace-root /path/to/codex-project
+```
+
+Available commands:
+
+- `discover`
+- `manifest`
+- `snapshot`
+- `plan`
+- `verify`
+- `simulate`
+- `backup`
+
+Default behavior:
+
+- `backup --workspace-root` backs up every eligible plugin project under `plugins/`
+- `backup --workspace` backs up one targeted project when needed
+
 ## Path contract
 
 - Backup destination: `.codexvault/snapshots/`
@@ -45,6 +69,23 @@ CodexVault is the Codex workspace resilience skill. It should be used to inspect
 - Simulation outputs: `.codexvault/simulations/`
 - Fixture root: `plugins/codexvault/tests/fixtures/`
 - Include root: workspace root filtered by explicit allowlist
+
+## v1b path customization concept
+
+If a later release adds user-configurable paths, keep the workspace-local defaults as the fallback and resolve OS-specific overrides through a validated config file.
+
+Examples:
+
+- Windows: `%USERPROFILE%\\.codexvault\\codexvault.config.json` with `D:\\CodexVault\\snapshots`
+- Linux: `$HOME/.codexvault/codexvault.config.json` with `/mnt/data/codexvault/snapshots`
+- macOS: `$HOME/.codexvault/codexvault.config.json` with `/Users/alice/Library/CodexVault/snapshots`
+
+Rules:
+
+- Preserve the same manifest schema across OSes.
+- Normalize paths before writing them into manifests or reports.
+- Reject unsafe path traversal outside approved roots.
+- Keep secret redaction, allowlist filtering, and temp-dir isolation unchanged.
 
 ## Safety rules
 

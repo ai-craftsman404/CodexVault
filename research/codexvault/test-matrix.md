@@ -12,6 +12,9 @@ This matrix reflects the agreed MVP defaults:
 
 - harness-first validation is a core differentiator
 - agent-team simulation is required for high-risk QA paths
+- TDD is required for new implementation work: tests first, then code, then rerun
+- adversarial evaluator review is required for risky changes before merge/release
+- the user-facing workflow is a single cross-platform Python CLI
 - destructive restore actions remain human-gated
 - scheduling is out of MVP
 - secrets are redacted by default
@@ -34,6 +37,8 @@ This matrix reflects the agreed MVP defaults:
 - archive allowlist uses root-relative file and folder patterns
 - archive exclusions include `.git`, `node_modules`, `__pycache__`, `.codexvault`, `.DS_Store`
 - malformed manifest coverage starts with invalid JSON, missing required top-level fields, and path traversal / out-of-scope paths
+- v1b config schema and examples are treated as first-class fixtures for path customization
+- self-improvement loop uses tiered fidelity labels, structured deltas, and bounded adversarial mutation
 
 ## Functional and Unit Testing
 
@@ -47,12 +52,19 @@ This matrix reflects the agreed MVP defaults:
 | Temp-dir restore fixtures | Isolated partial restore behavior | Plugin-managed isolated temp-dir only | Planned |
 | Boundary and equivalence testing | Workspace boundaries, file sets, partial state | Equivalence classes for stable, volatile, and excluded data | Planned |
 | Contract and schema testing | Manifest and simulation JSON contracts | Schema validation and golden files | Planned |
+| Config schema and example testing | v1b path customization schema and OS examples | Validate required keys and expected example values | Planned |
+| Python CLI coverage | User-facing entrypoint and workflow commands | Run discover/manifest/snapshot/plan/verify/simulate/backup end-to-end | Planned |
+| Fidelity scoring testing | Temp-dir restore mirror quality | Validate tiered labels `pass`, `pass-with-warnings`, `partial`, `fail` | Planned |
+| Delta envelope testing | Safe simulation feedback to agent-team | Confirm only allowed delta fields are accepted | Planned |
+| Adversarial rehearsal testing | Non-destructive mutation pass | Validate bounded mutation scope and review boundary | Planned |
 | Provenance testing | Minimal provenance fields and redaction rules | Confirm archive metadata stays non-secret | Planned |
 | Checksum testing | Snapshot integrity sidecar | Validate SHA-256 digests against archives | Planned |
 | Archive inclusion testing | Snapshot content allowlist | Confirm only allowed files are archived | Planned |
 | API versioning and backward compatibility | Manifest schema evolution | Additive-only minor changes and migration checks | Planned |
 | Negative testing and abuse case library | Corrupt, incomplete, or malicious inputs | Fixture library for bad manifests and hostile files | Planned |
 | Temp-dir rollback testing | Cleanup after restore simulation | Verify temp dirs are removed on success/failure | Planned |
+| TDD change loop testing | New code paths and bug fixes | Confirm failing test is written or updated before implementation | Planned |
+| Adversarial evaluator testing | Risky logic, security-sensitive flows, agent prompts | Dedicated red-team style review before release | Planned |
 
 ## Quality and Assurance Testing
 
@@ -125,6 +137,7 @@ This matrix reflects the agreed MVP defaults:
 | Cross-tenant data isolation | Not applicable | Single-user local-first MVP |
 | LLM output evaluation | Include | Needed for harness and agent-team recommendation quality |
 | Hallucination risk scoring | Include | Important for restore recommendations |
+| Adversarial evaluator pass | Include | Needed to challenge restore claims and safety boundaries |
 | Disaster recovery or failover testing | Defer | V1 is not full host failover |
 | Encrypted sensitive retention | Defer | Not required for MVP and increases key-management complexity |
 | macOS CI smoke testing | Defer | Post-MVP only |
@@ -136,6 +149,8 @@ This matrix reflects the agreed MVP defaults:
 - Restore planning and dry-run validation complete successfully on fixtures.
 - Temp-dir partial restore tests pass for isolated non-destructive paths.
 - Agent-team simulation surfaces disagreements and failure modes.
+- TDD change loop is followed for new code paths and bug fixes.
+- Adversarial evaluator review is completed for security-sensitive or restore-critical changes.
 - Secret redaction tests pass.
 - Human approval gates block in-place destructive restore actions.
 - Scheduling remains out of scope in the shipped MVP.
@@ -144,3 +159,6 @@ This matrix reflects the agreed MVP defaults:
 - Error codes map consistently to the agreed CVX namespace.
 - Agent-team adjudication records claims, evidence, disputes, and decisions in a shared JSON envelope.
 - Discovery fields use a shared core plus small OS-specific extensions.
+- v1b config schema validates and example configs match the documented OS-specific paths.
+- Self-improvement loop outputs tiered fidelity labels, safe deltas only, and bounded adversarial mutations.
+- Python CLI is the only supported user-facing entrypoint.

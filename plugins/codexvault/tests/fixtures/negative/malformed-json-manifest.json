@@ -3,7 +3,6 @@
   "workspaceId": "broken",
   "capturedAt": "20260513T000000Z",
   "platform": "Windows",
-  "shell": "PowerShell",
+  "shell": "native-shell",
   "redactionPolicy": "deny-by-default",
 }
-

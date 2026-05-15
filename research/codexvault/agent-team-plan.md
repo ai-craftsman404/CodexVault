@@ -9,6 +9,7 @@
 - Execution mode: local sub-agent
 - Overall complexity: high
 - Default model tier: gpt-5.4-mini for bounded research and mechanical tasks; stronger model only for security-sensitive or architecture decisions
+- Testing rule: every new behavior should follow a failing-test-first loop, and risky changes should be challenged by an adversarial evaluator role before merge/release
 
 ## Workstreams
 
@@ -20,6 +21,7 @@
 | Test Runner | local sub-agent | Propose and/or run MVP test coverage by platform and failure mode | gpt-5.4-mini | Test matrix and failures | read-only unless fixing tests | no |
 | Security Reviewer | local sub-agent | Review secret handling, restore safety, and destructive-action limits | gpt-5.4-mini | Security findings | read-only | no |
 | Release Reviewer | local sub-agent | Review release packaging, docs, and public-facing claims | gpt-5.4-mini | Release readiness findings | read-only unless assigned docs | no |
+| Adversarial Evaluator | local sub-agent | Challenge restore claims, safety boundaries, and test completeness | gpt-5.4-mini | Red-team findings | read-only | no |
 
 ## Delegation Rules
 
@@ -29,6 +31,7 @@
 - Agents must not revert or overwrite work from other agents.
 - Agents must report changed files and verification performed.
 - Review agents should provide findings with severity and file references.
+- Adversarial evaluator should look for broken assumptions, unsafe defaults, and missing negative tests.
 - Model choice should match task complexity; avoid using stronger models for simple mechanical work.
 - Main local session must inspect and integrate agent outputs before release.
 
@@ -58,4 +61,3 @@
 - [ ] Changed files inspected.
 - [ ] Tests or checks rerun after integration.
 - [ ] Security and release blockers addressed.
-
