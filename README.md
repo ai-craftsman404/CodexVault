@@ -32,6 +32,16 @@ The real backup command uses the same CLI:
 python plugins/codexvault/codexvault.py backup --workspace-root /path/to/codex-project
 ```
 
+## Screenshots
+
+### Dry-run preview
+
+![CodexVault dry-run preview](assets/codexvault/dry-run-preview.png)
+
+### E2E verification
+
+![CodexVault E2E verification](assets/codexvault/e2e-verification.png)
+
 ## What it does
 
 - discovers workspace and environment state
