@@ -42,9 +42,24 @@ CodexVault v1a is scoped to Windows and Linux MVP validation first, with macOS c
 ## Quick start
 
 1. Install the CodexVault plugin from `plugins/codexvault/`.
-2. Run discovery and generate a manifest.
-3. Create a snapshot archive and checksum sidecar.
-4. Plan or simulate a restore before any destructive action.
+2. Preview the full workflow with:
+
+   ```bash
+   python plugins/codexvault/codexvault.py backup --workspace-root /path/to/codex-project --dry-run
+   ```
+
+3. Run the real backup when you are satisfied with the preview.
+4. Create a snapshot archive and checksum sidecar.
+5. Plan or simulate a restore before any destructive action.
+
+## Dry-run mode
+
+Dry-run is the first-stop user experience for CodexVault:
+
+- previews the full backup workflow
+- prints a structured step trace
+- creates no artifacts
+- helps new users understand what will happen before a real run
 
 ## Output style
 
