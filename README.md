@@ -79,6 +79,19 @@ python -m unittest discover -s plugins/codexvault/tests -p "test_*.py"
 | Linux | Supported | Includes WSL and container-oriented discovery heuristics |
 | macOS | Smoke-tested | Covered in CI and release posture, but not the primary local target |
 
+## Supported Environments
+
+| Environment | Verified | Notes |
+| --- | --- | --- |
+| Windows Desktop | Yes | Codex Desktop discovery and backup flow |
+| Windows CLI | Yes | Codex CLI discovery and backup flow |
+| WSL Ubuntu | Yes | Windows-hosted Codex CLI surface |
+| Debian container | Yes | Disposable Linux validation surface |
+| Ubuntu container | Yes | Disposable Linux validation surface |
+| Fedora container | Yes | Disposable Linux validation surface |
+| Alpine container | Yes | Disposable Linux validation surface |
+| macOS | Smoke-tested | CI smoke validation only |
+
 ## What Gets Backed Up
 
 CodexVault focuses on workspace and Codex-adjacent state, including:
@@ -155,6 +168,11 @@ research/codexvault/
 ## Version Notes
 
 CodexVault is currently on the `v1b` discovery-intelligence posture. The runtime remains Python-only, while discovery metadata, review-band handling, and mapping evidence are more structured than the original baseline.
+
+## Release Notes
+
+- `v1b`: adapter-based discovery metadata, safer Linux heuristics, workspace-scoped installer seeding, and richer mapping evidence
+- `v1a`: initial workspace backup, restore, and validation baseline
 
 ## Related Docs
 
