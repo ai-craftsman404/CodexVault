@@ -144,6 +144,8 @@ CodexVault is now moving through a `v1b` discovery-intelligence increment: the r
 
 CodexVault v1a remains the baseline release posture for the original workspace backup flow, with Windows and Linux MVP validation first and macOS coverage introduced through GitHub Actions smoke testing.
 
+macOS is now part of the release validation story through a minimal GitHub Actions smoke workflow, so the repo reflects actual cross-platform assurance rather than a placeholder promise.
+
 Current discovery coverage now includes verified path mapping on:
 - Windows Desktop
 - Windows CLI
