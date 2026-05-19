@@ -149,6 +149,7 @@ macOS is now part of the release validation story through a minimal GitHub Actio
 Current discovery coverage now includes verified path mapping on:
 - Windows Desktop
 - Windows CLI
+- macOS
 - WSL Ubuntu, as a Windows-hosted Codex CLI surface
 - Debian container
 - Ubuntu 24.04 container
