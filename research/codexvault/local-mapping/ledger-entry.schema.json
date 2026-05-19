@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Codex local mapping ledger entry",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "capturedAt",
+    "runId",
+    "confidence",
+    "status",
+    "band",
+    "reviewPolicy",
+    "evidence",
+    "record"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "enum": ["v1"]
+    },
+    "capturedAt": {
+      "type": "string"
+    },
+    "runId": {
+      "type": "string"
+    },
+    "confidence": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string"
+    },
+    "band": {
+      "type": "string",
+      "enum": ["verified", "review", "heuristic"]
+    },
+    "reviewPolicy": {
+      "type": "object"
+    },
+    "evidence": {
+      "type": "object"
+    },
+    "record": {
+      "$ref": "mapping-record.schema.json"
+    }
+  },
+  "additionalProperties": false
+}

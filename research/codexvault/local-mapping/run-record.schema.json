@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Codex local mapping run record",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "capturedAt",
+    "runId",
+    "confidenceBand",
+    "reviewPolicy",
+    "evidence",
+    "record"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "enum": ["v1"]
+    },
+    "capturedAt": {
+      "type": "string"
+    },
+    "runId": {
+      "type": "string"
+    },
+    "confidenceBand": {
+      "type": "string",
+      "enum": ["verified", "review", "heuristic"]
+    },
+    "reviewPolicy": {
+      "type": "object"
+    },
+    "evidence": {
+      "type": "object"
+    },
+    "record": {
+      "$ref": "mapping-record.schema.json"
+    }
+  },
+  "additionalProperties": false
+}
