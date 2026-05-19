@@ -1,10 +1,10 @@
 {
   "name": "codexvault",
-  "version": "v1a",
+  "version": "v1b",
   "description": "Workspace resilience and restoration for Codex with discovery, snapshot integrity, and guided restore.",
-  "author": "[TODO: developer name]",
-  "repository": "[TODO: repository url]",
-  "license": "[TODO: license]",
+  "author": "ai-craftsman404",
+  "repository": "https://github.com/ai-craftsman404/CodexVault",
+  "license": "MIT",
   "keywords": [
     "backup",
     "restore",
@@ -22,7 +22,7 @@
     "displayName": "CodexVault",
     "shortDescription": "Deterministic workspace discovery, backup, validation, and restore for Codex environments.",
     "longDescription": "CodexVault helps Codex users capture normalized workspace state, produce portable snapshot artifacts, validate restore viability, and recover safely with human checkpoints.",
-    "developerName": "[TODO: developer name]",
+    "developerName": "ai-craftsman404",
     "category": "Developer Tools",
     "capabilities": [
       "environment discovery",
