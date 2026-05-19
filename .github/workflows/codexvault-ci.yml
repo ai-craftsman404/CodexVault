@@ -27,3 +27,44 @@ jobs:
 
       - name: Run CodexVault test suite
         run: python -m unittest discover -s plugins/codexvault/tests -p "test_*.py"
+
+      - name: Run CodexVault smoke test
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          import pathlib
+          import subprocess
+          import sys
+
+          repo = pathlib.Path.cwd()
+          plugin_manifest = repo / "plugins" / "codexvault" / ".codex-plugin" / "plugin.json"
+          assert plugin_manifest.exists(), f"missing plugin manifest: {plugin_manifest}"
+
+          discover = subprocess.run(
+              [sys.executable, "plugins/codexvault/codexvault.py", "discover", "--workspace", "plugins/codexvault"],
+              check=True,
+              capture_output=True,
+              text=True,
+          )
+          discovery = json.loads(discover.stdout)
+          assert discovery["status"] == "discovered", discovery
+          assert discovery["adapter"], discovery
+
+          backup = subprocess.run(
+              [sys.executable, "plugins/codexvault/codexvault.py", "backup", "--workspace-root", ".", "--dry-run"],
+              check=True,
+              capture_output=True,
+              text=True,
+          )
+          payload = json.loads(backup.stdout)
+          assert payload["headline"] == "Backup dry run complete", payload
+          assert payload["projects"], payload
+          project = payload["projects"][0]
+          assert project["headline"] == "Backup dry run complete", project
+          assert project["summary"]["headline"] == "Backup preview", project
+          assert project["summary"]["status"] == "no artifacts created", project
+          assert project["stepTrace"][0]["step"] == "discover", project
+          assert project["stepTrace"][-1]["step"] == "simulate", project
+          assert "confidenceReviewCandidates" in project["summary"], project
+          PY
