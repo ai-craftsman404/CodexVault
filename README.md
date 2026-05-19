@@ -1,15 +1,27 @@
 # CodexVault
 
-CodexVault is a Codex-native workspace resilience and restoration plugin for AI-assisted development environments.
+CodexVault is a Codex recovery intelligence layer for workspace resilience and restoration.
+
+It is not a generic backup tool. It is designed to discover what matters, classify it with confidence, and use human oversight only where uncertainty remains.
 
 It focuses on:
-- deterministic discovery
+- deterministic cross-platform discovery
+- confidence-scored Codex path mapping
+- JSON-only review guidance for uncertain paths
 - integrity-checked snapshots
 - guided restore planning
 - harness-first validation
 - agent-team-driven simulation and quality assurance
 
-It is not a generic machine backup tool.
+## What’s New in v1b
+
+The latest v1b discovery-intelligence work makes CodexVault feel less like archive management and more like recovery planning:
+
+- verified path mapping now covers Windows Desktop, Windows CLI, WSL Ubuntu, and disposable Linux container surfaces
+- Codex-critical state is discovered beyond project folders, including cache, local profile data, plugins, skills, and restore-sensitive paths
+- low-confidence path candidates are surfaced with embedded JSON review guidance so humans can confirm or reject only the uncertain parts
+- review-band paths are automatically excluded once verified or rejected, so they do not keep reappearing
+- dry-run output stays the canonical review artifact, keeping the flow simple and testable
 
 ## Security & Privacy
 
@@ -128,7 +140,21 @@ plugins/codexvault/
 
 ## Release posture
 
-CodexVault v1a is scoped to Windows and Linux MVP validation first, with macOS coverage introduced through GitHub Actions smoke testing.
+CodexVault is now moving through a `v1b` discovery-intelligence increment: the runtime stays Python-only, but discovery metadata is richer, Linux heuristics are safer, and installer-seeded discovery is workspace-scoped and opt-in by structure rather than by trust.
+
+CodexVault v1a remains the baseline release posture for the original workspace backup flow, with Windows and Linux MVP validation first and macOS coverage introduced through GitHub Actions smoke testing.
+
+Current discovery coverage now includes verified path mapping on:
+- Windows Desktop
+- Windows CLI
+- WSL Ubuntu, as a Windows-hosted Codex CLI surface
+- Debian container
+- Ubuntu 24.04 container
+- Debian 12 container
+- Fedora 42 container
+- Alpine 3.21 container
+
+The Linux container captures are used as install-tree evidence for common distribution families, with Docker containers treated as disposable validation surfaces rather than persistent environments.
 
 ## Support files
 
