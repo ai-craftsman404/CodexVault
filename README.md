@@ -22,6 +22,7 @@ The latest v1b discovery-intelligence work makes CodexVault feel less like archi
 - low-confidence path candidates are surfaced with embedded JSON review guidance so humans can confirm or reject only the uncertain parts
 - review-band paths are automatically excluded once verified or rejected, so they do not keep reappearing
 - dry-run output stays the canonical review artifact, keeping the flow simple and testable
+- controlled export/import between two workstations on the same OS can use the same discovery and restore model for Codex workspace and profile state transfer, without claiming a full machine clone
 
 ## Security & Privacy
 
