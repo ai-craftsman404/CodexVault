@@ -71,6 +71,26 @@ Run the test suite:
 python -m unittest discover -s plugins/codexvault/tests -p "test_*.py"
 ```
 
+## Screenshots
+
+### Architecture
+
+![CodexVault architecture diagram](assets/codexvault/architecture.png)
+
+This diagram shows the end-to-end recovery flow: discovery, manifesting, snapshotting, restore planning, validation, and simulation.
+
+### Dry-run preview
+
+![CodexVault dry-run preview](assets/codexvault/dry-run-preview.png)
+
+This preview proves the dry-run path is non-destructive and surfaces the review guidance before any artifacts are written.
+
+### E2E verification
+
+![CodexVault E2E verification](assets/codexvault/e2e-verification.png)
+
+This screenshot shows the fixture-backed workflow completing successfully, which demonstrates the plugin runs end to end in practice.
+
 ## Supported OS Matrix
 
 | OS | Status | Notes |
