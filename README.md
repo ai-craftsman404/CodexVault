@@ -2,97 +2,119 @@
 
 CodexVault is a Codex recovery intelligence layer for workspace resilience and restoration.
 
-It is not a generic backup tool. It is designed to discover what matters, classify it with confidence, and use human oversight only where uncertainty remains.
+It is not a generic backup tool. It discovers what matters, ranks uncertain paths for human review, and produces integrity-checked artifacts that support safer restore planning.
 
-It focuses on:
-- deterministic cross-platform discovery
-- confidence-scored Codex path mapping
-- JSON-only review guidance for uncertain paths
-- integrity-checked snapshots
-- guided restore planning
-- harness-first validation
-- agent-team-driven simulation and quality assurance
+## Quickstart
 
-## What’s New in v1b
+```bash
+python plugins/codexvault/codexvault.py backup --workspace-root /path/to/codex-project --dry-run
+python plugins/codexvault/codexvault.py backup --workspace-root /path/to/codex-project
+```
 
-The latest v1b discovery-intelligence work makes CodexVault feel less like archive management and more like recovery planning:
+Use `--dry-run` first. It previews the workflow, prints the review guidance, and creates no artifacts.
 
-- verified path mapping now covers Windows Desktop, Windows CLI, WSL Ubuntu, and disposable Linux container surfaces
-- Codex-critical state is discovered beyond project folders, including cache, local profile data, plugins, skills, and restore-sensitive paths
-- low-confidence path candidates are surfaced with embedded JSON review guidance so humans can confirm or reject only the uncertain parts
-- review-band paths are automatically excluded once verified or rejected, so they do not keep reappearing
-- dry-run output stays the canonical review artifact, keeping the flow simple and testable
-- controlled export/import between two workstations on the same OS can use the same discovery and restore model for Codex workspace and profile state transfer, without claiming a full machine clone
+## Prerequisites
 
-## Security & Privacy
+- Python 3.12 or newer
+- A local clone of this repository
+- A workspace that contains Codex projects under `plugins/`, or a targeted workspace path
+- `git` on PATH if you want discovery metadata to include repository information
 
-CodexVault redacts secrets by default and does not expose sensitive content in dry-run preview output. It is designed to keep archived provenance minimal and non-secret, with destructive restore actions always requiring human approval.
+Optional:
+- `node` if you want version metadata to be reported during discovery
+- `python -m unittest` or `pytest` for local verification
 
-## Install in Codex
+## Install
 
-To install CodexVault in Codex from this repository:
+From a fresh clone:
 
-1. Clone or download the repo.
-2. Keep the plugin under `plugins/codexvault/`.
-3. Make sure the plugin manifest exists at `plugins/codexvault/.codex-plugin/plugin.json`.
-4. Open Codex and load or discover the plugin from the local repo.
-5. Run the CLI from the repo root with the commands below.
+```bash
+git clone https://github.com/ai-craftsman404/CodexVault.git
+cd CodexVault
+```
 
-If you package the plugin for distribution later, keep the same plugin name and manifest shape so Codex can discover it consistently.
+The plugin lives at:
 
-## One-command experience
+```text
+plugins/codexvault/
+```
 
-The first-stop user experience is dry-run preview:
+Its manifest lives at:
+
+```text
+plugins/codexvault/.codex-plugin/plugin.json
+```
+
+## Run
+
+Dry run:
 
 ```bash
 python plugins/codexvault/codexvault.py backup --workspace-root /path/to/codex-project --dry-run
 ```
 
-Dry-run:
-- previews the full backup workflow
-- prints a structured step trace
-- creates no artifacts
-- redacts secrets and sensitive details from preview output
-- helps new users understand what will happen before a real run
-- gives agent-team a safe simulation surface
-
-The real backup command uses the same CLI:
+Real backup:
 
 ```bash
 python plugins/codexvault/codexvault.py backup --workspace-root /path/to/codex-project
 ```
 
-## Screenshots
+Target a single project instead of scanning all projects:
 
-### Architecture diagram
+```bash
+python plugins/codexvault/codexvault.py backup --workspace /path/to/codex-project/plugins/my-plugin
+```
 
-![CodexVault architecture diagram](assets/codexvault/architecture.png)
+Run the test suite:
 
-### Dry-run preview
+```bash
+python -m unittest discover -s plugins/codexvault/tests -p "test_*.py"
+```
 
-![CodexVault dry-run preview](assets/codexvault/dry-run-preview.png)
+## Supported OS Matrix
 
-### E2E verification
+| OS | Status | Notes |
+| --- | --- | --- |
+| Windows | Supported | Primary discovery target for desktop and CLI surfaces |
+| Linux | Supported | Includes WSL and container-oriented discovery heuristics |
+| macOS | Smoke-tested | Covered in CI and release posture, but not the primary local target |
 
-![CodexVault E2E verification](assets/codexvault/e2e-verification.png)
+## What Gets Backed Up
 
-## What it does
+CodexVault focuses on workspace and Codex-adjacent state, including:
 
-- discovers workspace and environment state
-- generates normalized manifests
-- creates integrity-checked snapshot artifacts
-- produces restore plans and validation reports
-- simulates restore workflows with Codex agent-team orchestration
+- plugin and skill files
+- manifests and other JSON control files
+- workspace-level recovery metadata
+- integrity information for snapshot artifacts
+- review-band evidence for uncertain paths
 
-## User flow
+## What Gets Excluded
 
-1. Run `backup --dry-run` to preview the workflow.
-2. Run `backup` to create real artifacts.
-3. Review restore planning and validation output.
-4. Use `simulate` to rehearse restore workflows safely.
-5. Approve any destructive restore action only after review.
+By default CodexVault excludes:
 
-## CLI commands
+- `.git`
+- `node_modules`
+- `__pycache__`
+- `.codexvault`
+- `.DS_Store`
+
+It also avoids surfacing sensitive path families such as:
+
+- SSH material
+- GPG material
+- generic credential stores
+- obvious secret or keyring locations
+
+## Common Workflow
+
+1. Run a dry run to see what CodexVault would touch.
+2. Review the JSON guidance for any review-band candidates.
+3. Run the real backup after the preview looks correct.
+4. Use restore planning and validation before any destructive action.
+5. Treat simulation output as a rehearsal, not as a guarantee of recovery.
+
+## CLI Commands
 
 - `discover`
 - `manifest`
@@ -102,30 +124,19 @@ python plugins/codexvault/codexvault.py backup --workspace-root /path/to/codex-p
 - `simulate`
 - `backup`
 
-## Backup modes
+## Troubleshooting
 
-- `backup --workspace-root` backs up every eligible plugin project under `plugins/`
-- `backup --workspace` backs up one targeted project when you need a narrower run
+- If discovery reports no project, confirm you are pointing at the repository root or a plugin workspace under `plugins/`.
+- If `git` metadata is missing, make sure the workspace is inside a real git checkout and `git` is installed.
+- If `backup --dry-run` shows no artifacts, that is expected. Dry-run never writes snapshot output.
+- If a path appears in the review band, confirm or reject it in the JSON guidance rather than assuming it should be promoted.
+- If restore planning warns about compatibility, treat that as a review signal, not as a green light.
 
-## MVP rules
+## Security & Privacy
 
-- secrets are redacted by default
-- destructive restore actions require human approval
-- temp-dir partial restore is isolated and plugin-managed
-- scheduling is out of MVP
-- validation is tiered and does not overstate restore success
-- agent-team simulation is part of the product value proposition
-- the user-facing workflow is Python-based and OS-neutral
+CodexVault redacts secrets by default and avoids exposing sensitive content in dry-run preview output. Destructive restore actions remain human-gated.
 
-## Output style
-
-CodexVault keeps user-facing output compact:
-- one-line headline
-- short status
-- one blocker or risk
-- one required action, if needed
-
-## Repository layout
+## Repository Layout
 
 ```text
 plugins/codexvault/
@@ -136,34 +147,19 @@ plugins/codexvault/
   skills/
   tests/
 .github/workflows/
-  CI for Windows, Linux, and macOS
+  CodexVault CI
+research/codexvault/
+  design, test, security, and local-mapping notes
 ```
 
-## Release posture
+## Version Notes
 
-CodexVault is now moving through a `v1b` discovery-intelligence increment: the runtime stays Python-only, but discovery metadata is richer, Linux heuristics are safer, and installer-seeded discovery is workspace-scoped and opt-in by structure rather than by trust.
+CodexVault is currently on the `v1b` discovery-intelligence posture. The runtime remains Python-only, while discovery metadata, review-band handling, and mapping evidence are more structured than the original baseline.
 
-CodexVault v1a remains the baseline release posture for the original workspace backup flow, with Windows and Linux MVP validation first and macOS coverage introduced through GitHub Actions smoke testing.
+## Related Docs
 
-macOS is now part of the release validation story through a minimal GitHub Actions smoke workflow, so the repo reflects actual cross-platform assurance rather than a placeholder promise.
-
-Current discovery coverage now includes verified path mapping on:
-- Windows Desktop
-- Windows CLI
-- macOS
-- WSL Ubuntu, as a Windows-hosted Codex CLI surface
-- Debian container
-- Ubuntu 24.04 container
-- Debian 12 container
-- Fedora 42 container
-- Alpine 3.21 container
-
-The Linux container captures are used as install-tree evidence for common distribution families, with Docker containers treated as disposable validation surfaces rather than persistent environments.
-
-## Support files
-
-- plugin-specific notes: [plugins/codexvault/README.md](plugins/codexvault/README.md)
-- design spec: [research/codexvault/plugin-design-spec.md](research/codexvault/plugin-design-spec.md)
-- test matrix: [research/codexvault/test-matrix.md](research/codexvault/test-matrix.md)
-- security review: [research/codexvault/security-review.md](research/codexvault/security-review.md)
-- release checklist: [research/codexvault/release-checklist.md](research/codexvault/release-checklist.md)
+- [Plugin README](plugins/codexvault/README.md)
+- [Design spec](research/codexvault/plugin-design-spec.md)
+- [Test matrix](research/codexvault/test-matrix.md)
+- [Security review](research/codexvault/security-review.md)
+- [Release checklist](research/codexvault/release-checklist.md)
