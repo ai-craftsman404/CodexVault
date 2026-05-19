@@ -1,0 +1,59 @@
+{
+  "platform": "macOS",
+  "codexSurface": "desktop",
+  "captureMode": "install-tree",
+  "status": "seed",
+  "confidence": 0.85,
+  "notes": "Heuristic macOS desktop seed based on standard app bundle and Electron-style conventions. Confirm on a real install and downgrade or reject any path that is not observed.",
+  "paths": [
+    {
+      "path": "/Applications/Codex.app",
+      "kind": "install-root",
+      "confidence": 0.9,
+      "status": "seed",
+      "source": "macos-app-bundle"
+    },
+    {
+      "path": "~/Library/Application Support/Codex/",
+      "kind": "runtime",
+      "confidence": 0.8,
+      "status": "seed",
+      "source": "macos-app-support"
+    },
+    {
+      "path": "~/Library/Caches/com.openai.codex/",
+      "kind": "cache",
+      "confidence": 0.8,
+      "status": "seed",
+      "source": "macos-cache-convention"
+    },
+    {
+      "path": "~/Library/Logs/Codex/",
+      "kind": "runtime",
+      "confidence": 0.7,
+      "status": "seed",
+      "source": "macos-logs-convention"
+    },
+    {
+      "path": "~/Library/Preferences/com.openai.codex.plist",
+      "kind": "runtime",
+      "confidence": 0.75,
+      "status": "seed",
+      "source": "macos-preferences-convention"
+    },
+    {
+      "path": "/Applications/Codex.app/Contents/Resources/",
+      "kind": "install-root",
+      "confidence": 0.8,
+      "status": "seed",
+      "source": "macos-bundle-resources"
+    },
+    {
+      "path": "~/.codex/",
+      "kind": "workspace",
+      "confidence": 0.55,
+      "status": "heuristic",
+      "source": "project-local-config"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "runId": "2026-05-19-debian-container-discovery",
+  "capturedAt": "2026-05-19T00:00:00Z",
+  "platform": "Linux",
+  "distribution": "Debian 13 (trixie)",
+  "container": true,
+  "summary": "Debian container discovery pass for Codex CLI on Docker Desktop / WSL2-backed container.",
+  "surfaces": [
+    {
+      "codexSurface": "cli",
+      "status": "rejected",
+      "confidence": 0.2,
+      "observations": [
+        "No codex command in PATH",
+        "No node command in PATH",
+        "No rg command in PATH",
+        "No Codex/OpenAI artifacts found under /root or /home"
+      ],
+      "gaps": [
+        "Codex is not installed in this Debian container",
+        "No Linux-native Codex state root was discovered"
+      ]
+    }
+  ]
+}

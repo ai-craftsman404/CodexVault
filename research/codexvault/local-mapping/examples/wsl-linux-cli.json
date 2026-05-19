@@ -1,0 +1,11 @@
+{
+  "platform": "Linux",
+  "codexSurface": "cli",
+  "captureMode": "install-tree",
+  "status": "placeholder",
+  "confidence": 0.55,
+  "wsl": true,
+  "distribution": "Ubuntu",
+  "notes": "Fill in the WSL Linux Codex CLI install-tree and any related runtime/cache paths discovered in WSL.",
+  "paths": []
+}

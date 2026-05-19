@@ -1,0 +1,38 @@
+{
+  "platform": "Ubuntu 24.04.4 LTS",
+  "codexSurface": "cli",
+  "captureMode": "install-tree",
+  "status": "verified",
+  "confidence": 0.98,
+  "notes": "Verified in a disposable Ubuntu Docker container with @openai/codex@0.131.0 installed globally.",
+  "paths": [
+    {
+      "path": "/usr/local/bin/codex",
+      "kind": "launcher",
+      "confidence": 0.99,
+      "status": "verified",
+      "source": "ubuntu-codex-launcher"
+    },
+    {
+      "path": "/usr/local/lib/node_modules/@openai/codex",
+      "kind": "install-root",
+      "confidence": 0.99,
+      "status": "verified",
+      "source": "ubuntu-global-npm"
+    },
+    {
+      "path": "/usr/local/lib/node_modules/@openai/codex/bin/codex.js",
+      "kind": "entrypoint",
+      "confidence": 0.99,
+      "status": "verified",
+      "source": "ubuntu-codex-entrypoint"
+    },
+    {
+      "path": "/usr/local/lib/node_modules/@openai/codex/bin/rg",
+      "kind": "bundled-tool",
+      "confidence": 0.97,
+      "status": "verified",
+      "source": "ubuntu-bundled-rg"
+    }
+  ]
+}

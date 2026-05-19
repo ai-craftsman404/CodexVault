@@ -1,0 +1,52 @@
+{
+  "platform": "Windows",
+  "codexSurface": "desktop",
+  "captureMode": "install-tree",
+  "status": "verified",
+  "confidence": 0.97,
+  "notes": "Verified on the current Windows workstation. Desktop package root is under AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0, with LocalCache\\Local\\Codex\\Logs and a shared local state root at .codex.",
+  "paths": [
+    {
+      "path": "C:\\Users\\georg\\AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0",
+      "kind": "install-root",
+      "confidence": 0.95,
+      "status": "verified",
+      "source": "windows-package"
+    },
+    {
+      "path": "C:\\Users\\georg\\AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\LocalCache\\Local\\Codex\\Logs",
+      "kind": "cache",
+      "confidence": 0.92,
+      "status": "verified",
+      "source": "windows-localcache-logs"
+    },
+    {
+      "path": "C:\\Users\\georg\\.codex",
+      "kind": "workspace",
+      "confidence": 0.9,
+      "status": "verified",
+      "source": "windows-user-state"
+    },
+    {
+      "path": "C:\\Users\\georg\\AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\LocalState",
+      "kind": "runtime",
+      "confidence": 0.7,
+      "status": "verified",
+      "source": "windows-package-state"
+    },
+    {
+      "path": "C:\\Users\\georg\\AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\RoamingState",
+      "kind": "runtime",
+      "confidence": 0.7,
+      "status": "verified",
+      "source": "windows-package-state"
+    },
+    {
+      "path": "C:\\Users\\georg\\AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\Settings\\settings.dat",
+      "kind": "runtime",
+      "confidence": 0.85,
+      "status": "verified",
+      "source": "windows-package-settings"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "capturedAt": "2026-05-19T00:00:00Z",
+  "platform": "Debian GNU/Linux 12 (bookworm)",
+  "container": true,
+  "codexSurface": "cli",
+  "status": "verified",
+  "confidence": 0.98,
+  "source": "debian-bookworm-container-codex-discovery",
+  "runId": "2026-05-19-debian-bookworm-container-codex-discovery",
+  "result": {
+    "codexVersion": "codex-cli 0.131.0",
+    "binary": "/usr/local/bin/codex",
+    "installRoot": "/usr/local/lib/node_modules/@openai/codex"
+  }
+}

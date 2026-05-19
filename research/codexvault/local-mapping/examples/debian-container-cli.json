@@ -1,0 +1,45 @@
+{
+  "platform": "Debian 13 (trixie)",
+  "codexSurface": "cli",
+  "captureMode": "install-tree",
+  "status": "verified",
+  "confidence": 0.98,
+  "notes": "Verified in the Debian container after installing @openai/codex@0.131.0 globally with npm.",
+  "paths": [
+    {
+      "path": "/usr/local/bin/codex",
+      "kind": "launcher",
+      "confidence": 0.99,
+      "status": "verified",
+      "source": "debian-codex-launcher"
+    },
+    {
+      "path": "/usr/local/lib/node_modules/@openai/codex",
+      "kind": "install-root",
+      "confidence": 0.99,
+      "status": "verified",
+      "source": "debian-global-npm"
+    },
+    {
+      "path": "/usr/local/lib/node_modules/@openai/codex/bin/codex.js",
+      "kind": "entrypoint",
+      "confidence": 0.99,
+      "status": "verified",
+      "source": "debian-codex-entrypoint"
+    },
+    {
+      "path": "/usr/local/lib/node_modules/@openai/codex/bin/rg",
+      "kind": "bundled-tool",
+      "confidence": 0.97,
+      "status": "verified",
+      "source": "debian-bundled-rg"
+    },
+    {
+      "path": "/usr/local/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64",
+      "kind": "platform-package",
+      "confidence": 0.96,
+      "status": "verified",
+      "source": "debian-linux-x64-package"
+    }
+  ]
+}

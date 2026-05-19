@@ -1,0 +1,15 @@
+{
+  "capturedAt": "2026-05-19T00:00:00Z",
+  "platform": "Ubuntu 24.04.4 LTS",
+  "container": true,
+  "codexSurface": "cli",
+  "status": "verified",
+  "confidence": 0.98,
+  "source": "ubuntu-container-codex-discovery",
+  "runId": "2026-05-19-ubuntu-container-codex-discovery",
+  "result": {
+    "codexVersion": "codex-cli 0.131.0",
+    "binary": "/usr/local/bin/codex",
+    "installRoot": "/usr/local/lib/node_modules/@openai/codex"
+  }
+}

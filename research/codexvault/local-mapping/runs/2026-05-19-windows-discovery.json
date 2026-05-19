@@ -1,0 +1,43 @@
+{
+  "runId": "2026-05-19-windows-discovery",
+  "capturedAt": "2026-05-19T00:00:00Z",
+  "platform": "Windows",
+  "summary": "Windows workstation discovery pass for Codex Desktop and Codex CLI.",
+  "surfaces": [
+    {
+      "codexSurface": "desktop",
+      "status": "verified",
+      "confidence": 0.97,
+      "observations": [
+        "AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0",
+        "AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\LocalCache\\Local\\Codex\\Logs",
+        "C:\\Users\\georg\\.codex",
+        "AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\LocalState",
+        "AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\RoamingState",
+        "AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\Settings\\settings.dat"
+      ],
+      "gaps": [
+        "LocalState content not yet enumerated",
+        "RoamingState content not yet enumerated",
+        "LocalState appears empty in the current pass",
+        "RoamingState appears empty in the current pass"
+      ]
+    },
+    {
+      "codexSurface": "cli",
+      "status": "verified",
+      "confidence": 0.98,
+      "observations": [
+        "C:\\Users\\georg\\AppData\\Roaming\\npm\\codex.ps1",
+        "C:\\Users\\georg\\AppData\\Local\\OpenAI\\Codex\\bin",
+        "C:\\Users\\georg\\AppData\\Local\\OpenAI\\Codex\\bin\\codex.exe",
+        "C:\\Users\\georg\\AppData\\Local\\OpenAI\\Codex\\bin\\node.exe",
+        "C:\\Users\\georg\\AppData\\Local\\OpenAI\\Codex\\bin\\node_repl.exe",
+        "C:\\Users\\georg\\AppData\\Local\\OpenAI\\Codex\\bin\\rg.exe"
+      ],
+      "gaps": [
+        "No separate CLI state root was confirmed beyond the shared .codex tree"
+      ]
+    }
+  ]
+}

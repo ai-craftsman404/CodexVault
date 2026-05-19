@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Codex local mapping record",
+  "type": "object",
+  "required": [
+    "platform",
+    "codexSurface",
+    "captureMode",
+    "status",
+    "paths"
+  ],
+  "properties": {
+    "platform": {
+      "type": "string",
+      "enum": ["Windows", "Linux"]
+    },
+    "codexSurface": {
+      "type": "string",
+      "enum": ["desktop", "cli"]
+    },
+    "captureMode": {
+      "type": "string",
+      "enum": ["install-tree", "runtime-cache", "workspace-probe", "manual-note"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["seed", "verified", "rejected", "placeholder", "captured", "reviewed"]
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "wsl": {
+      "type": "boolean"
+    },
+    "distribution": {
+      "type": ["string", "null"]
+    },
+    "notes": {
+      "type": "string"
+    },
+    "paths": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "kind"],
+        "properties": {
+          "path": { "type": "string" },
+          "kind": {
+            "type": "string",
+            "enum": ["install-root", "runtime", "cache", "plugin", "workspace", "unknown"]
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "status": {
+            "type": "string",
+            "enum": ["seed", "verified", "rejected", "heuristic"]
+          },
+          "source": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

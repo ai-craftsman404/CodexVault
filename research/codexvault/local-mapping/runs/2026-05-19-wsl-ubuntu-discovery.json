@@ -1,0 +1,27 @@
+{
+  "runId": "2026-05-19-wsl-ubuntu-discovery",
+  "capturedAt": "2026-05-19T00:00:00Z",
+  "platform": "Linux",
+  "distribution": "Ubuntu",
+  "wsl": true,
+  "summary": "WSL Ubuntu discovery pass for Codex CLI executed via the Windows-hosted Codex install.",
+  "surfaces": [
+    {
+      "codexSurface": "cli",
+      "status": "verified",
+      "confidence": 0.88,
+      "observations": [
+        "/mnt/c/Users/georg/AppData/Roaming/npm/codex",
+        "/mnt/c/Users/georg/AppData/Local/OpenAI/Codex/bin",
+        "/mnt/c/Users/georg/AppData/Local/OpenAI/Codex/bin/codex.exe",
+        "/mnt/c/Users/georg/AppData/Local/OpenAI/Codex/bin/node.exe",
+        "/mnt/c/Users/georg/AppData/Local/OpenAI/Codex/bin/node_repl.exe",
+        "/mnt/c/Users/georg/AppData/Local/OpenAI/Codex/bin/rg.exe"
+      ],
+      "gaps": [
+        "No separate Linux-native Codex state root was found under the WSL home directory",
+        "WSL Codex resolves to the Windows-hosted installation rather than a distinct Linux install"
+      ]
+    }
+  ]
+}

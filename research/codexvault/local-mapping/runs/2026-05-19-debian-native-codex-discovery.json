@@ -1,0 +1,52 @@
+{
+  "capturedAt": "2026-05-19T00:00:00Z",
+  "platform": "Debian 13 (trixie)",
+  "container": true,
+  "codexSurface": "cli",
+  "status": "verified",
+  "confidence": 0.98,
+  "source": "debian-native-codex-discovery",
+  "runId": "2026-05-19-debian-native-codex-discovery",
+  "actions": [
+    "installed nodejs and npm",
+    "installed @openai/codex@0.131.0 globally with npm",
+    "captured launcher and package tree"
+  ],
+  "evidence": [
+    {
+      "path": "/usr/local/bin/codex",
+      "kind": "launcher",
+      "status": "verified",
+      "confidence": 0.99
+    },
+    {
+      "path": "/usr/local/lib/node_modules/@openai/codex",
+      "kind": "install-root",
+      "status": "verified",
+      "confidence": 0.99
+    },
+    {
+      "path": "/usr/local/lib/node_modules/@openai/codex/bin/codex.js",
+      "kind": "entrypoint",
+      "status": "verified",
+      "confidence": 0.99
+    },
+    {
+      "path": "/usr/local/lib/node_modules/@openai/codex/bin/rg",
+      "kind": "bundled-tool",
+      "status": "verified",
+      "confidence": 0.97
+    },
+    {
+      "path": "/usr/local/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64",
+      "kind": "platform-package",
+      "status": "verified",
+      "confidence": 0.96
+    }
+  ],
+  "result": {
+    "codexVersion": "codex-cli 0.131.0",
+    "binary": "/usr/local/bin/codex",
+    "installRoot": "/usr/local/lib/node_modules/@openai/codex"
+  }
+}

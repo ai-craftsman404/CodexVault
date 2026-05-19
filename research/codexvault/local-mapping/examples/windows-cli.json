@@ -1,0 +1,38 @@
+{
+  "platform": "Windows",
+  "codexSurface": "cli",
+  "captureMode": "install-tree",
+  "status": "verified",
+  "confidence": 0.98,
+  "notes": "Verified on the current Windows workstation. CLI launcher is codex.ps1 in npm, backed by the OpenAI Codex bin tree under AppData\\Local\\OpenAI\\Codex\\bin.",
+  "paths": [
+    {
+      "path": "C:\\Users\\georg\\AppData\\Roaming\\npm\\codex.ps1",
+      "kind": "install-root",
+      "confidence": 0.95,
+      "status": "verified",
+      "source": "powershell-launcher"
+    },
+    {
+      "path": "C:\\Users\\georg\\AppData\\Local\\OpenAI\\Codex\\bin",
+      "kind": "install-root",
+      "confidence": 0.98,
+      "status": "verified",
+      "source": "windows-openai-codex-bin"
+    },
+    {
+      "path": "C:\\Users\\georg\\AppData\\Local\\OpenAI\\Codex\\bin\\codex.exe",
+      "kind": "install-root",
+      "confidence": 0.98,
+      "status": "verified",
+      "source": "windows-cli-launcher"
+    },
+    {
+      "path": "C:\\Users\\georg\\AppData\\Local\\OpenAI\\Codex\\bin\\node.exe",
+      "kind": "install-root",
+      "confidence": 0.95,
+      "status": "verified",
+      "source": "windows-bundled-runtime"
+    }
+  ]
+}
