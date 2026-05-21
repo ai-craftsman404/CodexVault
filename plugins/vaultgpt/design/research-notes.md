@@ -6,15 +6,14 @@
 - Research date: 2026-05-21
 - Researcher: Codex with agent-panel research branches
 
-## Official Sources To Recheck Before Build
+## Official Sources Checked
 
-- OpenAI Codex plugin docs
-- OpenAI Codex build plugins guide
-- OpenAI Codex skills docs
-- OpenAI Codex Chrome extension docs
-- OpenAI Codex browser docs
-- OpenAI Codex approvals and security docs
-- Agent Skills standard
+- OpenAI Codex build plugins guide, checked 2026-05-21: https://developers.openai.com/codex/plugins/build
+- OpenAI Codex skills docs, checked 2026-05-21: https://developers.openai.com/codex/skills
+- OpenAI Codex Chrome extension docs, checked 2026-05-21: https://developers.openai.com/codex/app/chrome-extension
+- OpenAI Codex in-app browser docs, checked 2026-05-21: https://developers.openai.com/codex/app/browser
+- OpenAI Codex approvals and security docs, checked 2026-05-21: https://developers.openai.com/codex/agent-approvals-security
+- OpenAI Codex subagents docs, checked 2026-05-21: https://developers.openai.com/codex/subagents
 
 ## Market Sources Reviewed In Chat
 
@@ -31,6 +30,12 @@
 - Privacy and trust are switch drivers, especially for users wary of high-privilege extensions.
 - Codex Chrome selected-chat capture is the correct novelty wedge, but should be constrained and user-approved.
 - Official ChatGPT export import remains the reliable batch/fallback ingestion path.
+- Official Codex plugin docs support packaging a stable reusable workflow as a plugin when distribution, team sharing, integrations, or stable packaging matter.
+- Official skills docs support a skill-first design: skills are reusable workflow authoring units, while plugins are the installable distribution unit.
+- Official Chrome extension docs confirm Chrome is the right Codex surface for signed-in browser state, but it requires website approvals and carries broad Chrome permissions.
+- Official in-app browser docs confirm it is not suitable for signed-in ChatGPT capture because it does not support authentication flows, regular browser profiles, cookies, extensions, or existing tabs.
+- Official approvals/security docs reinforce the need for sandboxing, approvals, and network controls around side-effecting or sensitive operations.
+- Official subagents docs support parallel specialized agents, but only when explicitly requested; subagents add token cost and should be used selectively.
 
 ## Differentiation
 
@@ -51,3 +56,11 @@
 | Full unattended account crawl is too fragile for MVP | High | If official APIs/capabilities change |
 | Skill plus scripts is sufficient for MVP | High | If Chrome capture requires a stronger integration model |
 
+## Design Impact
+
+- Keep VaultGPT packaged as an installable plugin, not only loose notes or a standalone script.
+- Build the core workflow as a skill plus local scripts.
+- Treat Codex Chrome selected-chat capture as a constrained, explicit, user-approved workflow.
+- Keep in-app browser out of the signed-in ChatGPT capture path.
+- Keep official ChatGPT export import as reliable fallback/batch source.
+- Keep subagent/agent-team usage progressive and explicit, not automatic for every action.
