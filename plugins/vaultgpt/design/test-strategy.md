@@ -14,6 +14,9 @@ Use TDD/STLC-style planning. Define expected behavior and adversarial cases befo
 - Export/Backup journey.
 - Prompt creation and prompt-use journey.
 - Manual prompt-chain journey.
+- Unfiled inbox journey.
+- Saved search and bulk action from search results.
+- Convert chat to prompt/chain journey.
 - Official export parser fixtures.
 - Selected-chat capture fixture or documented manual verification.
 - Full-text search correctness.
@@ -21,9 +24,12 @@ Use TDD/STLC-style planning. Define expected behavior and adversarial cases befo
 - Bulk action dry-run, confirmation, undo, and audit records.
 - Markdown/JSON/ZIP export structure.
 - Prompt variables and simple prompt-chain rendering.
+- Prompt import/export using VaultGPT schema.
 - Privacy review false positives and false negatives.
 - Prompt-injection resistance from imported/captured chats.
 - Provenance and audit log completeness.
+- Index status and stale/skipped item reporting.
+- Export progress/failure reporting.
 - Windows path handling.
 - Secret/private export exclusion.
 
@@ -47,3 +53,4 @@ No public release until:
 - sample fixtures contain no private user data
 - install and trigger tests pass
 - UX journey tests pass for save, search, export, prompt use, and privacy review
+- No-signup instant-start path is documented and tested

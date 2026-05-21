@@ -27,6 +27,10 @@
 | Export/backup | Export selected/folder/all content to Markdown, JSON, ZIP | Export includes manifest and provenance |
 | Prompt vault | Save prompts with variables and simple chains | Prompts can be searched, rendered, exported, and reused |
 | Privacy review | Review sensitive content before capture/index/export | Findings are clear, cautious, and logged |
+| Unfiled inbox | Newly captured/imported chats default to unfiled status | User can capture quickly and organize later |
+| Saved searches | Save common search/filter combinations | User can rerun high-value queries and bulk-act on results |
+| Convert chat to prompt/chain | Turn captured chats into reusable prompts or manual chains | User can reuse buried value with confirmation and provenance |
+| Index status | Report indexed/skipped/stale counts | User understands search completeness |
 
 ## UX Adoption Requirements
 
@@ -38,6 +42,10 @@
 - Make prompt variables form-based and previewable.
 - Make prompt chains manual and step-by-step in MVP, not silent automation.
 - Make context attachment visible through source chips and audit/provenance records.
+- Prefer no-signup instant start.
+- Treat newly captured content as `Unfiled` by default to avoid save friction.
+- Allow bulk actions from saved searches and filtered result sets.
+- Show export/index progress summaries and failure reports.
 
 ## Proposed Structure
 
@@ -69,6 +77,7 @@ plugins/vaultgpt/
 | prompt | Store/render prompt variables and simple chains |
 | privacy | Detect sensitive data heuristically |
 | audit | Append audit/provenance records |
+| status | Report vault/index/export health |
 
 ## Agent Harness
 
@@ -90,3 +99,6 @@ plugins/vaultgpt/
 - First-time user can save a useful chat in under 30 seconds without reading documentation.
 - Returning user can find a saved chat or prompt in under 20 seconds.
 - User can create a local backup in under 60 seconds with clear privacy status.
+- Newly captured chats can be saved without choosing a folder.
+- Export and index operations produce status/failure summaries.
+- Captured chats can be converted into a prompt or manual chain with user confirmation.
