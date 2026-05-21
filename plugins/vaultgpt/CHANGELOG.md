@@ -5,4 +5,4 @@
 - Added initial plugin scaffold.
 - Added VaultGPT skill entrypoint.
 - Added design, strategy, architecture, and test planning artifacts.
-
+- Added Phase 1 Python core for cross-platform vault path resolution, vault initialization, JSON record writing, audit logging, CLI smoke commands, and unit tests.

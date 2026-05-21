@@ -1,0 +1,2 @@
+"""VaultGPT script tests."""
+
