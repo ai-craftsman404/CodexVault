@@ -1,0 +1,47 @@
+{
+  "name": "vaultgpt",
+  "version": "0.1.0",
+  "description": "Free ChatGPT power-extension workflows in a local-first Codex plugin with selected-chat capture, search, organization, prompt vaults, privacy review, and audit logs.",
+  "author": {
+    "name": "Code Plugin Guru",
+    "email": "maintainers@example.com",
+    "url": "https://example.com/vaultgpt"
+  },
+  "homepage": "https://example.com/vaultgpt",
+  "repository": "https://example.com/vaultgpt",
+  "license": "MIT",
+  "keywords": [
+    "codex",
+    "chatgpt",
+    "archive",
+    "search",
+    "prompt-library",
+    "privacy",
+    "browser-capture"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "VaultGPT",
+    "shortDescription": "Free ChatGPT power-extension features with local-first Codex workflows.",
+    "longDescription": "VaultGPT helps ChatGPT power users replace paid third-party browser extensions with free, Codex-native workflows for selected-chat capture, local search, unlimited organization, bulk export, prompt vaults, manual prompt chains, privacy review, and auditable provenance.",
+    "developerName": "Code Plugin Guru",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write",
+      "Local execution",
+      "Browser-assisted"
+    ],
+    "websiteURL": "https://example.com/vaultgpt",
+    "privacyPolicyURL": "https://example.com/vaultgpt/privacy",
+    "termsOfServiceURL": "https://example.com/vaultgpt/terms",
+    "defaultPrompt": [
+      "Use VaultGPT to save this ChatGPT conversation to my local vault with privacy review and audit logging.",
+      "Search my VaultGPT archive for prior chats, prompts, or chains related to this topic.",
+      "Create a reusable prompt or manual prompt chain from this captured conversation.",
+      "Export selected VaultGPT items to Markdown, JSON, or ZIP with a provenance manifest."
+    ],
+    "brandColor": "#0B4F3A"
+  }
+}
