@@ -46,9 +46,12 @@ Implemented:
 - local vault initialization
 - JSON record storage
 - append-only audit log
+- approved selected-chat capture boundary with privacy scan and provenance event
 - prompt variables and prompt import/export
 - conversation normalization with model metadata preservation
 - JSON fallback search
+- optional SQLite FTS5 index and JSON fallback behavior
+- synthetic-compatible official ChatGPT export import
 - folders/tags/pins metadata helpers
 - unfiled inbox default
 - saved searches
@@ -56,15 +59,13 @@ Implemented:
 - Markdown/JSON/ZIP export with manifest
 - heuristic privacy scanner
 - manual prompt chains
-- CLI `init`, `status`, `search`, and `export`
+- CLI `init`, `status`, `search`, `import-official`, `reindex`, and `export`
 
 Not complete:
 
-- live Codex Chrome selected-chat capture verification
-- SQLite FTS5 index
-- full official ChatGPT export parser
-- complete security review
-- full release test matrix execution
+- live Codex Chrome selected-chat capture verification in the real browser UI
+- full official ChatGPT export parser coverage against real exported edge cases
+- complete release test matrix execution
 
 ## Privacy Model
 
@@ -86,4 +87,14 @@ Run local tests:
 ```powershell
 cd plugins/vaultgpt/scripts/vaultgpt
 python -m unittest discover -s tests
+```
+
+CLI smoke examples:
+
+```powershell
+python vaultgpt.py --vault-path .tmp-vault init
+python vaultgpt.py --vault-path .tmp-vault import-official conversations.json
+python vaultgpt.py --vault-path .tmp-vault reindex
+python vaultgpt.py --vault-path .tmp-vault search privacy
+python vaultgpt.py --vault-path .tmp-vault export backup.zip --format zip
 ```

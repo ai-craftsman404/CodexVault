@@ -6,8 +6,8 @@
 - Display name: VaultGPT
 - Version: 0.1.0
 - Description: Free ChatGPT power-extension features in a local-first Codex plugin with browser-assisted capture, search, organization, prompt workflows, privacy review, and audit logs.
-- Repository: TBD
-- License: TBD
+- Repository: to be set when the public GitHub remote is created
+- License: MIT
 - Keywords: chatgpt, archive, search, prompts, browser-capture, privacy, codex-plugin
 - Category: productivity / knowledge-management
 
@@ -93,7 +93,7 @@ plugins/vaultgpt/
 - Local vault can import sample data.
 - Selected-chat capture path is documented and tested where available.
 - Search, organization, export, prompt vault, privacy review, and audit workflows pass tests.
-- Prompt-injection and sensitive-data leakage tests are included.
+- Sensitive-data leakage tests are included; prompt-injection fixture remains a release gate.
 - Public README explains privacy model and limitations.
 - `.gitignore` excludes private vault data and exports.
 - First-time user can save a useful chat in under 30 seconds without reading documentation.

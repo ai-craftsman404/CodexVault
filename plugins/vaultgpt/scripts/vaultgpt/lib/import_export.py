@@ -9,6 +9,7 @@ from typing import Any
 from zipfile import ZIP_DEFLATED, ZipFile
 
 from .audit import append_event
+from .privacy import scan_record
 from .vault import SCHEMA_VERSION, initialize_vault, write_record
 
 
@@ -56,6 +57,21 @@ def import_conversation_payloads(root: str | Path, payloads: list[dict[str, Any]
     return written
 
 
+def import_official_export_file(root: str | Path, input_path: str | Path) -> list[Path]:
+    """Import a synthetic-compatible official ChatGPT export conversations JSON file."""
+    source = Path(input_path).expanduser().resolve()
+    data = json.loads(source.read_text(encoding="utf-8"))
+    if isinstance(data, dict) and "conversations" in data:
+        conversations = data["conversations"]
+    elif isinstance(data, list):
+        conversations = data
+    else:
+        raise ValueError("Unsupported ChatGPT export format")
+
+    payloads = [_normalize_official_conversation(item) for item in conversations]
+    return import_conversation_payloads(root, payloads)
+
+
 def load_conversations(root: str | Path) -> list[dict[str, Any]]:
     """Load all conversation records."""
     root_path = initialize_vault(root)
@@ -71,11 +87,17 @@ def export_conversations(root: str | Path, output_path: str | Path, fmt: str = "
     records = load_conversations(root_path)
     destination = Path(output_path).expanduser().resolve()
     destination.parent.mkdir(parents=True, exist_ok=True)
+    privacy_results = [scan_record(record) for record in records]
     manifest = {
         "schema_version": SCHEMA_VERSION,
         "type": "vaultgpt.export",
         "format": fmt,
         "conversation_count": len(records),
+        "privacy_summary": {
+            "checked": True,
+            "warning_count": sum(1 for result in privacy_results if result["status"] == "warning"),
+            "finding_count": sum(len(result["findings"]) for result in privacy_results),
+        },
         "skipped": [],
         "failed": [],
         "records": [
@@ -117,6 +139,32 @@ def _stable_id(title: str, messages: list[dict[str, Any]]) -> str:
 
 def _content_hash(messages: list[dict[str, Any]]) -> str:
     return hashlib.sha256(json.dumps(messages, sort_keys=True).encode("utf-8")).hexdigest()
+
+
+def _normalize_official_conversation(item: dict[str, Any]) -> dict[str, Any]:
+    messages = item.get("messages")
+    if messages is None and "mapping" in item:
+        messages = []
+        for node in item.get("mapping", {}).values():
+            message = node.get("message") or {}
+            author = message.get("author", {})
+            content = message.get("content", {})
+            parts = content.get("parts") or []
+            text = "\n".join(str(part) for part in parts if part is not None)
+            if text:
+                messages.append({"role": author.get("role", "unknown"), "content": text})
+    messages = messages or []
+    return {
+        "id": item.get("id") or item.get("conversation_id"),
+        "title": item.get("title") or "Untitled chat",
+        "model": item.get("model") or item.get("default_model_slug") or "unknown",
+        "messages": messages,
+        "source": {
+            "type": "official_export",
+            "source_id": item.get("id") or item.get("conversation_id"),
+            "captured_at": item.get("update_time") or item.get("create_time"),
+        },
+    }
 
 
 def _records_to_markdown(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:

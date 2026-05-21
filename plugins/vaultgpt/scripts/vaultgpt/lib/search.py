@@ -8,6 +8,7 @@ from typing import Any
 from .import_export import load_conversations
 from .prompt import load_prompt
 from .vault import initialize_vault
+from .fts import fts_available
 
 
 def search_json(root: str | Path, query: str) -> list[dict[str, Any]]:
@@ -55,7 +56,7 @@ def index_status(root: str | Path) -> dict[str, Any]:
         "mode": "json-scan",
         "conversation_count": len(list((root_path / "conversations").glob("*.json"))),
         "prompt_count": len(list((root_path / "prompts").glob("*.json"))),
-        "fts_available": False,
+        "fts_available": fts_available(),
         "status": "ok",
     }
 
@@ -68,4 +69,3 @@ def _snippet(text: str, query: str, size: int = 120) -> str:
     start = max(0, index - size // 3)
     end = min(len(text), index + size)
     return text[start:end].replace("\n", " ")
-

@@ -1,6 +1,6 @@
 # VaultGPT Scripts
 
-Implementation placeholder for deterministic local operations:
+Deterministic local operations implemented for the MVP foundation:
 
 - vault initialization
 - import/export
@@ -12,5 +12,11 @@ Implementation placeholder for deterministic local operations:
 - audit logs
 - status reports
 
-Runtime vault data must stay outside the plugin source tree.
+Run tests:
 
+```powershell
+cd plugins/vaultgpt/scripts/vaultgpt
+python -m unittest discover -s tests
+```
+
+Runtime vault data must stay outside the plugin source tree.

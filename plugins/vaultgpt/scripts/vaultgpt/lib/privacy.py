@@ -9,7 +9,7 @@ PATTERNS = [
     ("high", "openai_api_key", re.compile(r"\bsk-[A-Za-z0-9_\-]{16,}\b")),
     ("high", "generic_token", re.compile(r"\b(?:api[_-]?key|token|secret)\s*[:=]\s*['\"]?[A-Za-z0-9_\-]{12,}", re.I)),
     ("medium", "email", re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b")),
-    ("medium", "windows_path", re.compile(r"\b[A-Za-z]:\\Users\\[^\\\s]+\\[^\n\r]+")),
+    ("medium", "windows_path", re.compile(r"\b[A-Za-z]:\\[^\n\r]+")),
     ("medium", "private_url", re.compile(r"https?://(?:localhost|127\.0\.0\.1|10\.\d+\.\d+\.\d+|192\.168\.\d+\.\d+)[^\s]*", re.I)),
 ]
 
@@ -68,4 +68,3 @@ def _redacted_preview(value: str, kind: str) -> str:
     if kind == "private_url":
         return "[REDACTED_PRIVATE_URL]"
     return value[:4] + "..." if len(value) > 4 else "[REDACTED]"
-
