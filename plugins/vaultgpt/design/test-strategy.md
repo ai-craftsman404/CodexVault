@@ -9,6 +9,11 @@ Use TDD/STLC-style planning. Define expected behavior and adversarial cases befo
 - Manifest validation and local install/discovery.
 - Explicit and implicit skill invocation.
 - Should-not-trigger prompts.
+- First-time Save Chat journey.
+- Returning Search Vault journey.
+- Export/Backup journey.
+- Prompt creation and prompt-use journey.
+- Manual prompt-chain journey.
 - Official export parser fixtures.
 - Selected-chat capture fixture or documented manual verification.
 - Full-text search correctness.
@@ -41,4 +46,4 @@ No public release until:
 - public docs explain limitations
 - sample fixtures contain no private user data
 - install and trigger tests pass
-
+- UX journey tests pass for save, search, export, prompt use, and privacy review

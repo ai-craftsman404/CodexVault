@@ -28,6 +28,17 @@
 | Prompt vault | Save prompts with variables and simple chains | Prompts can be searched, rendered, exported, and reused |
 | Privacy review | Review sensitive content before capture/index/export | Findings are clear, cautious, and logged |
 
+## UX Adoption Requirements
+
+- Mirror familiar paid-extension workflows where possible.
+- Use obvious user-facing actions: Save Chat, Search Vault, Organize Vault, Export Vault, Backup Vault, New Prompt, Use Prompt, Run Chain, Privacy Check, Activity Log.
+- Make selected-chat capture preview-first: title, source, message count, capture scope, tags/folder, privacy status.
+- Make search the command center with grouped results, snippets, filters, and exact-source provenance.
+- Make bulk actions explicit, reversible where possible, and protected by dry-run and confirmation.
+- Make prompt variables form-based and previewable.
+- Make prompt chains manual and step-by-step in MVP, not silent automation.
+- Make context attachment visible through source chips and audit/provenance records.
+
 ## Proposed Structure
 
 ```text
@@ -76,4 +87,6 @@ plugins/vaultgpt/
 - Prompt-injection and sensitive-data leakage tests are included.
 - Public README explains privacy model and limitations.
 - `.gitignore` excludes private vault data and exports.
-
+- First-time user can save a useful chat in under 30 seconds without reading documentation.
+- Returning user can find a saved chat or prompt in under 20 seconds.
+- User can create a local backup in under 60 seconds with clear privacy status.
