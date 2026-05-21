@@ -11,13 +11,13 @@
 
 | Category | Priority | In Scope? | Validation Approach | Result / Gap | Notes |
 | --- | --- | --- | --- | --- | --- |
-| Unit testing | Mandatory | Yes | Script/module tests for vault, prompt, index, export, privacy | Pending |  |
+| Unit testing | Mandatory | Yes | Script/module tests for vault, prompt, index, export, privacy | Partial pass | 18 tests passing for MVP foundation |
 | Integration testing | Mandatory | Yes | End-to-end local vault fixture workflows | Pending |  |
 | Workflow testing | Mandatory | Yes | Save/Search/Export/Prompt/Privacy journeys | Pending |  |
 | Error and fallback testing | Mandatory | Yes | Malformed export, missing vault, failed export target | Pending |  |
 | Boundary testing | Mandatory | Yes | Empty vault, large prompt, duplicate IDs, missing fields | Pending |  |
 | Contract/schema testing | Mandatory | Yes | JSON schema/version validation | Pending |  |
-| Model-release resilience | Mandatory | Yes | Known/unknown model-label fixtures across import/search/export | Pending | VaultGPT claim must be evidence-backed |
+| Model-release resilience | Mandatory | Yes | Known/unknown model-label fixtures across import/search/export | Partial pass | unknown model label preservation covered; more fixtures needed |
 | Negative/abuse testing | Mandatory | Yes | prompt injection, path traversal, unsafe delete | Pending |  |
 | Static checks | Mandatory | Yes | PowerShell/Python lint/static checks as applicable | Pending |  |
 | Prompt injection testing | Mandatory | Yes | Archived chat contains malicious instructions | Pending | Treat captured content as data |
@@ -56,20 +56,20 @@
 
 | Test | Expected Result | Actual Result | Status |
 | --- | --- | --- | --- |
-| Initialize vault | Local vault structure created outside repo |  | Pending |
-| Import fixture | Conversations normalize with IDs/hashes |  | Pending |
-| Import known model labels | Model metadata preserved and workflows continue |  | Pending |
-| Import unknown future model label | Unknown model label preserved, not rejected |  | Pending |
+| Initialize vault | Local vault structure created outside repo | Pass | Partial |
+| Import fixture | Conversations normalize with IDs/hashes | Pass | Partial |
+| Import known model labels | Model metadata preserved and workflows continue | Pass | Partial |
+| Import unknown future model label | Unknown model label preserved, not rejected | Pass | Partial |
 | Capture fixture | Selected-chat payload normalizes |  | Pending |
-| Search fixture | Query returns snippets and source IDs |  | Pending |
-| Organize | Folder/tag/pin metadata updates only metadata |  | Pending |
-| Bulk dry-run | Shows affected items without changes |  | Pending |
-| Export | Writes Markdown/JSON/ZIP with manifest |  | Pending |
-| Export model metadata | Model labels appear in metadata without controlling behavior |  | Pending |
-| Prompt render | Variables fill and preview correctly |  | Pending |
-| Chain run | Manual chain step state records correctly |  | Pending |
-| Privacy review | Warnings before sensitive export |  | Pending |
-| Audit log | Events append without duplicating full content |  | Pending |
+| Search fixture | Query returns snippets and source IDs | Pass | Partial |
+| Organize | Folder/tag/pin metadata updates only metadata | Pass | Partial |
+| Bulk dry-run | Shows affected items without changes | Pass | Partial |
+| Export | Writes Markdown/JSON/ZIP with manifest | Pass | Partial |
+| Export model metadata | Model labels appear in metadata without controlling behavior | Pass | Partial |
+| Prompt render | Variables fill and preview correctly | Pass | Partial |
+| Chain run | Manual chain step state records correctly | Pass | Partial |
+| Privacy review | Warnings before sensitive export | Pass | Partial |
+| Audit log | Events append without duplicating full content | Pass | Partial |
 
 ## UX Journey Tests
 

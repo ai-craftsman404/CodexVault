@@ -38,7 +38,33 @@ Planned evidence:
 
 ## Status
 
-Design and scaffold stage. Implementation is not complete yet.
+MVP foundation implementation is in progress.
+
+Implemented:
+
+- cross-platform vault path resolution
+- local vault initialization
+- JSON record storage
+- append-only audit log
+- prompt variables and prompt import/export
+- conversation normalization with model metadata preservation
+- JSON fallback search
+- folders/tags/pins metadata helpers
+- unfiled inbox default
+- saved searches
+- bulk dry-run plans
+- Markdown/JSON/ZIP export with manifest
+- heuristic privacy scanner
+- manual prompt chains
+- CLI `init`, `status`, `search`, and `export`
+
+Not complete:
+
+- live Codex Chrome selected-chat capture verification
+- SQLite FTS5 index
+- full official ChatGPT export parser
+- complete security review
+- full release test matrix execution
 
 ## Privacy Model
 
@@ -54,3 +80,10 @@ See:
 - `design/mvp-task-breakdown.md`
 - `design/test-matrix.md`
 - `design/ux-adoption-flows.md`
+
+Run local tests:
+
+```powershell
+cd plugins/vaultgpt/scripts/vaultgpt
+python -m unittest discover -s tests
+```
