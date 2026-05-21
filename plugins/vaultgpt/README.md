@@ -21,6 +21,21 @@ VaultGPT is a free, local-first Codex plugin designed to replace paid ChatGPT po
 
 VaultGPT gives ChatGPT power-extension features for free, without forcing users to trust a third-party browser extension with their AI history.
 
+## Model-Release Resilience
+
+VaultGPT is designed for model-release resilience.
+
+The intended design stores ChatGPT model names as metadata, not as hardcoded behavior switches. Core workflows such as local vault storage, search, organization, prompt reuse, privacy review, and export should continue to work when a conversation contains a new or unknown model label.
+
+This is not a guarantee of compatibility with all future ChatGPT releases. Browser UI changes can still require capture-adapter updates. The goal is to isolate that work so most of VaultGPT does not need to change.
+
+Planned evidence:
+
+- fixtures with multiple known ChatGPT model labels
+- fixtures with unknown/future model labels
+- regression tests proving import, search, export, and prompt workflows preserve model metadata without failing
+- README updates listing tested model-labelled fixtures before release
+
 ## Status
 
 Design and scaffold stage. Implementation is not complete yet.
@@ -39,4 +54,3 @@ See:
 - `design/mvp-task-breakdown.md`
 - `design/test-matrix.md`
 - `design/ux-adoption-flows.md`
-

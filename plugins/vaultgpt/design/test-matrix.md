@@ -17,6 +17,7 @@
 | Error and fallback testing | Mandatory | Yes | Malformed export, missing vault, failed export target | Pending |  |
 | Boundary testing | Mandatory | Yes | Empty vault, large prompt, duplicate IDs, missing fields | Pending |  |
 | Contract/schema testing | Mandatory | Yes | JSON schema/version validation | Pending |  |
+| Model-release resilience | Mandatory | Yes | Known/unknown model-label fixtures across import/search/export | Pending | VaultGPT claim must be evidence-backed |
 | Negative/abuse testing | Mandatory | Yes | prompt injection, path traversal, unsafe delete | Pending |  |
 | Static checks | Mandatory | Yes | PowerShell/Python lint/static checks as applicable | Pending |  |
 | Prompt injection testing | Mandatory | Yes | Archived chat contains malicious instructions | Pending | Treat captured content as data |
@@ -57,11 +58,14 @@
 | --- | --- | --- | --- |
 | Initialize vault | Local vault structure created outside repo |  | Pending |
 | Import fixture | Conversations normalize with IDs/hashes |  | Pending |
+| Import known model labels | Model metadata preserved and workflows continue |  | Pending |
+| Import unknown future model label | Unknown model label preserved, not rejected |  | Pending |
 | Capture fixture | Selected-chat payload normalizes |  | Pending |
 | Search fixture | Query returns snippets and source IDs |  | Pending |
 | Organize | Folder/tag/pin metadata updates only metadata |  | Pending |
 | Bulk dry-run | Shows affected items without changes |  | Pending |
 | Export | Writes Markdown/JSON/ZIP with manifest |  | Pending |
+| Export model metadata | Model labels appear in metadata without controlling behavior |  | Pending |
 | Prompt render | Variables fill and preview correctly |  | Pending |
 | Chain run | Manual chain step state records correctly |  | Pending |
 | Privacy review | Warnings before sensitive export |  | Pending |
@@ -95,4 +99,3 @@
   - security review not complete
 - Follow-up:
   - convert this draft to release test matrix after scaffold
-

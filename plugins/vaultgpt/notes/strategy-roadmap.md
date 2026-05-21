@@ -59,3 +59,28 @@ This means:
 - make it easy to repurpose VaultGPT for future ChatGPT/Codex model releases and new browser capabilities
 
 The goal is that new model releases improve VaultGPT's reasoning and curation quality without forcing major product rewrites.
+
+## Selling Feature: Model-Release Resilience
+
+VaultGPT should be marketed as designed for ChatGPT model-release resilience, not guaranteed future compatibility.
+
+The claim should be evidence-backed:
+
+- model names are stored as metadata, not hardcoded behavior switches
+- unknown model labels are preserved rather than rejected
+- capture adapters are isolated from vault, search, prompt, export, and audit logic
+- official export import remains a fallback when browser UI behavior changes
+- regression fixtures should cover conversations from multiple ChatGPT model families or model-labelled exports
+- README should report which model-labelled conversation fixtures have been tested
+
+Preferred wording:
+
+```text
+VaultGPT is designed for model-release resilience. It stores model metadata as data and keeps capture adapters isolated, so new ChatGPT model labels should not break core vault, search, prompt, and export workflows.
+```
+
+Avoid:
+
+```text
+Guaranteed compatible with all future ChatGPT releases.
+```

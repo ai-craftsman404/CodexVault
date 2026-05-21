@@ -18,6 +18,7 @@ Use TDD/STLC-style planning. Define expected behavior and adversarial cases befo
 - Saved search and bulk action from search results.
 - Convert chat to prompt/chain journey.
 - Official export parser fixtures.
+- Known and unknown ChatGPT model-label fixtures.
 - Selected-chat capture fixture or documented manual verification.
 - Full-text search correctness.
 - Folder/tag/pin metadata behavior.
@@ -30,6 +31,7 @@ Use TDD/STLC-style planning. Define expected behavior and adversarial cases befo
 - Provenance and audit log completeness.
 - Index status and stale/skipped item reporting.
 - Export progress/failure reporting.
+- Model-release resilience: unknown model labels are preserved and do not break import/search/export.
 - Windows path handling.
 - Secret/private export exclusion.
 
@@ -42,6 +44,7 @@ Use TDD/STLC-style planning. Define expected behavior and adversarial cases befo
 - Bulk delete is requested without dry-run/confirmation.
 - Redacted content remains searchable after index rebuild.
 - Prompt variable injection attempts to alter workflow behavior.
+- Conversation metadata contains an unknown future model label.
 
 ## Release Gate
 
@@ -54,3 +57,4 @@ No public release until:
 - install and trigger tests pass
 - UX journey tests pass for save, search, export, prompt use, and privacy review
 - No-signup instant-start path is documented and tested
+- README documents model-release resilience limits and tested model-label fixtures

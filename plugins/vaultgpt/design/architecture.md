@@ -4,6 +4,8 @@
 
 VaultGPT should be a self-contained Codex plugin that can later be extracted into an independent public GitHub repository and installed as a standalone Codex plugin.
 
+VaultGPT should also be designed for model-release resilience: future ChatGPT model labels or releases should not require major product rewrites when the underlying conversation structure remains compatible.
+
 ## Plugin Type
 
 MVP type: skill plus scripts.
@@ -69,6 +71,11 @@ In tests, use a temporary fixture vault under `plugins/vaultgpt/tests/tmp/` or a
     "captured_at": "2026-05-21T00:00:00Z"
   },
   "title": "...",
+  "model": {
+    "label": "gpt-...",
+    "source_field": "...",
+    "raw": {}
+  },
   "folder": "Inbox",
   "tags": [],
   "pins": [],
@@ -179,6 +186,16 @@ Capture adapter should produce a normalized payload consumed by scripts:
 
 If Chrome capture is unavailable, official export import remains the fallback path.
 
+## Model-Release Resilience Rules
+
+- Store model metadata as data.
+- Preserve unknown model labels.
+- Do not branch core vault/search/export behavior on specific model names.
+- Isolate model-specific or UI-specific extraction logic inside capture/import adapters.
+- Keep prompt vault, manual chains, search, organization, privacy review, and export model-agnostic.
+- Add fixtures for known and unknown model labels.
+- Add regression tests showing unknown model labels do not break import, search, export, or prompt workflows.
+
 ## Security Model
 
 - Imported/captured chat content is untrusted data.
@@ -198,4 +215,3 @@ If Chrome capture is unavailable, official export import remains the fallback pa
 6. Privacy scanner.
 7. Chain records and manual run state.
 8. Chrome capture adapter stub and documented manual verification.
-
