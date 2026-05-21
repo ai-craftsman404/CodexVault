@@ -45,7 +45,16 @@ Default local data should not live inside the plugin source tree.
 Suggested runtime location:
 
 ```text
-~/.vaultgpt/
+Windows: %LOCALAPPDATA%\VaultGPT
+macOS: ~/Library/Application Support/VaultGPT
+Linux: ${XDG_DATA_HOME:-~/.local/share}/vaultgpt
+Override: VAULTGPT_HOME or --vault-path
+```
+
+Runtime structure:
+
+```text
+<vault-root>/
   vault.json
   audit.jsonl
   conversations/
@@ -195,6 +204,13 @@ If Chrome capture is unavailable, official export import remains the fallback pa
 - Keep prompt vault, manual chains, search, organization, privacy review, and export model-agnostic.
 - Add fixtures for known and unknown model labels.
 - Add regression tests showing unknown model labels do not break import, search, export, or prompt workflows.
+
+## Prompt Variable Rules
+
+- Canonical syntax: `{{name}}`.
+- Compatibility syntax: `{name}` only for simple identifiers.
+- Always preview rendered prompts before use.
+- Do not treat braces inside code/JSON snippets as variables unless syntax is unambiguous.
 
 ## Security Model
 

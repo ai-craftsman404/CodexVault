@@ -1,0 +1,32 @@
+# Runtime vault data and exports
+vault-data/
+vaultgpt-data/
+exports/
+backups/
+*.zip
+*.db
+*.sqlite
+*.sqlite3
+*.jsonl.tmp
+
+# User-provided ChatGPT/OpenAI exports
+chatgpt-export*/
+chatgpt-exports/
+openai-export*/
+conversations.json
+user.json
+message_feedback.json
+
+# Secrets and local env
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+credentials.*
+*.credentials
+token.*
+*.token
+
