@@ -77,14 +77,16 @@
 | Installed broad save E2E | Save current visible conversation with privacy/audit | Plugin wrote record and audit event | Warn: captured Codex project/environment context; recorded as failed pattern |
 | Installed Chrome capture preview | Use VaultGPT with `@Chrome` to preview open ChatGPT conversation | Preview title, URL, message count, roles, privacy, folder/status, ID; no save before confirmation | Pass |
 | Installed Chrome capture save | Confirm saving previewed Chrome ChatGPT conversation | Saved `chat_a548c903b716a69a`, privacy passed, audit recorded URL/message count/source | Pass |
+| Installed Chrome record search | Search `.codexvault` for `Claude Code Kimi DeepSeek` | Returned `chat_a548c903b716a69a` via SQLite FTS5 | Pass |
+| Installed Chrome record export | Export `.codexvault` to ZIP | ZIP export succeeded and manifest included `chat_a548c903b716a69a` | Pass with note: test vault also contained earlier failed broad-capture record |
 
 ## UX Journey Tests
 
 | Test | Expected Result | Actual Result | Status |
 | --- | --- | --- | --- |
 | First-time Save Chat | useful chat saved under 30 seconds conceptually/manual | Chrome capture preview/confirm/save worked with constrained source | Pass with note: accessibility snapshot may omit some detailed bullet text |
-| Returning Search Vault | saved chat/prompt found under 20 seconds conceptually/manual |  | Pending |
-| Backup Vault | local backup created under 60 seconds conceptually/manual |  | Pending |
+| Returning Search Vault | saved chat/prompt found under 20 seconds conceptually/manual | `Claude Code Kimi DeepSeek` returned Chrome-captured record | Pass |
+| Backup Vault | local backup created under 60 seconds conceptually/manual | ZIP export succeeded for `.codexvault` | Pass with note: test vault included failed broad-capture artifact |
 | Convert chat to prompt | candidate prompt previewed before save |  | Pending |
 | Prompt variables | form preview shown before use |  | Pending |
 
@@ -104,6 +106,5 @@
   - real export edge cases not verified
   - public manifest metadata not finalized
 - Follow-up:
-  - verify search/export against saved Chrome-captured record
   - verify implicit invocation and should-not-trigger behavior
   - replace public metadata before GitHub publication

@@ -77,7 +77,6 @@ Implemented:
 Not complete:
 
 - implicit skill invocation verification
-- search/export verification against Chrome-captured record
 - full official ChatGPT export parser coverage against real exported edge cases
 - public repository URL and maintainer contact metadata
 

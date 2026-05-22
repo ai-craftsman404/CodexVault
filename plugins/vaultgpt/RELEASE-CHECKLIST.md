@@ -56,6 +56,8 @@
 - [x] Installed Chrome save preview required confirmation before writing
 - [x] Installed save workflow capture scope accepted for `@Chrome` ChatGPT source
 - [x] Real-browser selected-chat capture verified with connected Chrome extension
+- [x] Search verified against Chrome-captured record
+- [x] ZIP export verified against Chrome-captured record
 - [ ] Manifest placeholder URLs/email replaced
 
 ## Verification Snapshot
@@ -70,13 +72,14 @@
 - Installed save capture scope: failed acceptance because it captured Codex project/environment context rather than a constrained ChatGPT selected chat
 - Installed Chrome capture preview: pass, title `Claude Code vs Kimi`, source URL `https://chatgpt.com/c/69f75455-25d8-8391-a04d-5943d722c696`, 6 visible messages, privacy passed, no save before confirmation
 - Installed Chrome capture save: pass, record `chat_a548c903b716a69a`, privacy passed, audit included source URL, message count, and constrained capture scope
+- Installed Chrome record search: pass, query `Claude Code Kimi DeepSeek` returned `chat_a548c903b716a69a` using SQLite FTS5
+- Installed Chrome record export: pass, ZIP export succeeded and manifest included `chat_a548c903b716a69a`; test vault also contained the earlier failed broad-capture artifact
 - Scoped sensitive-pattern scan: no real secret/private-path hits
 
 ## Known Release Blockers
 
 - Public GitHub URL and maintainer contact are not finalized.
 - Implicit invocation and should-not-trigger behavior still need installed-plugin checks.
-- Search/export verification against the Chrome-captured record is still pending.
 
 ## Release Notes Draft
 
