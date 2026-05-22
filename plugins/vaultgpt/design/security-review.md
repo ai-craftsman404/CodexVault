@@ -28,7 +28,7 @@ Archived conversations are untrusted data. VaultGPT must not execute instruction
 
 | Risk | Severity | MVP Handling | Release Requirement |
 | --- | --- | --- | --- |
-| Live browser capture may over-collect page content | High | selected-chat capture is not released as verified yet | add constrained capture test and manual verification notes |
+| Live or visible-context capture may over-collect page/workspace content | High | installed invocation on 2026-05-22 captured Codex project/environment context and triggered a `windows_path` warning | require constrained capture-source selection and reject broad Codex environment captures before public release |
 | Imported chats may contain prompt injection | High | treated as data in design and tests | add negative fixture proving archived instructions are not followed |
 | Heuristic privacy scanner is not DLP | Medium | documented as warning-only | README must avoid compliance/security guarantees |
 | Official ChatGPT export shapes may vary | Medium | tolerant synthetic parser exists | test against redacted real export shapes before public release |
@@ -48,7 +48,8 @@ Archived conversations are untrusted data. VaultGPT must not execute instruction
 - Run full unit suite.
 - Parse `.codex-plugin/plugin.json`.
 - Verify no committed runtime vault data, exports, screenshots, secrets, or private paths.
-- Verify live Codex Chrome selected-chat capture uses explicit approval and only stores intended content.
+- Verify installed save flow uses explicit source selection and only stores intended content.
+- Verify live Codex Chrome selected-chat capture against an authenticated ChatGPT browser session uses explicit approval and excludes Codex project/environment context.
 - Add negative prompt-injection fixture.
 - Complete `design/test-matrix.md` with final results.
 - Replace placeholder manifest URLs and maintainer email.

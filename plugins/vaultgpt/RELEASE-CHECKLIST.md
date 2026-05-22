@@ -49,8 +49,10 @@
 - [x] Repo-local marketplace entry includes `vaultgpt`
 - [x] CLI E2E passes for init/import/reindex/search/export
 - [x] Current-session discovery boundary tested with `tool_search`
-- [ ] Codex app reload/install completed
-- [ ] Explicit and implicit VaultGPT skill invocation verified after reload/install
+- [x] Codex app reload/install completed
+- [x] Explicit VaultGPT plugin invocation verified after reload/install
+- [ ] Implicit VaultGPT skill invocation verified after reload/install
+- [ ] Installed save workflow capture scope accepted
 - [ ] Real-browser selected-chat capture verified
 - [ ] Manifest placeholder URLs/email replaced
 
@@ -61,14 +63,16 @@
 - `python -m json.tool plugins/vaultgpt/.codex-plugin/plugin.json`: pass
 - `python -m json.tool .agents/plugins/marketplace.json`: pass
 - CLI E2E: init/import-official/reindex/search/export ZIP pass
-- Current-session `tool_search` for `vaultgpt`: not visible until Codex app/plugin reload
+- Installed plugin invocation: pass, wrote `chat_codex_vaultgpt_save_20260522.json` and `audit.jsonl`
+- Installed save privacy review: warning, one medium `windows_path`
+- Installed save capture scope: failed acceptance because it captured Codex project/environment context rather than a constrained ChatGPT selected chat
 - Scoped sensitive-pattern scan: no real secret/private-path hits
 
 ## Known Release Blockers
 
 - Public GitHub URL and maintainer contact are not finalized.
-- VaultGPT has not been reloaded/installed into the active Codex app session for live invocation testing.
-- Live Codex Chrome selected-chat capture has not been verified against an authenticated ChatGPT browser session.
+- Installed save workflow over-captured Codex project/environment context.
+- Live Codex Chrome selected-chat capture has not been verified against an authenticated ChatGPT browser session with constrained scope.
 
 ## Release Notes Draft
 

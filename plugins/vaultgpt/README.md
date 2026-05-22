@@ -42,6 +42,8 @@ Local MVP foundation is ready for internal testing.
 
 Repo-local plugin discovery metadata is present at `.agents/plugins/marketplace.json`. A running Codex session must reload/install the plugin before live skill invocation can be accepted as passed.
 
+Installed-plugin explicit invocation has been verified, but the first save test over-captured Codex project/environment context. Public release remains blocked until the save flow is constrained to the intended ChatGPT selected conversation or explicit import source.
+
 Implemented:
 
 - cross-platform vault path resolution
@@ -65,7 +67,8 @@ Implemented:
 
 Not complete:
 
-- live Codex app reload/install and explicit/implicit skill invocation verification
+- implicit skill invocation verification
+- constrained installed save/capture workflow
 - live Codex Chrome selected-chat capture verification in the real browser UI
 - full official ChatGPT export parser coverage against real exported edge cases
 - public repository URL and maintainer contact metadata

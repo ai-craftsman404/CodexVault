@@ -13,7 +13,7 @@
 | --- | --- | --- | --- | --- | --- |
 | Unit testing | Mandatory | Yes | Script/module tests for vault, prompt, index, export, privacy | Pass | 26 tests passing for MVP foundation |
 | Integration testing | Mandatory | Yes | End-to-end local vault fixture workflows | Pass | CLI E2E passed for init/import/reindex/search/export |
-| Workflow testing | Mandatory | Yes | Save/Search/Export/Prompt/Privacy journeys | Partial pass | local CLI workflows pass; installed-plugin UX pending reload |
+| Workflow testing | Mandatory | Yes | Save/Search/Export/Prompt/Privacy journeys | Partial pass | local CLI workflows pass; explicit installed-plugin invocation passed but capture scope failed acceptance |
 | Error and fallback testing | Mandatory | Yes | Malformed export, missing vault, failed export target | Pending |  |
 | Boundary testing | Mandatory | Yes | Empty vault, large prompt, duplicate IDs, missing fields | Pending |  |
 | Contract/schema testing | Mandatory | Yes | JSON schema/version validation | Partial pass | schema version and manifest fields covered in unit tests |
@@ -21,7 +21,7 @@
 | Negative/abuse testing | Mandatory | Yes | prompt injection, path traversal, unsafe delete | Pending |  |
 | Static checks | Mandatory | Yes | PowerShell/Python lint/static checks as applicable | Partial pass | Python compileall and JSON parse pass |
 | Prompt injection testing | Mandatory | Yes | Archived chat contains malicious instructions | Partial pass | fixture proves import/export treats malicious text as inert data |
-| Sensitive data leakage | Mandatory | Yes | Secret/PII fixtures and export checks | Partial pass | heuristic scanner fixture and scoped repo scan covered |
+| Sensitive data leakage | Mandatory | Yes | Secret/PII fixtures and export checks | Warn | heuristic scanner caught Windows path in live invocation artifact; capture scope needs tightening |
 | Data provenance | Mandatory | Yes | manifest/source IDs/audit events | Partial pass | export manifest and audit append tests covered |
 | Tool/action validation | Mandatory | Yes | dry-run/confirmation for bulk actions | Partial pass | bulk plan is dry-run and requires confirmation |
 | Human-in-the-loop bypass | Mandatory | Yes | destructive/export override tests | Pending |  |
@@ -42,17 +42,17 @@
 | Manifest JSON parses | Valid JSON | Pass | Pass |
 | Manifest paths start with `./` | All relative paths valid | Pass | Pass |
 | Repo-local marketplace entry exists | `.agents/plugins/marketplace.json` includes VaultGPT | Pass | Pass |
-| Plugin can be installed/discovered locally | Codex recognizes plugin | Marketplace metadata ready; current session has not reloaded plugin | Blocked until Codex app/plugin reload |
+| Plugin can be installed/discovered locally | Codex recognizes plugin | VaultGPT installed and appeared in Codex plugin invocation UI on 2026-05-22 | Pass |
 
 ## Invocation
 
 | Test | Prompt | Expected Result | Actual Result | Status |
 | --- | --- | --- | --- | --- |
-| Explicit plugin invocation | Use VaultGPT to search my vault | VaultGPT skill activates |  | Pending |
+| Explicit plugin invocation | Use VaultGPT to save current conversation | VaultGPT skill activates | Pass: plugin invoked and produced local record/audit output | Pass |
 | Explicit skill invocation | Use the VaultGPT skill to export prompts | VaultGPT skill activates |  | Pending |
 | Implicit skill trigger | Save this ChatGPT conversation to my vault | VaultGPT skill activates |  | Pending |
 | Should-not-trigger prompt | Explain what a vault is in cryptography | VaultGPT does not trigger |  | Pending |
-| Current-session tool discovery | `tool_search` query for `vaultgpt` | VaultGPT is visible after reload/install | Not visible in current session | Blocked until Codex app/plugin reload |
+| Current-session tool discovery | `tool_search` query for `vaultgpt` | VaultGPT is visible after reload/install | Visible in installed session context after reload/install | Pass |
 
 ## Functional Behavior
 
@@ -62,7 +62,7 @@
 | Import fixture | Conversations normalize with IDs/hashes | Pass | Pass |
 | Import known model labels | Model metadata preserved and workflows continue | Pass | Partial |
 | Import unknown future model label | Unknown model label preserved, not rejected | Pass | Partial |
-| Capture fixture | Selected-chat payload normalizes | Pass with approval/privacy/audit checks | Partial until live browser UI verification |
+| Capture fixture | Selected-chat payload normalizes | Pass with approval/privacy/audit checks | Partial until constrained ChatGPT browser capture is verified |
 | Search fixture | Query returns snippets and source IDs | Pass | Pass |
 | SQLite FTS fixture | Rebuild/search works when FTS5 is available | Pass | Pass |
 | Organize | Folder/tag/pin metadata updates only metadata | Pass | Pass |
@@ -74,12 +74,13 @@
 | Privacy review | Warnings before sensitive export | Pass with manifest warning counts | Partial |
 | Audit log | Events append without duplicating full content | Pass | Partial |
 | CLI E2E | init/import-official/reindex/search/export zip | Pass: search hit `e2e_chat`, mode `sqlite-fts5`, backup/audit exist | Pass |
+| Installed plugin save E2E | Save current visible conversation with privacy/audit | Plugin wrote record and audit event | Warn: captured Codex project/environment context, not constrained ChatGPT selected chat |
 
 ## UX Journey Tests
 
 | Test | Expected Result | Actual Result | Status |
 | --- | --- | --- | --- |
-| First-time Save Chat | useful chat saved under 30 seconds conceptually/manual |  | Pending |
+| First-time Save Chat | useful chat saved under 30 seconds conceptually/manual | Installed plugin saved in 1m56s | Warn: workflow worked but capture scope was too broad |
 | Returning Search Vault | saved chat/prompt found under 20 seconds conceptually/manual |  | Pending |
 | Backup Vault | local backup created under 60 seconds conceptually/manual |  | Pending |
 | Convert chat to prompt | candidate prompt previewed before save |  | Pending |
@@ -98,11 +99,11 @@
 
 - Release candidate: not yet
 - Blocking issues:
-  - Codex app has not reloaded/installed VaultGPT for live skill invocation
-  - Chrome capture path not verified
+  - installed save flow over-captured Codex project/environment context
+  - constrained ChatGPT browser selected-chat capture not verified
   - real export edge cases not verified
   - public manifest metadata not finalized
 - Follow-up:
-  - reload/install plugin in Codex and verify explicit/implicit invocation
-  - complete live capture/manual UX verification
+  - tighten save workflow to require/validate intended capture source before writing
+  - complete constrained ChatGPT browser capture/manual UX verification
   - replace public metadata before GitHub publication
