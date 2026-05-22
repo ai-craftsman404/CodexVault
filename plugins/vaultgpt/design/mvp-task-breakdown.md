@@ -154,3 +154,62 @@ Acceptance:
 - explicit and implicit skill triggers verified
 - public packaging is self-contained under `plugins/vaultgpt/`
 
+## MVP Finish-Line Scope
+
+The local engine is implemented, but the product MVP is not over the line until the installed plugin experience passes these items.
+
+### 1. Codex Chrome Save-Chat Workflow
+
+- Use Codex Chrome extension as a core MVP capture path.
+- Capture only the intended selected/current ChatGPT browser conversation.
+- Do not capture broad Codex project context, workspace instructions, terminal output, or environment metadata unless explicitly selected as the source.
+- Show preview before save: title, source, message count, scope, model label if available, folder/status, and privacy findings.
+- Require explicit confirmation before writing.
+
+Acceptance:
+
+- installed plugin can save a real or synthetic ChatGPT browser conversation through the Chrome capture path
+- audit log records source as constrained browser capture
+- no project/environment paths appear unless they were present inside the selected chat
+
+### 2. Installed-Plugin UX
+
+- Verify the new starter action menu after reinstall/reload.
+- Verify explicit invocation.
+- Verify implicit invocation.
+- Verify should-not-trigger behavior.
+- Ensure Save Chat does not default to broad visible Codex context.
+
+Acceptance:
+
+- first-run user sees clear options, not one ambiguous save prompt
+- user can choose save/import/search/export/prompt/privacy actions
+- skill only activates when VaultGPT-relevant intent is present
+
+### 3. Core Workflows Through Plugin Surface
+
+- Import official ChatGPT export through plugin guidance.
+- Search local vault through plugin guidance.
+- Export or back up vault through plugin guidance.
+- Create/render prompt with variables through plugin guidance.
+- Run privacy review before save/export.
+
+Acceptance:
+
+- each workflow is tested from installed plugin prompt to local artifact/result
+- results are concise and show what was read/written
+- failures are reported without silent data loss
+
+### 4. Safety And Release Gates
+
+- Add redacted real-export edge-case fixture or document why unavailable.
+- Complete final test matrix.
+- Replace public manifest URL/email placeholders.
+- Update README with install, first-run menu, and known limitations.
+- Run final public-file scan.
+
+Acceptance:
+
+- release checklist has no unresolved MVP blockers
+- public repo metadata is final
+- no runtime vault data, private paths, exports, screenshots, or secrets are committed

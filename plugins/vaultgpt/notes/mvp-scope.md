@@ -72,3 +72,34 @@ A current user of Superpower ChatGPT or ChatGPT Toolbox should see that VaultGPT
 - Usage analytics
 - Multi-model gateway
 - Browser-side injected UI
+
+## Finish-Line MVP Items Still In Scope
+
+These are not deferrals. They are required before VaultGPT can be called a finished publishable MVP.
+
+1. Codex Chrome save-chat workflow
+   - constrained selected/current ChatGPT browser conversation capture
+   - preview and explicit confirmation before write
+   - privacy review and audit log
+   - no broad Codex project/environment context capture
+
+2. Installed-plugin UX
+   - starter action menu verified after reinstall/reload
+   - explicit and implicit invocation verified
+   - should-not-trigger prompt verified
+   - save/import/search/export/prompt/privacy actions visible and intuitive
+
+3. Core workflows through plugin surface
+   - official export import
+   - vault search
+   - export/backup
+   - prompt variables
+   - privacy review
+
+4. Final release gates
+   - real or redacted export edge-case validation
+   - completed test matrix and release checklist
+   - public manifest URL/contact metadata
+   - final public-file scan
+
+Current state: VaultGPT has a working local engine and installable plugin foundation. It is not yet a finished MVP product because the browser-capture workflow and installed-plugin end-to-end UX still need acceptance testing and refinement.
