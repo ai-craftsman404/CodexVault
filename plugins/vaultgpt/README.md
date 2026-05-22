@@ -38,7 +38,7 @@ Planned evidence:
 
 ## Status
 
-MVP foundation implementation is in progress.
+Local MVP foundation is ready for internal testing.
 
 Implemented:
 
@@ -65,7 +65,7 @@ Not complete:
 
 - live Codex Chrome selected-chat capture verification in the real browser UI
 - full official ChatGPT export parser coverage against real exported edge cases
-- complete release test matrix execution
+- public repository URL and maintainer contact metadata
 
 ## Privacy Model
 
@@ -81,6 +81,7 @@ See:
 - `design/mvp-task-breakdown.md`
 - `design/test-matrix.md`
 - `design/ux-adoption-flows.md`
+- `RELEASE-CHECKLIST.md`
 
 Run local tests:
 

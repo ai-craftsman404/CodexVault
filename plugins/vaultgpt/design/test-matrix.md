@@ -4,14 +4,14 @@
 
 - Plugin name: VaultGPT
 - Version: 0.1.0 draft
-- Test date: TBD
-- Tester: TBD
+- Test date: 2026-05-22
+- Tester: Codex
 
 ## Testing Category Coverage
 
 | Category | Priority | In Scope? | Validation Approach | Result / Gap | Notes |
 | --- | --- | --- | --- | --- | --- |
-| Unit testing | Mandatory | Yes | Script/module tests for vault, prompt, index, export, privacy | Pass | 24 tests passing for MVP foundation |
+| Unit testing | Mandatory | Yes | Script/module tests for vault, prompt, index, export, privacy | Pass | 25 tests passing for MVP foundation |
 | Integration testing | Mandatory | Yes | End-to-end local vault fixture workflows | Partial pass | CLI smoke pending after latest import command |
 | Workflow testing | Mandatory | Yes | Save/Search/Export/Prompt/Privacy journeys | Pending |  |
 | Error and fallback testing | Mandatory | Yes | Malformed export, missing vault, failed export target | Pending |  |
@@ -40,7 +40,7 @@
 | Local plugin path is valid | `plugins/vaultgpt/` is self-contained |  | Pending |
 | `.codex-plugin/plugin.json` exists | Manifest exists |  | Pending |
 | Manifest JSON parses | Valid JSON | Pass | Pass |
-| Manifest paths start with `./` | All relative paths valid |  | Pending |
+| Manifest paths start with `./` | All relative paths valid | Pass | Pass |
 | Plugin can be installed/discovered locally | Codex recognizes plugin |  | Pending |
 
 ## Invocation

@@ -1,0 +1,72 @@
+# VaultGPT Release Checklist
+
+## Plugin
+
+- Plugin name: VaultGPT
+- Package name: `vaultgpt`
+- Version: `0.1.0`
+- Release date: unreleased
+- Release owner: Code Plugin Guru
+
+## Required Files
+
+- [x] `.codex-plugin/plugin.json`
+- [x] `README.md`
+- [x] `LICENSE`
+- [x] `CHANGELOG.md`
+- [x] Skills under `skills/`
+- [x] Scripts under `scripts/`
+- [x] Design artifacts under `design/`
+- [x] Security review under `design/security-review.md`
+- [x] Test matrix under `design/test-matrix.md`
+- [ ] Public repository metadata finalized
+
+## Documentation
+
+- [x] Clear description
+- [x] Usage examples
+- [x] Core workflows
+- [x] Configuration notes for local vault path
+- [x] Known limitations
+- [x] Security and privacy notes
+- [x] Model-release resilience positioning
+- [ ] Public installation instructions after final repo URL is known
+- [ ] Live Codex Chrome capture verification notes
+
+## Quality Gates
+
+- [x] Complexity and model selection considered
+- [x] Viability assessment complete
+- [x] Design spec complete
+- [x] Test matrix populated
+- [x] Security review complete for MVP foundation
+- [x] No committed runtime vault data
+- [x] Scoped secret/private-path scan completed
+- [x] License selected
+- [x] Version and changelog updated
+- [x] Manifest JSON parses
+- [x] Local Python tests pass
+- [ ] Real-browser selected-chat capture verified
+- [ ] Manifest placeholder URLs/email replaced
+
+## Verification Snapshot
+
+- `python -m unittest discover -s tests`: 24 tests passing
+- `python -m compileall plugins/vaultgpt/scripts/vaultgpt`: pass
+- `python -m json.tool plugins/vaultgpt/.codex-plugin/plugin.json`: pass
+- Scoped sensitive-pattern scan: no real secret/private-path hits
+
+## Known Release Blockers
+
+- Public GitHub URL and maintainer contact are not finalized.
+- Live Codex Chrome selected-chat capture has not been verified against an authenticated ChatGPT browser session.
+
+## Release Notes Draft
+
+```markdown
+## v0.1.0
+
+- Adds VaultGPT local-first ChatGPT vault MVP foundation.
+- Includes approved selected-chat capture boundary, official export import, local search, optional SQLite FTS5, folder/tag/pin organization, prompt vaults, manual chains, privacy review, audit logs, and Markdown/JSON/ZIP export.
+- Known limitations: live browser capture must be verified per environment; official export parser is tolerant but needs redacted real-export edge-case validation before broad public release.
+```

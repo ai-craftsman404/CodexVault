@@ -19,7 +19,17 @@ from lib.search import index_status, search_json
 from lib.vault import initialize_vault, write_record
 
 
+PLUGIN_ROOT = Path(__file__).resolve().parents[3]
+
+
 class VaultGPTCoreTests(unittest.TestCase):
+    def test_plugin_manifest_parses_and_references_existing_skill_dir(self):
+        manifest_path = PLUGIN_ROOT / ".codex-plugin" / "plugin.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        self.assertEqual(manifest["name"], "vaultgpt")
+        self.assertEqual(manifest["version"], "0.1.0")
+        self.assertTrue((PLUGIN_ROOT / manifest["skills"]).resolve().is_dir())
+
     def test_resolve_vault_path_prefers_explicit_path(self):
         with tempfile.TemporaryDirectory() as tmp:
             explicit = Path(tmp) / "custom-vault"
