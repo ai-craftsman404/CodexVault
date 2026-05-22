@@ -46,19 +46,28 @@
 - [x] Version and changelog updated
 - [x] Manifest JSON parses
 - [x] Local Python tests pass
+- [x] Repo-local marketplace entry includes `vaultgpt`
+- [x] CLI E2E passes for init/import/reindex/search/export
+- [x] Current-session discovery boundary tested with `tool_search`
+- [ ] Codex app reload/install completed
+- [ ] Explicit and implicit VaultGPT skill invocation verified after reload/install
 - [ ] Real-browser selected-chat capture verified
 - [ ] Manifest placeholder URLs/email replaced
 
 ## Verification Snapshot
 
-- `python -m unittest discover -s tests`: 24 tests passing
+- `python -m unittest discover -s tests`: 26 tests passing
 - `python -m compileall plugins/vaultgpt/scripts/vaultgpt`: pass
 - `python -m json.tool plugins/vaultgpt/.codex-plugin/plugin.json`: pass
+- `python -m json.tool .agents/plugins/marketplace.json`: pass
+- CLI E2E: init/import-official/reindex/search/export ZIP pass
+- Current-session `tool_search` for `vaultgpt`: not visible until Codex app/plugin reload
 - Scoped sensitive-pattern scan: no real secret/private-path hits
 
 ## Known Release Blockers
 
 - Public GitHub URL and maintainer contact are not finalized.
+- VaultGPT has not been reloaded/installed into the active Codex app session for live invocation testing.
 - Live Codex Chrome selected-chat capture has not been verified against an authenticated ChatGPT browser session.
 
 ## Release Notes Draft

@@ -30,6 +30,15 @@ class VaultGPTCoreTests(unittest.TestCase):
         self.assertEqual(manifest["version"], "0.1.0")
         self.assertTrue((PLUGIN_ROOT / manifest["skills"]).resolve().is_dir())
 
+    def test_repo_marketplace_lists_vaultgpt_plugin(self):
+        repo_root = PLUGIN_ROOT.parents[1]
+        marketplace_path = repo_root / ".agents" / "plugins" / "marketplace.json"
+        marketplace = json.loads(marketplace_path.read_text(encoding="utf-8"))
+        entries = {entry["name"]: entry for entry in marketplace["plugins"]}
+        self.assertIn("vaultgpt", entries)
+        self.assertEqual(entries["vaultgpt"]["source"]["path"], "./plugins/vaultgpt")
+        self.assertEqual(entries["vaultgpt"]["policy"]["installation"], "AVAILABLE")
+
     def test_resolve_vault_path_prefers_explicit_path(self):
         with tempfile.TemporaryDirectory() as tmp:
             explicit = Path(tmp) / "custom-vault"
