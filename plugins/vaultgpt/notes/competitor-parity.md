@@ -68,3 +68,22 @@ VaultGPT should explicitly replace the risky parts of the extension model:
 - preserve audit logs for capture, export, redaction, and delete/archive actions
 - use privacy review before saving, indexing, or exporting sensitive material
 - provide clear provenance from output back to source chats
+
+## Capture And Export UX Lessons
+
+Agent-panel research on 2026-05-22 found these competitor patterns:
+
+- Per-conversation export is usually initiated from inside the active ChatGPT conversation UI.
+- Bulk export is usually handled through selected chats, folders, projects, or checkbox-style bulk actions.
+- Export UX emphasizes immediate format choices such as TXT, Markdown, JSON, PDF, HTML, or ZIP.
+- Public competitor materials show format selection, but not necessarily full transcript preview before download.
+- Competitors rely on being browser extensions running in the user's real ChatGPT page, so they can read the active tab/sidebar directly.
+- Users value selective export because native ChatGPT export is broad, delayed, and produces large archives rather than neatly scoped knowledge artifacts.
+
+Implications for VaultGPT MVP:
+
+- Primary capture target should be the current active ChatGPT tab through `@Chrome`.
+- Save by URL is useful as a fallback/debug path, not the main user flow.
+- Selected/multiple-tab capture can be deferred; folder/bulk export from the local vault is higher-value for MVP.
+- Preview/confirmation remains a VaultGPT differentiator even if competitors do not always show full preview.
+- Export should preserve metadata and provenance, especially Markdown/JSON/ZIP, to compete with folder/export tools.

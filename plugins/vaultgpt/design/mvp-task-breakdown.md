@@ -167,6 +167,7 @@ The local engine is implemented, but the product MVP is not over the line until 
 - Capture only the intended current ChatGPT browser conversation.
 - Do not capture broad Codex project context, workspace instructions, terminal output, or environment metadata unless explicitly selected as the source.
 - Show preview before save: title, source, message count, scope, model label if available, folder/status, and privacy findings.
+- Label capture fidelity when relevant: `official_export`, `chrome_accessibility_snapshot`, `dom_partial`, `dom_complete`, or `manual_review_needed`.
 - Require explicit confirmation before writing.
 
 Acceptance:
@@ -174,6 +175,7 @@ Acceptance:
 - installed plugin can preview and save the current active ChatGPT tab through the Chrome capture path
 - audit log records source as constrained browser capture
 - no project/environment paths appear unless they were present inside the selected chat
+- capture limitations are visible when the source is an accessibility snapshot rather than a full DOM/export
 
 ### 2. Installed-Plugin UX
 

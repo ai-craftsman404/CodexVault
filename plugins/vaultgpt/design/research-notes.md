@@ -36,6 +36,10 @@
 - Official in-app browser docs confirm it is not suitable for signed-in ChatGPT capture because it does not support authentication flows, regular browser profiles, cookies, extensions, or existing tabs.
 - Official approvals/security docs reinforce the need for sandboxing, approvals, and network controls around side-effecting or sensitive operations.
 - Official subagents docs support parallel specialized agents, but only when explicitly requested; subagents add token cost and should be used selectively.
+- Competitor extensions handle active/current chat capture by running inside the real ChatGPT browser page, not through an isolated in-app browser.
+- Competitors emphasize per-chat export, selected/bulk export, folder/project ZIP export, and format choice rather than URL-first save.
+- Official ChatGPT export should be treated as authoritative for full historical backup where available, while browser capture is best positioned as convenience capture for the current/visible session.
+- Accessibility snapshots are not authoritative full-page archives. If details are missing, VaultGPT should label capture confidence and later consider DOM/text/screenshot fallback.
 
 ## Differentiation
 
@@ -53,6 +57,7 @@
 | --- | --- | --- |
 | Paid extension users value full-text search and unlimited organization enough to switch | High | Before MVP scope freeze |
 | Codex Chrome selected-chat capture can support a constrained MVP workflow | Medium | Before implementation |
+| Accessibility snapshot capture is sufficient for MVP current-tab save | Medium | If users report missing code blocks, tables, long lists, or hidden/virtualized content |
 | Full unattended account crawl is too fragile for MVP | High | If official APIs/capabilities change |
 | Skill plus scripts is sufficient for MVP | High | If Chrome capture requires a stronger integration model |
 
@@ -62,5 +67,7 @@
 - Build the core workflow as a skill plus local scripts.
 - Treat Codex Chrome selected-chat capture as a constrained, explicit, user-approved workflow.
 - Keep in-app browser out of the signed-in ChatGPT capture path.
-- Keep official ChatGPT export import as reliable fallback/batch source.
+- Keep official ChatGPT export import as authoritative full-history/batch source where available, and as fallback when browser capture is incomplete.
+- Make `@Chrome` current active ChatGPT tab the primary browser-capture MVP UX; keep specific URL capture as fallback/debug.
+- Mark capture confidence in future records when extraction is partial or based on accessibility snapshot.
 - Keep subagent/agent-team usage progressive and explicit, not automatic for every action.
