@@ -32,16 +32,30 @@ Use this skill when the user wants to:
 
 ## MVP Workflows
 
+### Start Menu
+
+When the user asks what VaultGPT can do, starts VaultGPT without a specific action, or uses the default "show my available actions" prompt, present this concise menu:
+
+1. Save selected ChatGPT browser chat
+2. Import official ChatGPT export
+3. Search local VaultGPT vault
+4. Export or back up vault items
+5. Create or reuse prompt variables
+6. Run privacy review
+
+Ask the user to choose one action. Do not save broad visible Codex context from this menu.
+
 ### Save Chat
 
 When asked to save or capture a chat:
 
-1. Confirm capture source: Codex Chrome selected-chat capture, official export import, or manual file/input.
-2. Preview title, source, message count, capture scope, and default folder/status.
-3. Default new content to `Unfiled` unless the user provides folder metadata.
-4. Run privacy review before saving when content is available.
-5. Save only after explicit confirmation.
-6. Record audit event and provenance metadata.
+1. Confirm capture source before reading or writing anything: Codex Chrome selected-chat capture from ChatGPT, official export import, or manual file/input.
+2. Refuse to save generic "current visible Codex thread", workspace instructions, environment context, terminal output, or project metadata unless the user explicitly says that broad Codex context is the intended source.
+3. For ChatGPT browser capture, preview title, source URL/domain if available, message count, capture scope, model label if available, and default folder/status.
+4. Default new content to `Unfiled` unless the user provides folder metadata.
+5. Run privacy review before saving when content is available.
+6. Save only after explicit confirmation.
+7. Record audit event and provenance metadata.
 
 ### Search Vault
 
@@ -105,4 +119,3 @@ When asked to review privacy:
 - Put the next action first.
 - Be explicit about what is local, what is captured, and what is written.
 - Do not claim guaranteed security; say local-first controls and reduced third-party extension reliance.
-

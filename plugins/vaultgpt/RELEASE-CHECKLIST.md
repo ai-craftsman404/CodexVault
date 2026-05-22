@@ -49,6 +49,7 @@
 - [x] Repo-local marketplace entry includes `vaultgpt`
 - [x] CLI E2E passes for init/import/reindex/search/export
 - [x] Current-session discovery boundary tested with `tool_search`
+- [x] Default starter prompts changed from broad save prompt to safe action menu
 - [x] Codex app reload/install completed
 - [x] Explicit VaultGPT plugin invocation verified after reload/install
 - [ ] Implicit VaultGPT skill invocation verified after reload/install

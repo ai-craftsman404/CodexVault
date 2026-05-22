@@ -37,10 +37,12 @@
     "privacyPolicyURL": "https://example.com/vaultgpt/privacy",
     "termsOfServiceURL": "https://example.com/vaultgpt/terms",
     "defaultPrompt": [
-      "Use VaultGPT to save this ChatGPT conversation to my local vault with privacy review and audit logging.",
-      "Search my VaultGPT archive for prior chats, prompts, or chains related to this topic.",
-      "Create a reusable prompt or manual prompt chain from this captured conversation.",
-      "Export selected VaultGPT items to Markdown, JSON, or ZIP with a provenance manifest."
+      "Use VaultGPT to show my available actions: save selected chat, import export, search vault, export backup, prompt vault, and privacy review.",
+      "Use VaultGPT to save a selected ChatGPT browser conversation after preview, privacy review, and explicit confirmation.",
+      "Use VaultGPT to import an official ChatGPT export file into my local vault.",
+      "Use VaultGPT to search my local vault across saved chats, prompts, tags, and folders.",
+      "Use VaultGPT to export or back up selected vault items to Markdown, JSON, or ZIP with a provenance manifest.",
+      "Use VaultGPT to create or reuse a prompt with variables and optional manual prompt-chain steps."
     ],
     "brandColor": "#0B4F3A"
   }

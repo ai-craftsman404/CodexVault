@@ -29,6 +29,11 @@ class VaultGPTCoreTests(unittest.TestCase):
         self.assertEqual(manifest["name"], "vaultgpt")
         self.assertEqual(manifest["version"], "0.1.0")
         self.assertTrue((PLUGIN_ROOT / manifest["skills"]).resolve().is_dir())
+        prompts = manifest["interface"]["defaultPrompt"]
+        self.assertGreaterEqual(len(prompts), 6)
+        self.assertIn("show my available actions", prompts[0])
+        self.assertTrue(any("save a selected ChatGPT browser conversation" in prompt for prompt in prompts))
+        self.assertFalse(any("save this ChatGPT conversation" in prompt for prompt in prompts))
 
     def test_repo_marketplace_lists_vaultgpt_plugin(self):
         repo_root = PLUGIN_ROOT.parents[1]

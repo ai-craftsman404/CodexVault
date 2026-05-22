@@ -44,6 +44,15 @@ Repo-local plugin discovery metadata is present at `.agents/plugins/marketplace.
 
 Installed-plugin explicit invocation has been verified, but the first save test over-captured Codex project/environment context. Public release remains blocked until the save flow is constrained to the intended ChatGPT selected conversation or explicit import source.
 
+The install surface now uses multiple starter actions rather than a single broad save prompt:
+
+- show available actions
+- save selected ChatGPT browser conversation
+- import official ChatGPT export
+- search local vault
+- export or back up vault items
+- create or reuse prompt variables
+
 Implemented:
 
 - cross-platform vault path resolution
