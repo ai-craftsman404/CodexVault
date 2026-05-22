@@ -161,14 +161,17 @@ The local engine is implemented, but the product MVP is not over the line until 
 ### 1. Codex Chrome Save-Chat Workflow
 
 - Use Codex Chrome extension as a core MVP capture path.
-- Capture only the intended selected/current ChatGPT browser conversation.
+- Primary target: capture the current active ChatGPT tab through `@Chrome`.
+- Fallback target: capture a specific ChatGPT URL when the user provides one.
+- Defer selected-tabs or multi-tab capture until after MVP.
+- Capture only the intended current ChatGPT browser conversation.
 - Do not capture broad Codex project context, workspace instructions, terminal output, or environment metadata unless explicitly selected as the source.
 - Show preview before save: title, source, message count, scope, model label if available, folder/status, and privacy findings.
 - Require explicit confirmation before writing.
 
 Acceptance:
 
-- installed plugin can save a real or synthetic ChatGPT browser conversation through the Chrome capture path
+- installed plugin can preview and save the current active ChatGPT tab through the Chrome capture path
 - audit log records source as constrained browser capture
 - no project/environment paths appear unless they were present inside the selected chat
 

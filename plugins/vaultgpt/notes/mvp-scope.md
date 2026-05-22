@@ -78,7 +78,10 @@ A current user of Superpower ChatGPT or ChatGPT Toolbox should see that VaultGPT
 These are not deferrals. They are required before VaultGPT can be called a finished publishable MVP.
 
 1. Codex Chrome save-chat workflow
-   - constrained selected/current ChatGPT browser conversation capture
+   - primary target: current active ChatGPT tab
+   - fallback target: specific ChatGPT URL
+   - deferred: selected-tabs or multi-tab capture
+   - constrained current ChatGPT browser conversation capture
    - preview and explicit confirmation before write
    - privacy review and audit log
    - no broad Codex project/environment context capture

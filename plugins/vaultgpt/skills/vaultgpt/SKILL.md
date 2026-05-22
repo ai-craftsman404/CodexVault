@@ -36,7 +36,7 @@ Use this skill when the user wants to:
 
 When the user asks what VaultGPT can do, starts VaultGPT without a specific action, or uses the default "show my available actions" prompt, present this concise menu:
 
-1. Save selected ChatGPT browser chat
+1. Save current active ChatGPT tab
 2. Import official ChatGPT export
 3. Search local VaultGPT vault
 4. Export or back up vault items
@@ -49,13 +49,16 @@ Ask the user to choose one action. Do not save broad visible Codex context from 
 
 When asked to save or capture a chat:
 
-1. Confirm capture source before reading or writing anything: Codex Chrome selected-chat capture from ChatGPT, official export import, or manual file/input.
-2. Refuse to save generic "current visible Codex thread", workspace instructions, environment context, terminal output, or project metadata unless the user explicitly says that broad Codex context is the intended source.
-3. For ChatGPT browser capture, preview title, source URL/domain if available, message count, capture scope, model label if available, and default folder/status.
-4. Default new content to `Unfiled` unless the user provides folder metadata.
-5. Run privacy review before saving when content is available.
-6. Save only after explicit confirmation.
-7. Record audit event and provenance metadata.
+1. Confirm capture target before reading or writing anything. Default MVP target is the current active ChatGPT tab through `@Chrome`.
+2. Use a specific ChatGPT URL only as a fallback/debug target when the user provides one.
+3. If no active readable ChatGPT tab is available, ask the user to open or activate the target ChatGPT conversation in Chrome.
+4. Defer multi-tab or selected-tabs capture unless the user explicitly asks for it.
+5. Refuse to save generic "current visible Codex thread", workspace instructions, environment context, terminal output, or project metadata unless the user explicitly says that broad Codex context is the intended source.
+6. For ChatGPT browser capture, preview title, source URL/domain, message count, roles count when available, capture scope, model label if available, and default folder/status.
+7. Default new content to `Unfiled` unless the user provides folder metadata.
+8. Run privacy review before saving when content is available.
+9. Save only after explicit confirmation.
+10. Record audit event and provenance metadata.
 
 ### Search Vault
 

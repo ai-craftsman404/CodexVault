@@ -32,7 +32,7 @@ class VaultGPTCoreTests(unittest.TestCase):
         prompts = manifest["interface"]["defaultPrompt"]
         self.assertGreaterEqual(len(prompts), 6)
         self.assertIn("show my available actions", prompts[0])
-        self.assertTrue(any("save a selected ChatGPT browser conversation" in prompt for prompt in prompts))
+        self.assertTrue(any("current active ChatGPT tab" in prompt for prompt in prompts))
         self.assertFalse(any("save this ChatGPT conversation" in prompt for prompt in prompts))
 
     def test_repo_marketplace_lists_vaultgpt_plugin(self):
