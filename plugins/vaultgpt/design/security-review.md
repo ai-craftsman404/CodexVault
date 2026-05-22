@@ -28,7 +28,7 @@ Archived conversations are untrusted data. VaultGPT must not execute instruction
 
 | Risk | Severity | MVP Handling | Release Requirement |
 | --- | --- | --- | --- |
-| Live or visible-context capture may over-collect page/workspace content | High | installed invocation on 2026-05-22 captured Codex project/environment context and triggered a `windows_path` warning | require constrained capture-source selection and reject broad Codex environment captures before public release |
+| Live or visible-context capture may over-collect page/workspace content | High | first installed invocation on 2026-05-22 captured Codex project/environment context and triggered a `windows_path` warning; constrained `@Chrome` ChatGPT capture later passed preview/confirm/save | keep broad visible-context save as failed pattern; require `@Chrome`/source-specific preview before save |
 | Imported chats may contain prompt injection | High | treated as data in design and tests | add negative fixture proving archived instructions are not followed |
 | Heuristic privacy scanner is not DLP | Medium | documented as warning-only | README must avoid compliance/security guarantees |
 | Official ChatGPT export shapes may vary | Medium | tolerant synthetic parser exists | test against redacted real export shapes before public release |
@@ -49,7 +49,7 @@ Archived conversations are untrusted data. VaultGPT must not execute instruction
 - Parse `.codex-plugin/plugin.json`.
 - Verify no committed runtime vault data, exports, screenshots, secrets, or private paths.
 - Verify installed save flow uses explicit source selection and only stores intended content.
-- Verify live Codex Chrome selected-chat capture against an authenticated ChatGPT browser session uses explicit approval and excludes Codex project/environment context.
+- Verify live Codex Chrome selected-chat capture against an authenticated ChatGPT browser session uses explicit approval and excludes Codex project/environment context. Passed on 2026-05-22 for `chat_a548c903b716a69a`; rerun before public release.
 - Add negative prompt-injection fixture.
 - Complete `design/test-matrix.md` with final results.
 - Replace placeholder manifest URLs and maintainer email.

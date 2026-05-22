@@ -53,8 +53,9 @@
 - [x] Codex app reload/install completed
 - [x] Explicit VaultGPT plugin invocation verified after reload/install
 - [ ] Implicit VaultGPT skill invocation verified after reload/install
-- [ ] Installed save workflow capture scope accepted
-- [ ] Real-browser selected-chat capture verified
+- [x] Installed Chrome save preview required confirmation before writing
+- [x] Installed save workflow capture scope accepted for `@Chrome` ChatGPT source
+- [x] Real-browser selected-chat capture verified with connected Chrome extension
 - [ ] Manifest placeholder URLs/email replaced
 
 ## Verification Snapshot
@@ -67,13 +68,15 @@
 - Installed plugin invocation: pass, wrote `chat_codex_vaultgpt_save_20260522.json` and `audit.jsonl`
 - Installed save privacy review: warning, one medium `windows_path`
 - Installed save capture scope: failed acceptance because it captured Codex project/environment context rather than a constrained ChatGPT selected chat
+- Installed Chrome capture preview: pass, title `Claude Code vs Kimi`, source URL `https://chatgpt.com/c/69f75455-25d8-8391-a04d-5943d722c696`, 6 visible messages, privacy passed, no save before confirmation
+- Installed Chrome capture save: pass, record `chat_a548c903b716a69a`, privacy passed, audit included source URL, message count, and constrained capture scope
 - Scoped sensitive-pattern scan: no real secret/private-path hits
 
 ## Known Release Blockers
 
 - Public GitHub URL and maintainer contact are not finalized.
-- Installed save workflow over-captured Codex project/environment context.
-- Live Codex Chrome selected-chat capture has not been verified against an authenticated ChatGPT browser session with constrained scope.
+- Implicit invocation and should-not-trigger behavior still need installed-plugin checks.
+- Search/export verification against the Chrome-captured record is still pending.
 
 ## Release Notes Draft
 
