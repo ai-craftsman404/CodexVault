@@ -2,9 +2,9 @@
 
 ## Current Status
 
-VaultGPT is an installable Codex plugin with a working local engine and a verified `@Chrome` capture path.
+VaultGPT is an installable Codex plugin and MVP feature-complete candidate with a working local engine and a verified `@Chrome` capture path.
 
-Do not call this a finished public MVP yet. Remaining work is mostly installed-plugin acceptance testing and final public metadata.
+Do not call this final release-ready yet. Remaining work is mostly the final implicit active-tab save retest, public metadata, and final public scan/release packaging.
 
 ## Latest Important Commits
 
@@ -36,6 +36,9 @@ Do not call this a finished public MVP yet. Remaining work is mostly installed-p
 - Installed plugin explicit invocation.
 - Connected `@Chrome` current active ChatGPT tab preview/save.
 - Search/export verification against Chrome-captured record.
+- Installed implicit search routing.
+- Installed should-not-trigger behavior for unrelated cryptography prompt.
+- 28 local VaultGPT tests passing.
 
 ## Critical Lessons Learned
 
@@ -92,9 +95,9 @@ Expected result:
 
 ### 1. Installed-Plugin Invocation Tests
 
-Run in a fresh/new Codex chat where VaultGPT is installed.
+Partially complete.
 
-Implicit trigger prompt:
+Still outstanding when Codex Chrome exposes an active ChatGPT tab:
 
 ```text
 Save my current active ChatGPT tab to VaultGPT. Preview first and do not save until I confirm.
@@ -107,28 +110,39 @@ Expected:
 - It previews title, URL, message count, roles count, privacy, capture confidence, limitations, folder/status, proposed ID.
 - It does not save before confirmation.
 
-Search prompt:
+Latest result:
+
+- blocked on 2026-05-23 because Codex Chrome connected but reported no active/open tab
+- `openTabs()` returned `[]`
+- `browser.tabs.selected()` returned `No active tab found`
+- broad Codex-thread capture was not accepted as success
+
+Completed search prompt:
 
 ```text
 Search my VaultGPT archive for Claude Code Kimi.
 ```
 
-Expected:
+Result:
 
-- VaultGPT activates.
-- Returns saved record or says no matches with index status.
+- pass
+- returned `chat_a548c903b716a69a`
+- title: `Claude Code vs Kimi`
+- mode: `sqlite-fts5`
+- index status: `ok`
 
-Should-not-trigger prompt:
+Completed should-not-trigger prompt:
 
 ```text
 Explain what a vault is in cryptography.
 ```
 
-Expected:
+Result:
 
-- VaultGPT should not activate.
+- pass
+- no VaultGPT/tool route returned during discovery
 
-Record results in:
+Recorded results in:
 
 - `plugins/vaultgpt/design/test-matrix.md`
 - `plugins/vaultgpt/RELEASE-CHECKLIST.md`
@@ -194,4 +208,10 @@ Last verified:
 
 ```text
 28 tests passing
+```
+
+Command used:
+
+```powershell
+$env:PYTHONPATH='C:\Users\georg\codex-project\Code-Plugin-Guru\plugins\vaultgpt\scripts\vaultgpt'; python -m unittest discover -s plugins/vaultgpt/scripts/vaultgpt/tests
 ```

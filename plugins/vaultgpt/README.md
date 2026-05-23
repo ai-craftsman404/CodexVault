@@ -38,11 +38,13 @@ Planned evidence:
 
 ## Status
 
-Local MVP foundation is ready for internal testing.
+VaultGPT is an MVP feature-complete candidate, but it is not final release-ready yet.
 
 Repo-local plugin discovery metadata is present at `.agents/plugins/marketplace.json`. A running Codex session must reload/install the plugin before live skill invocation can be accepted as passed.
 
 Installed-plugin explicit invocation has been verified. The first broad save test over-captured Codex project/environment context and is treated as a failed pattern. The corrected `@Chrome` workflow successfully previewed and saved a constrained ChatGPT browser conversation after confirmation.
+
+Implicit search routing and should-not-trigger behavior have also been verified. The final implicit active-tab save retest is still outstanding because Codex Chrome was connected but did not expose an active/open Chrome tab during the latest acceptance pass. Broad Codex-thread capture must not be treated as success for this gate.
 
 The install surface now uses multiple starter actions rather than a single broad save prompt:
 
@@ -53,7 +55,7 @@ The install surface now uses multiple starter actions rather than a single broad
 - export or back up vault items
 - create or reuse prompt variables
 
-Implemented:
+Implemented and verified:
 
 - cross-platform vault path resolution
 - local vault initialization
@@ -73,12 +75,19 @@ Implemented:
 - heuristic privacy scanner
 - manual prompt chains
 - CLI `init`, `status`, `search`, `import-official`, `reindex`, and `export`
+- installed explicit VaultGPT invocation
+- installed `@Chrome` ChatGPT capture preview/save with approval
+- search and export against a Chrome-captured record
+- implicit VaultGPT search routing
+- should-not-trigger behavior for unrelated cryptography prompts
+- 28 local VaultGPT tests
 
-Not complete:
+Outstanding finishing-line gates:
 
-- implicit skill invocation verification
-- full official ChatGPT export parser coverage against real exported edge cases
-- public repository URL and maintainer contact metadata
+- final implicit active ChatGPT tab save retest when Codex Chrome exposes an active ChatGPT tab
+- public repository URL, maintainer contact, homepage/privacy/terms metadata
+- final public scan and release packaging after metadata is finalized
+- real exported ChatGPT edge-case validation, deferred to post-MVP/public-beta unless a safe redacted sample becomes available
 
 ## Privacy Model
 
