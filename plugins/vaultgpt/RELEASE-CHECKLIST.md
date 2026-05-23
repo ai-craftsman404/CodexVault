@@ -31,7 +31,7 @@
 - [x] Security and privacy notes
 - [x] Model-release resilience positioning
 - [ ] Public installation instructions after final repo URL is known
-- [ ] Live Codex Chrome capture verification notes
+- [x] Live Codex Chrome capture verification notes
 
 ## Quality Gates
 
@@ -52,7 +52,9 @@
 - [x] Default starter prompts changed from broad save prompt to safe action menu
 - [x] Codex app reload/install completed
 - [x] Explicit VaultGPT plugin invocation verified after reload/install
-- [ ] Implicit VaultGPT skill invocation verified after reload/install
+- [ ] Implicit VaultGPT active-tab save verified after reload/install
+- [x] Implicit VaultGPT search routing verified after reload/install
+- [x] Should-not-trigger behavior verified for unrelated cryptography prompt
 - [x] Installed Chrome save preview required confirmation before writing
 - [x] Installed save workflow capture scope accepted for `@Chrome` ChatGPT source
 - [x] Real-browser selected-chat capture verified with connected Chrome extension
@@ -63,7 +65,7 @@
 
 ## Verification Snapshot
 
-- `python -m unittest discover -s tests`: 26 tests passing
+- `$env:PYTHONPATH='C:\Users\georg\codex-project\Code-Plugin-Guru\plugins\vaultgpt\scripts\vaultgpt'; python -m unittest discover -s plugins/vaultgpt/scripts/vaultgpt/tests`: 28 tests passing
 - `python -m compileall plugins/vaultgpt/scripts/vaultgpt`: pass
 - `python -m json.tool plugins/vaultgpt/.codex-plugin/plugin.json`: pass
 - `python -m json.tool .agents/plugins/marketplace.json`: pass
@@ -74,6 +76,9 @@
 - Installed Chrome capture preview: pass, title `Claude Code vs Kimi`, source URL `https://chatgpt.com/c/69f75455-25d8-8391-a04d-5943d722c696`, 6 visible messages, privacy passed, no save before confirmation
 - Installed Chrome capture save: pass, record `chat_a548c903b716a69a`, privacy passed, audit included source URL, message count, and constrained capture scope
 - Installed Chrome record search: pass, query `Claude Code Kimi DeepSeek` returned `chat_a548c903b716a69a` using SQLite FTS5
+- Installed implicit search prompt: pass, query `Claude Code Kimi` returned `chat_a548c903b716a69a`, title `Claude Code vs Kimi`, mode `sqlite-fts5`, index status `ok`
+- Installed should-not-trigger prompt: pass, `Explain what a vault is in cryptography.` returned no VaultGPT/tool route during discovery
+- Installed implicit active-tab save retest: blocked on 2026-05-23 because Codex Chrome connected but reported no active/open Chrome tab (`openTabs()` returned `[]`; `browser.tabs.selected()` returned `No active tab found`); broad Codex-thread capture was not accepted as success
 - Installed Chrome record export: pass, ZIP export succeeded and manifest included `chat_a548c903b716a69a`; test vault also contained the earlier failed broad-capture artifact
 - Synthetic official export edge fixture: pass, covers missing title, `conversation_id`, multipart dict content, empty system content, and tool result content
 - Scoped sensitive-pattern scan: no real secret/private-path hits
@@ -81,7 +86,7 @@
 ## Known Release Blockers
 
 - Public GitHub URL and maintainer contact are not finalized.
-- Implicit invocation and should-not-trigger behavior still need installed-plugin checks.
+- Final implicit active-tab save retest still needs a Chrome ChatGPT tab visible to Codex Chrome.
 - Redacted real-export validation is deferred to post-MVP/public-beta hardening unless a safe sample becomes available.
 
 ## Release Notes Draft

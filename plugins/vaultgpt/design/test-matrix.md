@@ -4,16 +4,16 @@
 
 - Plugin name: VaultGPT
 - Version: 0.1.0 draft
-- Test date: 2026-05-22
+- Test date: 2026-05-23
 - Tester: Codex
 
 ## Testing Category Coverage
 
 | Category | Priority | In Scope? | Validation Approach | Result / Gap | Notes |
 | --- | --- | --- | --- | --- | --- |
-| Unit testing | Mandatory | Yes | Script/module tests for vault, prompt, index, export, privacy | Pass | 26 tests passing for MVP foundation |
+| Unit testing | Mandatory | Yes | Script/module tests for vault, prompt, index, export, privacy | Pass | 28 tests passing for MVP foundation |
 | Integration testing | Mandatory | Yes | End-to-end local vault fixture workflows | Pass | CLI E2E passed for init/import/reindex/search/export |
-| Workflow testing | Mandatory | Yes | Save/Search/Export/Prompt/Privacy journeys | Partial pass | local CLI workflows pass; constrained Chrome save preview/confirm passed; remaining plugin workflows pending |
+| Workflow testing | Mandatory | Yes | Save/Search/Export/Prompt/Privacy journeys | Partial pass | local CLI workflows pass; constrained Chrome save preview/confirm passed; installed search prompt verified; active Chrome tab unavailable for final implicit save retest |
 | Error and fallback testing | Mandatory | Yes | Malformed export, missing vault, failed export target | Partial pass | unsupported export shape raises; more failed-target tests pending |
 | Boundary testing | Mandatory | Yes | Empty vault, large prompt, duplicate IDs, missing fields | Partial pass | synthetic official export edge fixture covers missing title/id fallback and empty messages |
 | Contract/schema testing | Mandatory | Yes | JSON schema/version validation | Partial pass | schema version and manifest fields covered in unit tests |
@@ -49,9 +49,10 @@
 | Test | Prompt | Expected Result | Actual Result | Status |
 | --- | --- | --- | --- | --- |
 | Explicit plugin invocation | Use VaultGPT to save current conversation | VaultGPT skill activates | Pass: plugin invoked and produced local record/audit output | Pass |
-| Explicit skill invocation | Use the VaultGPT skill to export prompts | VaultGPT skill activates |  | Pending |
-| Implicit skill trigger | Save this ChatGPT conversation to my vault | VaultGPT skill activates |  | Pending |
-| Should-not-trigger prompt | Explain what a vault is in cryptography | VaultGPT does not trigger |  | Pending |
+| Explicit skill invocation | Use the VaultGPT skill to export prompts | VaultGPT skill activates | Covered by installed explicit invocation and export/search verification; prompt-only export remains a low-risk follow-up | Partial |
+| Implicit skill trigger | Save my current active ChatGPT tab to VaultGPT. Preview first and do not save until I confirm. | VaultGPT activates and uses `@Chrome`; no save before confirmation | Blocked on 2026-05-23: Chrome extension connection was live, but `openTabs()` returned `[]` and `browser.tabs.selected()` returned `No active tab found`; no broad Codex-thread capture was accepted as success | Blocked |
+| Implicit search trigger | Search my VaultGPT archive for Claude Code Kimi. | VaultGPT activates or routes to local VaultGPT search; returns saved record or index status | Pass: local installed vault search returned `chat_a548c903b716a69a`, title `Claude Code vs Kimi`, mode `sqlite-fts5`, index status `ok` | Pass |
+| Should-not-trigger prompt | Explain what a vault is in cryptography | VaultGPT does not trigger | Pass: tool discovery for the exact negative prompt returned no tools; VaultGPT was not routed | Pass |
 | Current-session tool discovery | `tool_search` query for `vaultgpt` | VaultGPT is visible after reload/install | Visible in installed session context after reload/install | Pass |
 
 ## Functional Behavior
@@ -80,6 +81,7 @@
 | Installed Chrome capture save | Confirm saving previewed Chrome ChatGPT conversation | Saved `chat_a548c903b716a69a`, privacy passed, audit recorded URL/message count/source | Pass |
 | Installed Chrome record search | Search `.codexvault` for `Claude Code Kimi DeepSeek` | Returned `chat_a548c903b716a69a` via SQLite FTS5 | Pass |
 | Installed Chrome record export | Export `.codexvault` to ZIP | ZIP export succeeded and manifest included `chat_a548c903b716a69a` | Pass with note: test vault also contained earlier failed broad-capture record |
+| Installed implicit Chrome active-tab retest | Prompt without explicit plugin name: save current active ChatGPT tab, preview first, no save until confirm | Uses `@Chrome` current active ChatGPT tab; previews only constrained ChatGPT source; no write before confirmation | Blocked on 2026-05-23: Chrome extension connected, but no active/open tab was exposed to Codex Chrome; broad Codex-thread capture remains rejected as non-success | Blocked |
 
 ## UX Journey Tests
 
@@ -105,7 +107,8 @@
 - Release candidate: not yet
 - Blocking issues:
   - public manifest metadata not finalized
+  - final installed implicit active-tab save retest needs a Chrome tab visible to Codex Chrome
 - Follow-up:
-  - verify implicit invocation and should-not-trigger behavior
+  - rerun implicit active-tab save retest when Chrome exposes an active ChatGPT tab to Codex Chrome
   - keep real export validation as post-MVP/public-beta hardening unless redacted sample becomes available
   - replace public metadata before GitHub publication
