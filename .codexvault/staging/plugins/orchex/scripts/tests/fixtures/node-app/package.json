@@ -1,9 +1,0 @@
-{
-  "name": "orchex-node-fixture",
-  "private": true,
-  "scripts": {
-    "test": "vitest run",
-    "build": "vite build",
-    "lint": "eslint ."
-  }
-}

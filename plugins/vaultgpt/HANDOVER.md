@@ -4,7 +4,7 @@
 
 VaultGPT is an installable Codex plugin and MVP feature-complete release candidate with a working local engine and a verified `@Chrome` capture path.
 
-The VaultGPT package is release-candidate ready. Whole-repository publication still needs pre-existing root `.codexvault/` artifacts outside `plugins/vaultgpt` removed or excluded.
+The VaultGPT package is release-candidate ready. The previous whole-repository tracked `.codexvault/` publication blocker has been cleared by removing root `.codexvault/` artifacts from git tracking while leaving local files ignored.
 
 ## Latest Important Commits
 
@@ -81,7 +81,7 @@ Practical insights:
 - Broad Codex-thread capture must remain explicitly rejected as a failed pattern, even if it writes a syntactically valid vault record.
 - Accessibility/DOM snapshot capture is acceptable for MVP only when the preview labels confidence and limitations; official export remains the authoritative full-history backup path.
 - Public scans should distinguish real committed secrets/private paths from intentionally synthetic privacy-scanner fixtures.
-- VaultGPT package readiness and whole-repository publication readiness are different: the VaultGPT package is release-candidate ready, but root repo `.codexvault/` artifacts still block publishing the full repository.
+- VaultGPT package readiness and whole-repository publication readiness are different; root repo `.codexvault/` artifacts must stay ignored and out of git.
 
 Branch/worktree insight:
 
@@ -235,7 +235,8 @@ VaultGPT package result:
 
 Whole-repo note:
 
-- pre-existing tracked root `.codexvault/` artifacts remain outside the VaultGPT package and must be removed or excluded before publishing the whole repository
+- pre-existing root `.codexvault/` artifacts were removed from git tracking with `git rm --cached -r .codexvault`; they remain local and are covered by root `.gitignore`
+- unrelated private-path examples remain outside VaultGPT in CodexVault/PremortemX docs and tooling; clean those in a separate repo hygiene pass before publishing the entire repository
 
 Useful checks:
 

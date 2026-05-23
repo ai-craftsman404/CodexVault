@@ -26,7 +26,7 @@
 | Tool/action validation | Mandatory | Yes | dry-run/confirmation for bulk actions | Partial pass | bulk plan is dry-run and requires confirmation |
 | Human-in-the-loop bypass | Mandatory | Yes | destructive/export override tests | Pending |  |
 | Agent-to-agent boundary | Mandatory | Yes | if subagents used for review, main thread adjudicates | Pending | Design-time then runtime |
-| Dependency/secret leakage | Mandatory | Yes | git status, ignore rules, secret scan where available | Pass for VaultGPT package | scoped VaultGPT scan found no real secret/private-path hits; repo-wide root `.codexvault/` artifacts remain outside VaultGPT and must be handled before whole-repo publication |
+| Dependency/secret leakage | Mandatory | Yes | git status, ignore rules, secret scan where available | Pass for VaultGPT | scoped VaultGPT scan found no real secret/private-path hits; root `.codexvault` artifacts removed from git tracking and covered by `.gitignore`; unrelated private-path examples outside VaultGPT need separate repo hygiene |
 | Audit trail completeness | Mandatory | Yes | capture/export/privacy/delete events logged | Partial pass | init/import/export and constrained Chrome capture covered; delete pending |
 | GDPR/data retention | Mandatory | Partial | delete/retention documented; no enterprise claims | Pending | MVP local-only |
 | RBAC | Mandatory | No | N/A | Not applicable | Single-user local MVP |
@@ -106,7 +106,6 @@
 
 - Release candidate: yes for the VaultGPT package
 - Blocking issues:
-  - whole-repo publication still needs pre-existing root `.codexvault/` artifacts outside VaultGPT removed or excluded
+  - none for VaultGPT MVP release-candidate status
 - Follow-up:
   - keep real export validation as post-MVP/public-beta hardening unless redacted sample becomes available
-  - replace public metadata before GitHub publication

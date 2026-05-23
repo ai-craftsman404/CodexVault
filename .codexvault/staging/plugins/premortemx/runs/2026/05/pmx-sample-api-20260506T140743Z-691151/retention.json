@@ -1,8 +1,0 @@
-{
-    "notes":  [
-                  "Retention and sensitivity decisions belong here."
-              ],
-    "recommendation":  "none",
-    "likelySensitive":  false,
-    "encryptionDecision":  "not-requested"
-}

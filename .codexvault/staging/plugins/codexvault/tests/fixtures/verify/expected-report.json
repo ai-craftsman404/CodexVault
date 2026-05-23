@@ -1,9 +1,0 @@
-{
-  "schemaVersion": "v1a",
-  "validationStatus": "validated-with-warnings",
-  "summary": "Restore verification stub created",
-  "reasons": [
-    "runtime mismatch check not yet implemented"
-  ]
-}
-

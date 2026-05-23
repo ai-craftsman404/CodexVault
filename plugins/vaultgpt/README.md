@@ -1,6 +1,35 @@
 # VaultGPT
 
-VaultGPT is a free, local-first Codex plugin designed to replace paid ChatGPT power-extension workflows without relying on opaque third-party browser extensions.
+VaultGPT gives you the ChatGPT power-extension features people normally pay for, such as saved chats, folders, tags, search, exports, prompt libraries, and backups, but free, local-first, and powered by Codex instead of an opaque third-party browser extension.
+
+If your ChatGPT history has become valuable knowledge, VaultGPT helps you keep ownership of it: preview before saving, store it locally in open formats, search it later, reuse prompts, export backups, and keep an audit trail without handing your conversation archive to another extension vendor.
+
+It is designed to replace the most useful paid/capped workflows from popular ChatGPT browser extensions:
+
+- save useful ChatGPT conversations
+- organize chats with folders, tags, pins, and an inbox
+- search across saved chats and prompts
+- export or back up chats to open local formats
+- build a reusable prompt vault with variables and simple chains
+- review privacy before saving or exporting
+- keep an audit trail of what was captured and where it came from
+
+VaultGPT's core bet is simple: users should own their ChatGPT history locally, in open files, using Codex-native workflows instead of opaque browser-extension storage.
+
+## Why VaultGPT
+
+Many ChatGPT users already pay for third-party extensions because ChatGPT history becomes hard to manage at scale. The common paid features are not exotic: better search, folders, prompt libraries, bulk export, backups, tags, pins, and workflow shortcuts.
+
+VaultGPT targets that demand directly:
+
+- Free instead of subscription-gated.
+- Local-first instead of extension-cloud-first.
+- Codex-native instead of opaque third-party scraping.
+- Open formats instead of lock-in.
+- Explicit preview and confirmation instead of silent capture.
+- Privacy review and audit logs by default.
+
+The goal is not to win by adding more UI complexity. The goal is to give users the familiar high-value extension workflows they already understand, but in a safer Codex-powered package.
 
 ## MVP Focus
 
@@ -19,7 +48,21 @@ VaultGPT is a free, local-first Codex plugin designed to replace paid ChatGPT po
 
 ## Positioning
 
-VaultGPT gives ChatGPT power-extension features for free, without forcing users to trust a third-party browser extension with their AI history.
+VaultGPT is positioned as the free, privacy-first alternative to paid ChatGPT productivity extensions.
+
+The adoption pitch:
+
+```text
+Keep the ChatGPT extension features you already want. Drop the subscription and the opaque data risk.
+```
+
+For MVP, VaultGPT prioritizes competitor-parity features that users already value over speculative novelty. Its main differentiator is the delivery model: local-first storage, Codex Chrome capture, transparent operations, and a path to deeper Codex agent workflows over time.
+
+## Cross-Platform Design
+
+VaultGPT is designed to be operating-system agnostic across Windows, macOS, and Linux. Core vault workflows use local filesystem paths, JSON, SQLite FTS5 when available, Markdown, and ZIP archives rather than OS-specific services.
+
+Codex Chrome capture depends on the Codex desktop app, Chrome, the Codex Chrome extension, and the native browser bridge being available in the user's environment. Those integration requirements can vary by platform, network region, and Codex release.
 
 ## Model-Release Resilience
 
@@ -83,9 +126,8 @@ Implemented and verified:
 - should-not-trigger behavior for unrelated cryptography prompts
 - 28 local VaultGPT tests
 
-Outstanding repo-publication gate:
+Deferred hardening:
 
-- remove pre-existing root `.codexvault/` artifacts outside the VaultGPT package before publishing the whole repository
 - real exported ChatGPT edge-case validation, deferred to post-MVP/public-beta unless a safe redacted sample becomes available
 
 ## Public Metadata
@@ -103,6 +145,125 @@ Until VaultGPT is split into a standalone repository, install it from this repos
 ```text
 https://github.com/ai-craftsman404/CodexVault/tree/main/plugins/vaultgpt
 ```
+
+## User Workflows
+
+### Simple Example: Save And Find One Useful Chat
+
+Use case: you had a useful ChatGPT conversation about choosing between Claude Code, Kimi, and DeepSeek, and you want to save it locally so you can find it later.
+
+1. Open that ChatGPT conversation in Chrome.
+2. In Codex, type:
+
+```text
+Save my current active ChatGPT tab to VaultGPT. Preview first and do not save until I confirm.
+```
+
+3. VaultGPT shows a preview, for example:
+
+```text
+Title: Claude Code vs Kimi
+Source: https://chatgpt.com/c/...
+Visible messages: 6
+Roles: user 3, assistant 3
+Privacy: passed
+Capture confidence: chrome_accessibility_snapshot
+Fidelity: warn, because browser snapshots can miss hidden or collapsed content
+Target folder: Inbox
+```
+
+4. If the preview looks correct, reply:
+
+```text
+Confirm save.
+```
+
+5. Later, search for it:
+
+```text
+Search my VaultGPT archive for Claude Code Kimi.
+```
+
+6. VaultGPT returns the saved chat from your local vault. You can then export it, tag it, pin it, or turn part of it into a reusable prompt.
+
+### Save The Current ChatGPT Tab
+
+1. Open the target ChatGPT conversation in Chrome.
+2. Confirm the Codex Chrome extension is connected and `@Chrome` can see the active tab.
+3. In Codex, ask VaultGPT to save the current active ChatGPT tab.
+4. Review the preview before saving. It should show the ChatGPT title, URL, visible message count, role counts, privacy result, capture confidence, fidelity status, target folder/status, and proposed record ID.
+5. Confirm only if the preview scope is correct.
+6. VaultGPT saves the chat to the local vault, records an audit event, and rebuilds the search index.
+
+Example prompt:
+
+```text
+Save my current active ChatGPT tab to VaultGPT. Preview first and do not save until I confirm.
+```
+
+Expected safety behavior:
+
+- VaultGPT must not save before confirmation.
+- VaultGPT must not capture the Codex thread, project instructions, shell output, or local environment context as a substitute for the ChatGPT tab.
+- If `@Chrome` cannot see the active ChatGPT tab, the save should be treated as blocked.
+
+### Search The Local Vault
+
+Use search when you want to find saved chats, prompts, or imported export content.
+
+Example prompt:
+
+```text
+Search my VaultGPT archive for Claude Code Kimi.
+```
+
+VaultGPT searches the local index first and can fall back to JSON search when SQLite FTS5 is unavailable.
+
+### Import An Official ChatGPT Export
+
+Use official ChatGPT export import for fallback, backup, or batch loading.
+
+Typical flow:
+
+1. Export your ChatGPT data from ChatGPT.
+2. Keep the export local.
+3. Ask VaultGPT to import the `conversations.json` file.
+4. Rebuild/search the local index.
+
+Synthetic official-export edge cases are covered by tests. Real redacted export validation is deferred to post-MVP/public-beta unless a safe sample is available.
+
+### Export Or Back Up The Vault
+
+VaultGPT can export saved vault items to Markdown, JSON, or ZIP.
+
+Typical flow:
+
+1. Choose the scope: selected items, folder, tag, saved search, prompts only, chats only, or full vault.
+2. Choose the format: Markdown, JSON, or ZIP.
+3. Review privacy status and export preview.
+4. Confirm export.
+5. VaultGPT writes output with a provenance manifest and audit event.
+
+### Use Prompt Variables And Chains
+
+VaultGPT supports a local prompt vault with variables and manual prompt chains.
+
+Typical flow:
+
+1. Save or create a prompt template.
+2. Use `{field}` or `{{field}}` placeholders for variables.
+3. Fill variables before reuse.
+4. For chains, run steps manually with preview, pause, retry, skip, or stop.
+
+### MVP Constraints And Caveats
+
+- MVP capture target is the current active ChatGPT tab.
+- Selected-tab and multi-tab capture are deferred.
+- Full unattended account crawl is intentionally not part of MVP.
+- Chrome capture uses an accessibility snapshot, so hidden, collapsed, or virtualized content may be incomplete.
+- VaultGPT records capture confidence and fidelity status so users can see this limitation.
+- Official export import remains the more complete fallback for bulk historical archives.
+- Local vault data, official exports, and generated backups are private runtime data and should not be committed to git.
 
 ## Codex Chrome Availability
 

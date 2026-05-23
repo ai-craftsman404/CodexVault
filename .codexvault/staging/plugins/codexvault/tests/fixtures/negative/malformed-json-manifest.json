@@ -1,9 +1,0 @@
-{
-  "schemaVersion": "v1a",
-  "workspaceId": "broken",
-  "capturedAt": "20260513T000000Z",
-  "platform": "Windows",
-  "shell": "PowerShell",
-  "redactionPolicy": "deny-by-default",
-}
-

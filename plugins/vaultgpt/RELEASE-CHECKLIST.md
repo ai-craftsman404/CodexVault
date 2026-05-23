@@ -74,7 +74,8 @@
 - Public metadata placeholder scan: pass, no placeholder URL or maintainer values remain in release metadata
 - Scoped sensitive-pattern scan: pass, no matches for API keys, OpenAI keys, private user paths, temporary data paths, or literal credential assignments in `plugins/vaultgpt` or `.agents/plugins/marketplace.json`
 - VaultGPT tracked-artifact scan: pass, no tracked `.codexvault/`, screenshots, ZIP exports, SQLite/DB files, JSONL logs, keys, credentials, or ChatGPT export payloads under `plugins/vaultgpt`
-- Repo-wide tracked-artifact note: pre-existing root `.codexvault/` artifacts remain outside `plugins/vaultgpt`; they are not changed in this VaultGPT-only release commit and must be removed or excluded before publishing the full repository
+- Repo-wide tracked-artifact scan: pass, root `.codexvault/` artifacts have been removed from git tracking with `git rm --cached -r .codexvault` and are covered by the root `.gitignore`
+- Repo-wide private-path note: unrelated private-path examples remain outside VaultGPT in CodexVault/PremortemX docs and tooling; clean those in a separate repo hygiene pass if the whole repository is being published
 - CLI E2E: init/import-official/reindex/search/export ZIP pass
 - Installed plugin invocation: pass, wrote `chat_codex_vaultgpt_save_20260522.json` and `audit.jsonl`
 - Installed save privacy review: warning, one medium `windows_path`
@@ -93,7 +94,8 @@
 ## Known Release Blockers
 
 - No VaultGPT package blocker remains for MVP release candidate status.
-- Whole-repository public release blocker: pre-existing root `.codexvault/` artifacts outside `plugins/vaultgpt` are tracked and must be removed or excluded before publishing the full repository.
+- Whole-repository tracked `.codexvault/` blocker cleared.
+- Whole-repository private-path cleanup outside VaultGPT remains separate from this VaultGPT release hygiene pass.
 - Redacted real-export validation is deferred to post-MVP/public-beta hardening unless a safe sample becomes available.
 
 ## Release Notes Draft
