@@ -4,7 +4,7 @@
 
 VaultGPT is an installable Codex plugin and MVP feature-complete candidate with a working local engine and a verified `@Chrome` capture path.
 
-Do not call this final release-ready yet. Remaining work is mostly the final implicit active-tab save retest, public metadata, and final public scan/release packaging.
+Do not call this final release-ready yet. Remaining work is mostly public metadata and final public scan/release packaging.
 
 ## Latest Important Commits
 
@@ -95,9 +95,9 @@ Expected result:
 
 ### 1. Installed-Plugin Invocation Tests
 
-Partially complete.
+Complete for MVP.
 
-Still outstanding when Codex Chrome exposes an active ChatGPT tab:
+Implicit trigger prompt:
 
 ```text
 Save my current active ChatGPT tab to VaultGPT. Preview first and do not save until I confirm.
@@ -112,13 +112,16 @@ Expected:
 
 Latest result:
 
-- blocked on 2026-05-23 retry using Chrome `Profile 3` and `https://chatgpt.com/c/69f75455-25d8-8391-a04d-5943d722c696`
-- `@Chrome` returned `Browser is not available: extension`
-- launched requested command: `cmd /c start chrome.exe --profile-directory="Profile 3" "https://chatgpt.com/c/69f75455-25d8-8391-a04d-5943d722c696"`
-- Chrome was running
-- extension was installed/enabled in `Profile 3`
-- native messaging host was missing: `HKCU\Software\Google\Chrome\NativeMessagingHosts\com.openai.codexextension` and `C:\Users\georg\AppData\Local\OpenAI\extension\com.openai.codexextension.json` were absent
-- broad Codex-thread capture was not accepted as success
+- pass on final 2026-05-23 retry using Chrome `Profile 3` and `https://chatgpt.com/c/69f75455-25d8-8391-a04d-5943d722c696`
+- `openTabs()` saw `Claude Code vs Kimi`
+- claimed user tab URL matched the ChatGPT test URL
+- visible ChatGPT messages were readable
+- preview showed 6 messages, role counts user 3 / assistant 3
+- privacy result: `passed`
+- capture confidence: `chrome_accessibility_snapshot`
+- fidelity result: `warn` because capture limitations are present
+- no vault save was performed before confirmation
+- no Codex thread/project/environment context was captured
 
 Completed search prompt:
 

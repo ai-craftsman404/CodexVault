@@ -50,7 +50,7 @@
 | --- | --- | --- | --- | --- |
 | Explicit plugin invocation | Use VaultGPT to save current conversation | VaultGPT skill activates | Pass: plugin invoked and produced local record/audit output | Pass |
 | Explicit skill invocation | Use the VaultGPT skill to export prompts | VaultGPT skill activates | Covered by installed explicit invocation and export/search verification; prompt-only export remains a low-risk follow-up | Partial |
-| Implicit skill trigger | Save my current active ChatGPT tab to VaultGPT. Preview first and do not save until I confirm. | VaultGPT activates and uses `@Chrome`; no save before confirmation | Blocked on 2026-05-23 retry with Chrome `Profile 3` and ChatGPT test URL: `@Chrome` returned `Browser is not available: extension`; Chrome was running; extension was installed/enabled in `Profile 3`; native messaging host was missing (`HKCU\Software\Google\Chrome\NativeMessagingHosts\com.openai.codexextension` and `C:\Users\georg\AppData\Local\OpenAI\extension\com.openai.codexextension.json` absent); no broad Codex-thread capture was accepted as success | Blocked |
+| Implicit skill trigger | Save my current active ChatGPT tab to VaultGPT. Preview first and do not save until I confirm. | VaultGPT activates and uses `@Chrome`; no save before confirmation | Pass on final 2026-05-23 retry using Chrome `Profile 3` and test URL: `openTabs()` saw `Claude Code vs Kimi` at `https://chatgpt.com/c/69f75455-25d8-8391-a04d-5943d722c696`; claimed user tab was readable; preview showed 6 messages, role counts user 3 / assistant 3, privacy `passed`, capture confidence `chrome_accessibility_snapshot`, fidelity `warn` for capture limitations only; no vault save was performed and no Codex thread/project/environment context was captured | Pass |
 | Implicit search trigger | Search my VaultGPT archive for Claude Code Kimi. | VaultGPT activates or routes to local VaultGPT search; returns saved record or index status | Pass: local installed vault search returned `chat_a548c903b716a69a`, title `Claude Code vs Kimi`, mode `sqlite-fts5`, index status `ok` | Pass |
 | Should-not-trigger prompt | Explain what a vault is in cryptography | VaultGPT does not trigger | Pass: tool discovery for the exact negative prompt returned no tools; VaultGPT was not routed | Pass |
 | Current-session tool discovery | `tool_search` query for `vaultgpt` | VaultGPT is visible after reload/install | Visible in installed session context after reload/install | Pass |
@@ -81,7 +81,7 @@
 | Installed Chrome capture save | Confirm saving previewed Chrome ChatGPT conversation | Saved `chat_a548c903b716a69a`, privacy passed, audit recorded URL/message count/source | Pass |
 | Installed Chrome record search | Search `.codexvault` for `Claude Code Kimi DeepSeek` | Returned `chat_a548c903b716a69a` via SQLite FTS5 | Pass |
 | Installed Chrome record export | Export `.codexvault` to ZIP | ZIP export succeeded and manifest included `chat_a548c903b716a69a` | Pass with note: test vault also contained earlier failed broad-capture record |
-| Installed implicit Chrome active-tab retest | Prompt without explicit plugin name: save current active ChatGPT tab, preview first, no save until confirm | Uses `@Chrome` current active ChatGPT tab; previews only constrained ChatGPT source; no write before confirmation | Blocked on 2026-05-23 retry: Codex Chrome extension backend unavailable for `Profile 3` even after launching the provided ChatGPT URL; broad Codex-thread capture remains rejected as non-success | Blocked |
+| Installed implicit Chrome active-tab retest | Prompt without explicit plugin name: save current active ChatGPT tab, preview first, no save until confirm | Uses `@Chrome` current active ChatGPT tab; previews only constrained ChatGPT source; no write before confirmation | Pass: final retry claimed the visible ChatGPT tab from Codex Chrome, produced preview metadata, privacy and fidelity results, and stopped before save | Pass |
 
 ## UX Journey Tests
 
@@ -107,8 +107,6 @@
 - Release candidate: not yet
 - Blocking issues:
   - public manifest metadata not finalized
-  - final installed implicit active-tab save retest needs a Chrome tab visible to Codex Chrome
 - Follow-up:
-  - rerun implicit active-tab save retest when Chrome exposes an active ChatGPT tab to Codex Chrome
   - keep real export validation as post-MVP/public-beta hardening unless redacted sample becomes available
   - replace public metadata before GitHub publication

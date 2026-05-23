@@ -44,7 +44,7 @@ Repo-local plugin discovery metadata is present at `.agents/plugins/marketplace.
 
 Installed-plugin explicit invocation has been verified. The first broad save test over-captured Codex project/environment context and is treated as a failed pattern. The corrected `@Chrome` workflow successfully previewed and saved a constrained ChatGPT browser conversation after confirmation.
 
-Implicit search routing and should-not-trigger behavior have also been verified. The final implicit active-tab save retest is still outstanding because Codex Chrome was connected but did not expose an active/open Chrome tab during the latest acceptance pass. Broad Codex-thread capture must not be treated as success for this gate.
+Implicit search routing, should-not-trigger behavior, and the implicit active-tab save preview have also been verified. The active-tab preview used Codex Chrome against a real ChatGPT tab, showed privacy and fidelity results, and stopped before saving.
 
 The install surface now uses multiple starter actions rather than a single broad save prompt:
 
@@ -79,12 +79,12 @@ Implemented and verified:
 - installed `@Chrome` ChatGPT capture preview/save with approval
 - search and export against a Chrome-captured record
 - implicit VaultGPT search routing
+- implicit active ChatGPT tab save preview with no write before confirmation
 - should-not-trigger behavior for unrelated cryptography prompts
 - 28 local VaultGPT tests
 
 Outstanding finishing-line gates:
 
-- final implicit active ChatGPT tab save retest when Codex Chrome exposes an active ChatGPT tab
 - public repository URL, maintainer contact, homepage/privacy/terms metadata
 - final public scan and release packaging after metadata is finalized
 - real exported ChatGPT edge-case validation, deferred to post-MVP/public-beta unless a safe redacted sample becomes available

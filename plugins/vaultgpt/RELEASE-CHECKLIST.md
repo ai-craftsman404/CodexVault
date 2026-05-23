@@ -52,7 +52,7 @@
 - [x] Default starter prompts changed from broad save prompt to safe action menu
 - [x] Codex app reload/install completed
 - [x] Explicit VaultGPT plugin invocation verified after reload/install
-- [ ] Implicit VaultGPT active-tab save verified after reload/install
+- [x] Implicit VaultGPT active-tab save preview verified after reload/install
 - [x] Implicit VaultGPT search routing verified after reload/install
 - [x] Should-not-trigger behavior verified for unrelated cryptography prompt
 - [x] Installed Chrome save preview required confirmation before writing
@@ -78,7 +78,7 @@
 - Installed Chrome record search: pass, query `Claude Code Kimi DeepSeek` returned `chat_a548c903b716a69a` using SQLite FTS5
 - Installed implicit search prompt: pass, query `Claude Code Kimi` returned `chat_a548c903b716a69a`, title `Claude Code vs Kimi`, mode `sqlite-fts5`, index status `ok`
 - Installed should-not-trigger prompt: pass, `Explain what a vault is in cryptography.` returned no VaultGPT/tool route during discovery
-- Installed implicit active-tab save retest: blocked on 2026-05-23 retry using Chrome `Profile 3` and `https://chatgpt.com/c/69f75455-25d8-8391-a04d-5943d722c696`; `@Chrome` returned `Browser is not available: extension`; Chrome was running; extension was installed/enabled in `Profile 3`; native messaging host was missing (`HKCU\Software\Google\Chrome\NativeMessagingHosts\com.openai.codexextension` and `C:\Users\georg\AppData\Local\OpenAI\extension\com.openai.codexextension.json` absent); broad Codex-thread capture was not accepted as success
+- Installed implicit active-tab save preview: pass on final 2026-05-23 retry using Chrome `Profile 3` and `https://chatgpt.com/c/69f75455-25d8-8391-a04d-5943d722c696`; `openTabs()` saw `Claude Code vs Kimi`; claimed tab was readable; preview showed 6 messages, role counts user 3 / assistant 3, privacy `passed`, capture confidence `chrome_accessibility_snapshot`, fidelity `warn` for capture limitations only; no vault save was performed and no Codex thread/project/environment context was captured
 - Installed Chrome record export: pass, ZIP export succeeded and manifest included `chat_a548c903b716a69a`; test vault also contained the earlier failed broad-capture artifact
 - Synthetic official export edge fixture: pass, covers missing title, `conversation_id`, multipart dict content, empty system content, and tool result content
 - Scoped sensitive-pattern scan: no real secret/private-path hits
@@ -86,7 +86,6 @@
 ## Known Release Blockers
 
 - Public GitHub URL and maintainer contact are not finalized.
-- Final implicit active-tab save retest still needs a Chrome ChatGPT tab visible to Codex Chrome.
 - Redacted real-export validation is deferred to post-MVP/public-beta hardening unless a safe sample becomes available.
 
 ## Release Notes Draft
