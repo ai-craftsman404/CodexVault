@@ -151,8 +151,7 @@ def _normalize_official_conversation(item: dict[str, Any]) -> dict[str, Any]:
             message = node.get("message") or {}
             author = message.get("author", {})
             content = message.get("content", {})
-            parts = content.get("parts") or []
-            text = "\n".join(str(part) for part in parts if part is not None)
+            text = _content_to_text(content)
             if text:
                 messages.append({"role": author.get("role", "unknown"), "content": text})
     messages = messages or []
@@ -167,6 +166,38 @@ def _normalize_official_conversation(item: dict[str, Any]) -> dict[str, Any]:
             "captured_at": item.get("update_time") or item.get("create_time"),
         },
     }
+
+
+def _content_to_text(content: Any) -> str:
+    if isinstance(content, str):
+        return content
+    if not isinstance(content, dict):
+        return str(content) if content is not None else ""
+
+    parts = content.get("parts")
+    if parts is None:
+        if "text" in content:
+            return str(content["text"])
+        if "result" in content:
+            return str(content["result"])
+        return ""
+
+    text_parts = []
+    for part in parts:
+        if part is None:
+            continue
+        if isinstance(part, str):
+            text_parts.append(part)
+        elif isinstance(part, dict):
+            if "text" in part:
+                text_parts.append(str(part["text"]))
+            elif "content" in part:
+                text_parts.append(str(part["content"]))
+            else:
+                text_parts.append(json.dumps(part, sort_keys=True))
+        else:
+            text_parts.append(str(part))
+    return "\n".join(text_parts)
 
 
 def _records_to_markdown(records: list[dict[str, Any]], manifest: dict[str, Any]) -> str:

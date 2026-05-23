@@ -264,6 +264,58 @@ class VaultGPTCoreTests(unittest.TestCase):
             self.assertEqual(records[0]["model"]["label"], "gpt-known")
             self.assertEqual(records[0]["messages"][0]["content"], "Summarize this")
 
+    def test_import_official_export_synthetic_edge_shapes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            export_path = Path(tmp) / "conversations.json"
+            export_path.write_text(
+                json.dumps(
+                    {
+                        "conversations": [
+                            {
+                                "conversation_id": "edge_missing_title",
+                                "model": "gpt-edge",
+                                "mapping": {
+                                    "system": {
+                                        "message": {
+                                            "author": {"role": "system"},
+                                            "content": {"parts": [None, ""]},
+                                        }
+                                    },
+                                    "user": {
+                                        "message": {
+                                            "author": {"role": "user"},
+                                            "content": {
+                                                "parts": [
+                                                    "Line one",
+                                                    {"text": "Line two"},
+                                                    {"content": "Line three"},
+                                                ]
+                                            },
+                                        }
+                                    },
+                                    "tool": {
+                                        "message": {
+                                            "author": {"role": "tool"},
+                                            "content": {"result": "Tool result"},
+                                        }
+                                    },
+                                },
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+            root = initialize_vault(Path(tmp) / "vault")
+            import_official_export_file(root, export_path)
+            record = load_conversations(root)[0]
+            self.assertEqual(record["id"], "edge_missing_title")
+            self.assertEqual(record["title"], "Untitled chat")
+            self.assertEqual(record["model"]["label"], "gpt-edge")
+            self.assertEqual([message["role"] for message in record["messages"]], ["user", "tool"])
+            self.assertIn("Line two", record["messages"][0]["content"])
+            self.assertEqual(record["messages"][1]["content"], "Tool result")
+
     def test_fts_rebuild_and_search_when_available(self):
         if not fts_available():
             self.skipTest("sqlite FTS5 is unavailable")

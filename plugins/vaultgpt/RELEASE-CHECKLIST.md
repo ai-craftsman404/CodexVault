@@ -58,6 +58,7 @@
 - [x] Real-browser selected-chat capture verified with connected Chrome extension
 - [x] Search verified against Chrome-captured record
 - [x] ZIP export verified against Chrome-captured record
+- [x] Synthetic official-export edge fixtures covered
 - [ ] Manifest placeholder URLs/email replaced
 
 ## Verification Snapshot
@@ -74,12 +75,14 @@
 - Installed Chrome capture save: pass, record `chat_a548c903b716a69a`, privacy passed, audit included source URL, message count, and constrained capture scope
 - Installed Chrome record search: pass, query `Claude Code Kimi DeepSeek` returned `chat_a548c903b716a69a` using SQLite FTS5
 - Installed Chrome record export: pass, ZIP export succeeded and manifest included `chat_a548c903b716a69a`; test vault also contained the earlier failed broad-capture artifact
+- Synthetic official export edge fixture: pass, covers missing title, `conversation_id`, multipart dict content, empty system content, and tool result content
 - Scoped sensitive-pattern scan: no real secret/private-path hits
 
 ## Known Release Blockers
 
 - Public GitHub URL and maintainer contact are not finalized.
 - Implicit invocation and should-not-trigger behavior still need installed-plugin checks.
+- Redacted real-export validation is deferred to post-MVP/public-beta hardening unless a safe sample becomes available.
 
 ## Release Notes Draft
 

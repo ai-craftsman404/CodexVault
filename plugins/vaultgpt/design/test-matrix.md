@@ -14,10 +14,10 @@
 | Unit testing | Mandatory | Yes | Script/module tests for vault, prompt, index, export, privacy | Pass | 26 tests passing for MVP foundation |
 | Integration testing | Mandatory | Yes | End-to-end local vault fixture workflows | Pass | CLI E2E passed for init/import/reindex/search/export |
 | Workflow testing | Mandatory | Yes | Save/Search/Export/Prompt/Privacy journeys | Partial pass | local CLI workflows pass; constrained Chrome save preview/confirm passed; remaining plugin workflows pending |
-| Error and fallback testing | Mandatory | Yes | Malformed export, missing vault, failed export target | Pending |  |
-| Boundary testing | Mandatory | Yes | Empty vault, large prompt, duplicate IDs, missing fields | Pending |  |
+| Error and fallback testing | Mandatory | Yes | Malformed export, missing vault, failed export target | Partial pass | unsupported export shape raises; more failed-target tests pending |
+| Boundary testing | Mandatory | Yes | Empty vault, large prompt, duplicate IDs, missing fields | Partial pass | synthetic official export edge fixture covers missing title/id fallback and empty messages |
 | Contract/schema testing | Mandatory | Yes | JSON schema/version validation | Partial pass | schema version and manifest fields covered in unit tests |
-| Model-release resilience | Mandatory | Yes | Known/unknown model-label fixtures across import/search/export | Partial pass | unknown model label preservation and official model field covered; more fixtures needed |
+| Model-release resilience | Mandatory | Yes | Known/unknown model-label fixtures across import/search/export | Pass | unknown model label preservation, official model field, and synthetic edge model covered |
 | Negative/abuse testing | Mandatory | Yes | prompt injection, path traversal, unsafe delete | Pending |  |
 | Static checks | Mandatory | Yes | PowerShell/Python lint/static checks as applicable | Partial pass | Python compileall and JSON parse pass |
 | Prompt injection testing | Mandatory | Yes | Archived chat contains malicious instructions | Partial pass | fixture proves import/export treats malicious text as inert data |
@@ -60,8 +60,9 @@
 | --- | --- | --- | --- |
 | Initialize vault | Local vault structure created outside repo | Pass | Partial |
 | Import fixture | Conversations normalize with IDs/hashes | Pass | Pass |
-| Import known model labels | Model metadata preserved and workflows continue | Pass | Partial |
-| Import unknown future model label | Unknown model label preserved, not rejected | Pass | Partial |
+| Import known model labels | Model metadata preserved and workflows continue | Pass | Pass |
+| Import unknown future model label | Unknown model label preserved, not rejected | Pass | Pass |
+| Import synthetic official export edge cases | Missing title, conversation_id, multipart dict content, tool result | Pass | Pass |
 | Capture fixture | Selected-chat payload normalizes | Pass with approval/privacy/audit checks | Pass |
 | Search fixture | Query returns snippets and source IDs | Pass | Pass |
 | SQLite FTS fixture | Rebuild/search works when FTS5 is available | Pass | Pass |
@@ -103,8 +104,8 @@
 
 - Release candidate: not yet
 - Blocking issues:
-  - real export edge cases not verified
   - public manifest metadata not finalized
 - Follow-up:
   - verify implicit invocation and should-not-trigger behavior
+  - keep real export validation as post-MVP/public-beta hardening unless redacted sample becomes available
   - replace public metadata before GitHub publication
