@@ -112,9 +112,10 @@ Expected:
 
 Latest result:
 
-- blocked on 2026-05-23 because Codex Chrome connected but reported no active/open tab
-- `openTabs()` returned `[]`
-- `browser.tabs.selected()` returned `No active tab found`
+- blocked on 2026-05-23 retry using Chrome `Profile 3` and `https://chatgpt.com/c/69f75455-25d8-8391-a04d-5943d722c696`
+- initial `@Chrome` check returned `Browser is not available: extension`
+- launched requested command: `cmd /c start chrome.exe --profile-directory="Profile 3" "https://chatgpt.com/c/69f75455-25d8-8391-a04d-5943d722c696"`
+- retry still returned `Browser is not available: extension`
 - broad Codex-thread capture was not accepted as success
 
 Completed search prompt:

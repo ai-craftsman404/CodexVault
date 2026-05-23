@@ -78,7 +78,7 @@
 - Installed Chrome record search: pass, query `Claude Code Kimi DeepSeek` returned `chat_a548c903b716a69a` using SQLite FTS5
 - Installed implicit search prompt: pass, query `Claude Code Kimi` returned `chat_a548c903b716a69a`, title `Claude Code vs Kimi`, mode `sqlite-fts5`, index status `ok`
 - Installed should-not-trigger prompt: pass, `Explain what a vault is in cryptography.` returned no VaultGPT/tool route during discovery
-- Installed implicit active-tab save retest: blocked on 2026-05-23 because Codex Chrome connected but reported no active/open Chrome tab (`openTabs()` returned `[]`; `browser.tabs.selected()` returned `No active tab found`); broad Codex-thread capture was not accepted as success
+- Installed implicit active-tab save retest: blocked on 2026-05-23 retry using Chrome `Profile 3` and `https://chatgpt.com/c/69f75455-25d8-8391-a04d-5943d722c696`; initial `@Chrome` check returned `Browser is not available: extension`; after launching `cmd /c start chrome.exe --profile-directory="Profile 3" "https://chatgpt.com/c/69f75455-25d8-8391-a04d-5943d722c696"`, retry still returned `Browser is not available: extension`; broad Codex-thread capture was not accepted as success
 - Installed Chrome record export: pass, ZIP export succeeded and manifest included `chat_a548c903b716a69a`; test vault also contained the earlier failed broad-capture artifact
 - Synthetic official export edge fixture: pass, covers missing title, `conversation_id`, multipart dict content, empty system content, and tool result content
 - Scoped sensitive-pattern scan: no real secret/private-path hits
