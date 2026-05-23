@@ -9,6 +9,7 @@ from typing import Any
 from zipfile import ZIP_DEFLATED, ZipFile
 
 from .audit import append_event
+from .fidelity import review_export_manifest
 from .privacy import scan_record
 from .vault import SCHEMA_VERSION, initialize_vault, write_record
 
@@ -110,6 +111,7 @@ def export_conversations(root: str | Path, output_path: str | Path, fmt: str = "
             for record in records
         ],
     }
+    manifest["fidelity_summary"] = review_export_manifest(manifest)
 
     if fmt == "json":
         payload = {"manifest": manifest, "conversations": records}

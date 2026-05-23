@@ -28,6 +28,7 @@ Use this skill when the user wants to:
 - Keep local vault data out of git.
 - Use official ChatGPT export import as the reliable batch/fallback path.
 - Use Codex Chrome selected-chat capture only as a visible, user-approved workflow.
+- Use lightweight agent-team-style fidelity checks for capture/export quality. Keep them bounded, sample-based for bulk, and avoid slow deep review unless the user asks.
 - Use subagents only when the user asks or when a sensitive/high-value review benefits from a bounded agent-team check.
 
 ## MVP Workflows
@@ -57,8 +58,9 @@ When asked to save or capture a chat:
 6. For ChatGPT browser capture, preview title, source URL/domain, message count, roles count when available, capture scope, capture confidence, limitations if any, model label if available, and default folder/status.
 7. Default new content to `Unfiled` unless the user provides folder metadata.
 8. Run privacy review before saving when content is available.
-9. Save only after explicit confirmation.
-10. Record audit event and provenance metadata.
+9. Run lightweight fidelity review and show `pass`, `warn`, or `block` when capture confidence is partial, limitations are present, message counts mismatch, or privacy warnings exist.
+10. Save only after explicit confirmation.
+11. Record audit event and provenance metadata.
 
 Capture confidence values:
 
@@ -68,6 +70,15 @@ Capture confidence values:
 - `official_export`: content came from official ChatGPT export.
 - `screenshot_fallback`: content was captured from visible screenshot context only.
 - `manual_review_needed`: content may be incomplete or ambiguous.
+
+Lightweight fidelity reviewers:
+
+- Capture Reviewer: checks message count, role coverage, capture confidence, and limitations.
+- Privacy Reviewer: checks privacy warning status and over-capture signals.
+- Export Reviewer: checks manifest counts, hashes, failures, and privacy summary.
+- Orchestrator: reports `pass`, `warn`, or `block` with at most three reasons.
+
+For bulk operations, review counts, hashes, failures, privacy summary, and a small sample. Do not deep-review every item by default.
 
 ### Search Vault
 
@@ -94,8 +105,9 @@ When asked to export or backup:
 1. Ask for scope: selected items, folder, tag, saved search, prompts only, chats only, or full vault.
 2. Ask for format: Markdown, JSON, or ZIP.
 3. Run privacy review before writing export artifacts.
-4. Include manifest, counts, hashes, skipped items, and failure report.
-5. Record audit event.
+4. Run lightweight export fidelity review on manifest counts, hashes, failed items, and privacy summary.
+5. Include manifest, counts, hashes, skipped items, fidelity summary, and failure report.
+6. Record audit event.
 
 ### Prompt Vault
 

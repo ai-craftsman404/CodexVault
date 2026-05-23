@@ -98,8 +98,14 @@ These are not deferrals. They are required before VaultGPT can be called a finis
    - export/backup
    - prompt variables
    - privacy review
+   - lightweight pass/warn/block fidelity review
 
-4. Final release gates
+4. Bulk-friendly review principle
+   - use counts, hashes, manifests, privacy summaries, and samples
+   - do not deep-review every item by default
+   - escalate only anomalies or user-requested deep checks
+
+5. Final release gates
    - real or redacted export edge-case validation
    - completed test matrix and release checklist
    - public manifest URL/contact metadata

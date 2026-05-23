@@ -198,12 +198,14 @@ Acceptance:
 - Export or back up vault through plugin guidance.
 - Create/render prompt with variables through plugin guidance.
 - Run privacy review before save/export.
+- Run lightweight fidelity review before risky save/export.
 
 Acceptance:
 
 - each workflow is tested from installed plugin prompt to local artifact/result
 - results are concise and show what was read/written
 - failures are reported without silent data loss
+- fidelity review reports pass/warn/block with at most three reasons and remains sample-based for bulk
 
 ### 4. Safety And Release Gates
 

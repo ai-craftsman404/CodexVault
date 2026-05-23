@@ -10,6 +10,7 @@ from lib.audit import append_event, read_events
 from lib.capture import prepare_selected_chat_capture, save_selected_chat_capture
 from lib.chain import chat_to_prompt_candidate, create_chain_record, load_chain, save_chain, start_chain_run
 from lib.fts import fts_available, rebuild_fts_index, search_fts
+from lib.fidelity import review_capture, review_export_manifest
 from lib.import_export import export_conversations, import_conversation_payloads, import_official_export_file, load_conversations, normalize_capture
 from lib.organize import bulk_plan, save_search, update_conversation_metadata
 from lib.paths import default_vault_path, resolve_vault_path
@@ -184,6 +185,8 @@ class VaultGPTCoreTests(unittest.TestCase):
         self.assertEqual(record["capture"]["confidence"], "chrome_accessibility_snapshot")
         self.assertEqual(record["capture"]["limitations"], ["visible accessibility snapshot only"])
         self.assertEqual(record["privacy"]["status"], "warning")
+        self.assertEqual(record["fidelity"]["status"], "warn")
+        self.assertIn("capture limitations are present", record["fidelity"]["reasons"])
 
     def test_save_selected_chat_capture_writes_record_and_audit_event(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -201,6 +204,7 @@ class VaultGPTCoreTests(unittest.TestCase):
             event = read_events(root)[0]
             self.assertEqual(event["action"], "conversation.captured")
             self.assertEqual(event["capture_confidence"], "chrome_accessibility_snapshot")
+            self.assertEqual(event["fidelity_status"], "pass")
 
     def test_import_conversation_and_search_json_fallback(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -321,6 +325,7 @@ class VaultGPTCoreTests(unittest.TestCase):
             self.assertTrue((Path(tmp) / "export.zip").is_file())
             self.assertEqual(zip_manifest["failed"], [])
             self.assertTrue(json_manifest["privacy_summary"]["checked"])
+            self.assertEqual(json_manifest["fidelity_summary"]["status"], "pass")
 
     def test_archived_prompt_injection_stays_inert_data(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -344,6 +349,35 @@ class VaultGPTCoreTests(unittest.TestCase):
             events = read_events(root)
             self.assertEqual(manifest["records"][0]["id"], "chat_injection")
             self.assertEqual([event["action"] for event in events], ["conversations.imported", "conversations.exported"])
+
+    def test_lightweight_fidelity_review_pass_warn_block(self):
+        pass_record = {
+            "messages": [{"role": "user", "content": "hello"}],
+            "capture": {"confidence": "chrome_accessibility_snapshot", "limitations": []},
+            "privacy": {"status": "passed"},
+        }
+        self.assertEqual(review_capture(pass_record, expected_message_count=1)["status"], "pass")
+
+        warn_record = {
+            "messages": [{"role": "user", "content": "hello"}],
+            "capture": {"confidence": "dom_partial", "limitations": ["some content may be hidden"]},
+            "privacy": {"status": "passed"},
+        }
+        warning = review_capture(warn_record, expected_message_count=2)
+        self.assertEqual(warning["status"], "warn")
+        self.assertLessEqual(len(warning["reasons"]), 3)
+
+        self.assertEqual(review_capture({"messages": []})["status"], "block")
+
+        manifest_warning = review_export_manifest(
+            {
+                "conversation_count": 1,
+                "records": [{"id": "chat_missing_hash"}],
+                "failed": [],
+                "privacy_summary": {"warning_count": 1},
+            }
+        )
+        self.assertEqual(manifest_warning["status"], "warn")
 
     def test_privacy_scanner_detects_and_redacts_sensitive_text(self):
         text = "Contact me@example.com with " + "tok" + "en=" + "abcdef1234567890 at C:\\VaultGPT\\private.txt"

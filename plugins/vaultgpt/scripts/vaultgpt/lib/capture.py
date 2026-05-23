@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from .audit import append_event
+from .fidelity import review_capture
 from .import_export import normalize_capture
 from .privacy import scan_record
 from .vault import initialize_vault, write_record
@@ -49,6 +50,7 @@ def prepare_selected_chat_capture(payload: dict[str, Any]) -> dict[str, Any]:
         "confidence": confidence,
         "limitations": payload.get("capture_limitations", []),
     }
+    record["fidelity"] = review_capture(record, payload.get("expected_message_count"))
     return record
 
 
@@ -65,6 +67,7 @@ def save_selected_chat_capture(root: str | Path, payload: dict[str, Any]) -> Pat
             "source_type": record["source"]["type"],
             "privacy_status": record["privacy"]["status"],
             "capture_confidence": record["capture"]["confidence"],
+            "fidelity_status": record["fidelity"]["status"],
         },
     )
     return path
