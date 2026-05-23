@@ -2,18 +2,34 @@
 .env
 .env.*
 !.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cert
+secrets.*
+*.secret
+*.secrets
+credentials.*
+*.credentials
+token.*
+*.token
 
 # Local editor and OS files
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
+*.swp
+*.swo
 
 # Dependency folders
 node_modules/
 .venv/
 venv/
 __pycache__/
+.pytest_cache/
 
 # Build and cache output
 dist/
@@ -21,3 +37,33 @@ build/
 .cache/
 coverage/
 .codexvault/
+
+# Logs and local command output
+*.log
+logs/
+codex-exec-output*.txt
+
+# Local runtime data, archives, and databases
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+*.zip
+*.7z
+*.tar
+*.tar.gz
+*.db
+*.sqlite
+*.sqlite3
+
+# User-provided exports and private vault data
+chatgpt-export*/
+chatgpt-exports/
+openai-export*/
+vault-data/
+vaultgpt-data/
+*.chatgpt.json
+conversations.json
+user.json
+message_feedback.json
