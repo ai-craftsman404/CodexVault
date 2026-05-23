@@ -54,11 +54,20 @@ When asked to save or capture a chat:
 3. If no active readable ChatGPT tab is available, ask the user to open or activate the target ChatGPT conversation in Chrome.
 4. Defer multi-tab or selected-tabs capture unless the user explicitly asks for it.
 5. Refuse to save generic "current visible Codex thread", workspace instructions, environment context, terminal output, or project metadata unless the user explicitly says that broad Codex context is the intended source.
-6. For ChatGPT browser capture, preview title, source URL/domain, message count, roles count when available, capture scope, model label if available, and default folder/status.
+6. For ChatGPT browser capture, preview title, source URL/domain, message count, roles count when available, capture scope, capture confidence, limitations if any, model label if available, and default folder/status.
 7. Default new content to `Unfiled` unless the user provides folder metadata.
 8. Run privacy review before saving when content is available.
 9. Save only after explicit confirmation.
 10. Record audit event and provenance metadata.
+
+Capture confidence values:
+
+- `chrome_accessibility_snapshot`: content came from connected Chrome accessibility snapshot; mention if details may be omitted.
+- `dom_complete`: content came from direct DOM/text extraction and appears complete.
+- `dom_partial`: DOM/text extraction appears incomplete; prompt user to scroll/load more or review.
+- `official_export`: content came from official ChatGPT export.
+- `screenshot_fallback`: content was captured from visible screenshot context only.
+- `manual_review_needed`: content may be incomplete or ambiguous.
 
 ### Search Vault
 

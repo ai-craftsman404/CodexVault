@@ -160,6 +160,14 @@ class VaultGPTCoreTests(unittest.TestCase):
     def test_selected_chat_capture_requires_approval_and_scans_privacy(self):
         with self.assertRaises(ValueError):
             prepare_selected_chat_capture({"messages": [{"role": "user", "content": "hello"}]})
+        with self.assertRaises(ValueError):
+            prepare_selected_chat_capture(
+                {
+                    "user_approved": True,
+                    "messages": [{"role": "user", "content": "hello"}],
+                    "capture_confidence": "unknown_mode",
+                }
+            )
 
         record = prepare_selected_chat_capture(
             {
@@ -168,10 +176,13 @@ class VaultGPTCoreTests(unittest.TestCase):
                 "title": "Captured chat",
                 "model": "gpt-capture",
                 "messages": [{"role": "user", "content": "email me@example.com"}],
+                "capture_limitations": ["visible accessibility snapshot only"],
             }
         )
         self.assertEqual(record["source"]["type"], "codex_chrome_selected_chat")
         self.assertEqual(record["capture"]["method"], "selected-chat")
+        self.assertEqual(record["capture"]["confidence"], "chrome_accessibility_snapshot")
+        self.assertEqual(record["capture"]["limitations"], ["visible accessibility snapshot only"])
         self.assertEqual(record["privacy"]["status"], "warning")
 
     def test_save_selected_chat_capture_writes_record_and_audit_event(self):
@@ -187,7 +198,9 @@ class VaultGPTCoreTests(unittest.TestCase):
                 },
             )
             self.assertEqual(load_conversations(root)[0]["id"], "capture_save")
-            self.assertEqual(read_events(root)[0]["action"], "conversation.captured")
+            event = read_events(root)[0]
+            self.assertEqual(event["action"], "conversation.captured")
+            self.assertEqual(event["capture_confidence"], "chrome_accessibility_snapshot")
 
     def test_import_conversation_and_search_json_fallback(self):
         with tempfile.TemporaryDirectory() as tmp:

@@ -31,10 +31,23 @@ def prepare_selected_chat_capture(payload: dict[str, Any]) -> dict[str, Any]:
         }
     )
     record["privacy"] = scan_record(record)
+    confidence = payload.get("capture_confidence", "chrome_accessibility_snapshot")
+    if confidence not in {
+        "official_export",
+        "chrome_accessibility_snapshot",
+        "dom_complete",
+        "dom_partial",
+        "screenshot_fallback",
+        "manual_review_needed",
+    }:
+        raise ValueError(f"Unsupported capture confidence: {confidence}")
+
     record["capture"] = {
         "method": "selected-chat",
         "user_approved": True,
         "scope": payload.get("scope", "selected conversation"),
+        "confidence": confidence,
+        "limitations": payload.get("capture_limitations", []),
     }
     return record
 
@@ -51,6 +64,7 @@ def save_selected_chat_capture(root: str | Path, payload: dict[str, Any]) -> Pat
             "item_id": record["id"],
             "source_type": record["source"]["type"],
             "privacy_status": record["privacy"]["status"],
+            "capture_confidence": record["capture"]["confidence"],
         },
     )
     return path
