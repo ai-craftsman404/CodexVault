@@ -2,9 +2,9 @@
 
 ## Current Status
 
-VaultGPT is an installable Codex plugin and MVP feature-complete candidate with a working local engine and a verified `@Chrome` capture path.
+VaultGPT is an installable Codex plugin and MVP feature-complete release candidate with a working local engine and a verified `@Chrome` capture path.
 
-Do not call this final release-ready yet. Remaining work is mostly public metadata and final public scan/release packaging.
+The VaultGPT package is release-candidate ready. Whole-repository publication still needs pre-existing root `.codexvault/` artifacts outside `plugins/vaultgpt` removed or excluded.
 
 ## Latest Important Commits
 
@@ -50,6 +50,7 @@ Do not call this final release-ready yet. Remaining work is mostly public metada
 - Broad visible Codex thread capture is a failed pattern and must not be treated as MVP success.
 - Chrome accessibility snapshot is acceptable for MVP if labeled with capture confidence and limitations.
 - Fidelity review mitigates, but cannot prove, full completeness if the snapshot omits hidden/virtualized content.
+- Codex Chrome access may be region/network gated. In testing, `@Chrome` only became available again after switching the desktop network to a US region; if Chrome/extension are installed but `@Chrome` reports unavailable, check supported region/network before debugging VaultGPT.
 
 ## Verified Chrome Capture Evidence
 
@@ -62,7 +63,7 @@ https://chatgpt.com/c/69f75455-25d8-8391-a04d-5943d722c696
 Saved record:
 
 ```text
-C:\Users\georg\codex-project\Code-Plugin-Guru\.codexvault\conversations\chat_a548c903b716a69a.json
+<repo>/.codexvault/conversations/chat_a548c903b716a69a.json
 ```
 
 Record summary:
@@ -77,13 +78,13 @@ Record summary:
 Audit file:
 
 ```text
-C:\Users\georg\codex-project\Code-Plugin-Guru\.codexvault\audit.jsonl
+<repo>/.codexvault/audit.jsonl
 ```
 
 Search verification command:
 
 ```powershell
-python C:\Users\georg\.codex\plugins\cache\code-plugin-guru-local\vaultgpt\0.1.0\scripts\vaultgpt\vaultgpt.py --vault-path C:\Users\georg\codex-project\Code-Plugin-Guru\.codexvault search "Claude Code Kimi DeepSeek"
+python <codex-plugin-cache>/vaultgpt/0.1.0/scripts/vaultgpt/vaultgpt.py --vault-path <repo>/.codexvault search "Claude Code Kimi DeepSeek"
 ```
 
 Expected result:
@@ -155,15 +156,15 @@ Recorded results in:
 
 ### 2. Final Public Metadata
 
-Leave until the end, per user decision.
+Complete.
 
-Need:
+- public GitHub repo URL: `https://github.com/ai-craftsman404/CodexVault`
+- plugin homepage: `https://github.com/ai-craftsman404/CodexVault/tree/main/plugins/vaultgpt`
+- maintainer contact URL: `https://github.com/ai-craftsman404`
+- privacy URL: `https://github.com/ai-craftsman404/CodexVault/blob/main/plugins/vaultgpt/README.md#privacy-model`
+- terms URL: `https://github.com/ai-craftsman404/CodexVault/blob/main/plugins/vaultgpt/LICENSE`
 
-- public GitHub repo URL
-- maintainer email or contact URL
-- homepage/privacy/terms URLs or remove/replace placeholders
-
-Files:
+Updated files:
 
 - `plugins/vaultgpt/.codex-plugin/plugin.json`
 - `plugins/vaultgpt/README.md`
@@ -171,20 +172,25 @@ Files:
 
 ### 3. Final Public Scan
 
-Before release:
+VaultGPT package result:
 
-- ensure `.codexvault/` is not committed
-- ensure no runtime vault data is committed
-- scan for private paths, API keys, screenshots, exports
-- verify `plugins/vaultgpt/.gitignore`
+- 28 tests passing
+- manifest and marketplace JSON parse
+- no placeholder metadata remains
+- no scoped sensitive-pattern hits in `plugins/vaultgpt` or `.agents/plugins/marketplace.json`
+- no tracked VaultGPT package runtime artifacts, screenshots, exports, backups, DBs, or personal vault files found
+- `plugins/vaultgpt/.gitignore` covers runtime vault data, exports, backups, user ChatGPT/OpenAI exports, secrets, and local env files
 
-Useful commands:
+Whole-repo note:
+
+- pre-existing tracked root `.codexvault/` artifacts remain outside the VaultGPT package and must be removed or excluded before publishing the whole repository
+
+Useful checks:
 
 ```powershell
-python -m unittest discover -s tests
+$env:PYTHONPATH='plugins/vaultgpt/scripts/vaultgpt'; python -m unittest discover -s plugins/vaultgpt/scripts/vaultgpt/tests
 python -m json.tool plugins/vaultgpt/.codex-plugin/plugin.json > $null
 python -m json.tool .agents/plugins/marketplace.json > $null
-rg -n "sk-[A-Za-z0-9]|sk-proj|OPENAI_API_KEY|C:\\Users\\|/mnt/data|token=" plugins/vaultgpt
 git status --short
 ```
 
@@ -219,5 +225,5 @@ Last verified:
 Command used:
 
 ```powershell
-$env:PYTHONPATH='C:\Users\georg\codex-project\Code-Plugin-Guru\plugins\vaultgpt\scripts\vaultgpt'; python -m unittest discover -s plugins/vaultgpt/scripts/vaultgpt/tests
+$env:PYTHONPATH='plugins/vaultgpt/scripts/vaultgpt'; python -m unittest discover -s plugins/vaultgpt/scripts/vaultgpt/tests
 ```

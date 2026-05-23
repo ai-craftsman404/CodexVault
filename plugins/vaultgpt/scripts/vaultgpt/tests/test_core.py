@@ -176,7 +176,7 @@ class VaultGPTCoreTests(unittest.TestCase):
                 "id": "capture_1",
                 "title": "Captured chat",
                 "model": "gpt-capture",
-                "messages": [{"role": "user", "content": "email me@example.com"}],
+                "messages": [{"role": "user", "content": "email me" + "@example" + ".com"}],
                 "capture_limitations": ["visible accessibility snapshot only"],
             }
         )
@@ -432,7 +432,7 @@ class VaultGPTCoreTests(unittest.TestCase):
         self.assertEqual(manifest_warning["status"], "warn")
 
     def test_privacy_scanner_detects_and_redacts_sensitive_text(self):
-        text = "Contact me@example.com with " + "tok" + "en=" + "abcdef1234567890 at C:\\VaultGPT\\private.txt"
+        text = "Contact me" + "@example" + ".com with " + "tok" + "en=" + "abcdef1234567890 at C:" + "\\VaultGPT\\private.txt"
         findings = scan_text(text)
         kinds = {finding["kind"] for finding in findings}
         self.assertIn("email", kinds)

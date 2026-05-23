@@ -1,4 +1,5 @@
 # Runtime vault data and exports
+.codexvault/
 vault-data/
 vaultgpt-data/
 exports/
@@ -29,4 +30,3 @@ credentials.*
 *.credentials
 token.*
 *.token
-

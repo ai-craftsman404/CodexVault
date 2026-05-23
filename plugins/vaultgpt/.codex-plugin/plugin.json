@@ -4,11 +4,10 @@
   "description": "Free ChatGPT power-extension workflows in a local-first Codex plugin with selected-chat capture, search, organization, prompt vaults, privacy review, and audit logs.",
   "author": {
     "name": "Code Plugin Guru",
-    "email": "maintainers@example.com",
-    "url": "https://example.com/vaultgpt"
+    "url": "https://github.com/ai-craftsman404"
   },
-  "homepage": "https://example.com/vaultgpt",
-  "repository": "https://example.com/vaultgpt",
+  "homepage": "https://github.com/ai-craftsman404/CodexVault/tree/main/plugins/vaultgpt",
+  "repository": "https://github.com/ai-craftsman404/CodexVault",
   "license": "MIT",
   "keywords": [
     "codex",
@@ -33,9 +32,9 @@
       "Local execution",
       "Browser-assisted"
     ],
-    "websiteURL": "https://example.com/vaultgpt",
-    "privacyPolicyURL": "https://example.com/vaultgpt/privacy",
-    "termsOfServiceURL": "https://example.com/vaultgpt/terms",
+    "websiteURL": "https://github.com/ai-craftsman404/CodexVault/tree/main/plugins/vaultgpt",
+    "privacyPolicyURL": "https://github.com/ai-craftsman404/CodexVault/blob/main/plugins/vaultgpt/README.md#privacy-model",
+    "termsOfServiceURL": "https://github.com/ai-craftsman404/CodexVault/blob/main/plugins/vaultgpt/LICENSE",
     "defaultPrompt": [
       "Use VaultGPT to show my available actions: save current ChatGPT tab, import export, search vault, export backup, prompt vault, and privacy review.",
       "Use VaultGPT with @Chrome to preview saving the current active ChatGPT tab after privacy review. Do not save until I confirm.",

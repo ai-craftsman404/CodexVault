@@ -38,7 +38,7 @@ Planned evidence:
 
 ## Status
 
-VaultGPT is an MVP feature-complete candidate, but it is not final release-ready yet.
+VaultGPT is an MVP feature-complete release candidate.
 
 Repo-local plugin discovery metadata is present at `.agents/plugins/marketplace.json`. A running Codex session must reload/install the plugin before live skill invocation can be accepted as passed.
 
@@ -83,11 +83,30 @@ Implemented and verified:
 - should-not-trigger behavior for unrelated cryptography prompts
 - 28 local VaultGPT tests
 
-Outstanding finishing-line gates:
+Outstanding repo-publication gate:
 
-- public repository URL, maintainer contact, homepage/privacy/terms metadata
-- final public scan and release packaging after metadata is finalized
+- remove pre-existing root `.codexvault/` artifacts outside the VaultGPT package before publishing the whole repository
 - real exported ChatGPT edge-case validation, deferred to post-MVP/public-beta unless a safe redacted sample becomes available
+
+## Public Metadata
+
+- Repository: `https://github.com/ai-craftsman404/CodexVault`
+- Plugin path: `plugins/vaultgpt`
+- Maintainer contact: `https://github.com/ai-craftsman404`
+- Privacy model: see [Privacy Model](#privacy-model)
+- Terms/license: see `LICENSE`
+
+## Installation
+
+Until VaultGPT is split into a standalone repository, install it from this repository path:
+
+```text
+https://github.com/ai-craftsman404/CodexVault/tree/main/plugins/vaultgpt
+```
+
+## Codex Chrome Availability
+
+VaultGPT's active-tab capture depends on the Codex Chrome extension and its native bridge being available in the current desktop environment. If `@Chrome` reports that the browser or extension is unavailable, confirm that Codex Chrome access is supported for the current network region. During MVP testing, the final Codex Chrome retry only passed after switching the desktop network to a US region; non-approved regions may block the bridge even when Chrome and the extension appear installed.
 
 ## Privacy Model
 

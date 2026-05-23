@@ -19,7 +19,7 @@
 - [x] Design artifacts under `design/`
 - [x] Security review under `design/security-review.md`
 - [x] Test matrix under `design/test-matrix.md`
-- [ ] Public repository metadata finalized
+- [x] Public repository metadata finalized
 
 ## Documentation
 
@@ -30,7 +30,7 @@
 - [x] Known limitations
 - [x] Security and privacy notes
 - [x] Model-release resilience positioning
-- [ ] Public installation instructions after final repo URL is known
+- [x] Public installation instructions after final repo URL is known
 - [x] Live Codex Chrome capture verification notes
 
 ## Quality Gates
@@ -61,14 +61,20 @@
 - [x] Search verified against Chrome-captured record
 - [x] ZIP export verified against Chrome-captured record
 - [x] Synthetic official-export edge fixtures covered
-- [ ] Manifest placeholder URLs/email replaced
+- [x] Manifest placeholder URLs/email replaced
+- [x] VaultGPT package public scan completed
+- [x] VaultGPT package tracked-artifact scan completed
 
 ## Verification Snapshot
 
-- `$env:PYTHONPATH='C:\Users\georg\codex-project\Code-Plugin-Guru\plugins\vaultgpt\scripts\vaultgpt'; python -m unittest discover -s plugins/vaultgpt/scripts/vaultgpt/tests`: 28 tests passing
+- `$env:PYTHONPATH='plugins/vaultgpt/scripts/vaultgpt'; python -m unittest discover -s plugins/vaultgpt/scripts/vaultgpt/tests`: 28 tests passing
 - `python -m compileall plugins/vaultgpt/scripts/vaultgpt`: pass
 - `python -m json.tool plugins/vaultgpt/.codex-plugin/plugin.json`: pass
 - `python -m json.tool .agents/plugins/marketplace.json`: pass
+- Public metadata placeholder scan: pass, no placeholder URL or maintainer values remain in release metadata
+- Scoped sensitive-pattern scan: pass, no matches for API keys, OpenAI keys, private user paths, temporary data paths, or literal credential assignments in `plugins/vaultgpt` or `.agents/plugins/marketplace.json`
+- VaultGPT tracked-artifact scan: pass, no tracked `.codexvault/`, screenshots, ZIP exports, SQLite/DB files, JSONL logs, keys, credentials, or ChatGPT export payloads under `plugins/vaultgpt`
+- Repo-wide tracked-artifact note: pre-existing root `.codexvault/` artifacts remain outside `plugins/vaultgpt`; they are not changed in this VaultGPT-only release commit and must be removed or excluded before publishing the full repository
 - CLI E2E: init/import-official/reindex/search/export ZIP pass
 - Installed plugin invocation: pass, wrote `chat_codex_vaultgpt_save_20260522.json` and `audit.jsonl`
 - Installed save privacy review: warning, one medium `windows_path`
@@ -82,10 +88,12 @@
 - Installed Chrome record export: pass, ZIP export succeeded and manifest included `chat_a548c903b716a69a`; test vault also contained the earlier failed broad-capture artifact
 - Synthetic official export edge fixture: pass, covers missing title, `conversation_id`, multipart dict content, empty system content, and tool result content
 - Scoped sensitive-pattern scan: no real secret/private-path hits
+- Public metadata: finalized with repository `https://github.com/ai-craftsman404/CodexVault`, plugin homepage path, GitHub maintainer contact URL, README privacy section, and MIT license terms URL
 
 ## Known Release Blockers
 
-- Public GitHub URL and maintainer contact are not finalized.
+- No VaultGPT package blocker remains for MVP release candidate status.
+- Whole-repository public release blocker: pre-existing root `.codexvault/` artifacts outside `plugins/vaultgpt` are tracked and must be removed or excluded before publishing the full repository.
 - Redacted real-export validation is deferred to post-MVP/public-beta hardening unless a safe sample becomes available.
 
 ## Release Notes Draft
