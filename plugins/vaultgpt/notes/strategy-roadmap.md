@@ -40,9 +40,77 @@ Paid-extension ChatGPT power features, free and local-first inside Codex, withou
 
 Replace the paid browser-extension workflow first. Parity gets users to try VaultGPT; free access, local-first control, Codex-native browser integration, and visible governance give them a reason to stay.
 
+Revised strategic rule: the first compelling wedge is Selective Async ChatGPT Export. Active-tab capture is useful, but too small; official export import is useful, but does not use Codex Chrome as the center of the product.
+
+The target user should be able to say:
+
+```text
+I gave VaultGPT the exact ChatGPT conversation URLs I cared about, it captured them through Codex Chrome in the background, reviewed privacy/fidelity, retried failures, and produced a clean selected export package.
+```
+
 ## Business Pitch
 
 VaultGPT gives ChatGPT power-extension features for free, without forcing users to trust a third-party browser extension with their AI history.
+
+Updated product wedge:
+
+```text
+Export exactly the ChatGPT conversations you choose, not your entire account.
+```
+
+Real MVP target:
+
+- Selective Async ChatGPT Export
+- URL input by chat paste or `.txt`/`.csv`/`.md` file
+- Codex Chrome per-URL capture
+- async background job with progress/status
+- agent-team supervised capture, fidelity, privacy, packaging, and user approval
+- Markdown/JSON/ZIP package with manifest and audit
+
+Current MVP-RC foundation:
+
+- local vault schema
+- active-tab capture primitive
+- privacy scanner
+- audit log
+- export packaging
+- fidelity metadata
+- plugin packaging
+
+These are reusable foundations, but they are not the winning product by themselves.
+
+## Public Preview Focus
+
+The public preview should focus on Selective Async ChatGPT Export only.
+
+Current-scope product promise:
+
+```text
+Give VaultGPT the ChatGPT conversation URLs you choose. It captures them through Codex Chrome, reviews them, and exports one auditable ZIP package.
+```
+
+Default public-preview behavior:
+
+- menu-driven chat workflow
+- 25 URLs per job
+- sequential Codex Chrome capture
+- async job status/progress
+- ZIP package only, with Markdown and JSON inside
+- hybrid approval flow
+- high-risk privacy findings block by default
+- explicit override is allowed only with audit logging
+- local-first execution
+
+Not current public-preview scope:
+
+- ChatGPT App integration
+- direct ChatGPT-to-Codex plugin invocation
+- cloud Codex delegation
+- open-tab discovery
+- full account crawling
+- true parallel browser capture
+
+Cloud Codex may be useful later for post-capture review, formatting, packaging, and tests, but it should not be included in v1 because it cannot access the user's local logged-in Chrome/Codex extension context and adds privacy/sync complexity.
 
 ## Critical Strategic Goal: Codex-Native Future Compatibility
 
