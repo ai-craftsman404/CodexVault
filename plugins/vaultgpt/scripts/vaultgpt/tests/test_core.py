@@ -570,7 +570,14 @@ class VaultGPTCoreTests(unittest.TestCase):
             out = Path(tmp) / "selective.zip"
             result = finalize_export(root, job["job_id"], out)
             self.assertTrue(out.is_file())
+            self.assertEqual(result["manifest"]["requested_url_count"], 2)
+            self.assertEqual(result["manifest"]["successful_record_count"], 1)
+            self.assertEqual(result["manifest"]["failure_count"], 1)
+            self.assertEqual(result["manifest"]["warning_count"], 2)
             self.assertEqual(result["manifest"]["conversation_count"], 1)
+            self.assertEqual(result["manifest"]["selected_urls"], ["https://chatgpt.com/c/one", "https://chatgpt.com/c/two"])
+            self.assertEqual(len(result["manifest"]["records"]), 1)
+            self.assertEqual(len(result["manifest"]["failed"]), 1)
             self.assertEqual(len(result["failures"]), 1)
             self.assertEqual(result["job"]["status"], "complete")
 

@@ -208,21 +208,35 @@ def finalize_export(root: str | Path, job_id: str, output_path: str | Path) -> d
                 }
             )
         )
+    requested_count = len(job["items"])
+    successful_count = len(records)
+    failure_count = len(failures)
+    warning_count = sum(
+        1
+        for item in job["items"]
+        if item["privacy"]["status"] != "passed" or item["fidelity"]["status"] != "pass"
+    )
     destination = Path(output_path).expanduser().resolve()
     destination.parent.mkdir(parents=True, exist_ok=True)
     manifest = {
         "schema_version": SCHEMA_VERSION,
         "job_id": job_id,
         "type": "vaultgpt.selective_export",
-        "conversation_count": len(records),
+        "requested_url_count": requested_count,
+        "successful_record_count": successful_count,
+        "failure_count": failure_count,
+        "warning_count": warning_count,
+        "conversation_count": successful_count,
         "selected_urls": [item["source_url"] for item in job["items"]],
-        "privacy_summary": {"warning_count": sum(1 for r in records if r["privacy"]["status"] != "passed")},
+        "privacy_summary": {
+            "warning_count": sum(1 for item in job["items"] if item["privacy"]["status"] != "passed")
+        },
         "fidelity_summary": {
-            "status": "warn" if failures else "pass",
-            "reasons": [f"export reported {len(failures)} failed item(s)"] if failures else [],
+            "status": "warn" if warning_count or failures else "pass",
+            "reasons": [f"export reported {failure_count} failed item(s)"] if failures else [],
             "reviewers": ["capture", "privacy", "export"],
-            "checked_count": len(records),
-            "total_count": len(records),
+            "checked_count": successful_count,
+            "total_count": requested_count,
         },
         "records": [
             {
