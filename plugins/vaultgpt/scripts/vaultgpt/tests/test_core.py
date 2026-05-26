@@ -14,6 +14,7 @@ from lib.fidelity import review_capture, review_export_manifest
 from lib.import_export import export_conversations, import_conversation_payloads, import_official_export_file, load_conversations, normalize_capture
 from lib.organize import bulk_plan, save_search, update_conversation_metadata
 from lib.paths import default_vault_path, resolve_vault_path
+from lib.selective_export import build_url_input, create_job, dry_run_preview, finalize_export, ingest_capture_payloads, list_job_ids
 from lib.prompt import create_prompt_record, detect_variables, export_prompts, import_prompts, load_prompt, render_prompt, save_prompt
 from lib.privacy import redact_text, scan_record, scan_text
 from lib.search import index_status, search_json
@@ -508,6 +509,122 @@ class VaultGPTCoreTests(unittest.TestCase):
                 text=True,
             )
             self.assertEqual(json.loads(search_result.stdout)["results"][0]["id"], "cli_chat")
+
+    def test_selective_export_url_parsing_and_job_lifecycle(self):
+        parsed = build_url_input(
+            "\n".join(
+                [
+                    "# comment",
+                    "https://chatgpt.com/c/one",
+                    "https://chatgpt.com/c/one",
+                    "https://chat.openai.com/c/two",
+                    "invalid",
+                ]
+            )
+        )
+        self.assertEqual(parsed.urls, ["https://chatgpt.com/c/one", "https://chat.openai.com/c/two"])
+        self.assertEqual(parsed.duplicates, ["https://chatgpt.com/c/one"])
+        self.assertEqual(parsed.invalid_lines, ["invalid"])
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = initialize_vault(Path(tmp) / "vault")
+            job = create_job(root, {"source": "url_list"}, parsed)
+            self.assertIn(job["job_id"], list_job_ids(root))
+            self.assertEqual(job["status"], "planned")
+            preview = dry_run_preview(root, job["job_id"])
+            self.assertEqual(len(preview["items"]), 2)
+
+    def test_selective_export_ingest_and_zip_export(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = initialize_vault(Path(tmp) / "vault")
+            parsed = build_url_input("https://chatgpt.com/c/one\nhttps://chatgpt.com/c/two")
+            job = create_job(root, {"source": "url_list"}, parsed)
+            payloads = [
+                {
+                    "source_url": "https://chatgpt.com/c/one",
+                    "canonical_url": "https://chatgpt.com/c/one",
+                    "title": "One",
+                    "messages": [{"role": "user", "content": "hello"}],
+                    "visible_message_count": 1,
+                    "role_counts": {"user": 1},
+                    "capture_confidence": "chrome_dom_snapshot",
+                    "limitations": [],
+                    "privacy": {"status": "passed", "findings": []},
+                    "fidelity": {"status": "warn", "findings": ["DOM-visible content may omit hidden or collapsed content"]},
+                },
+                {
+                    "source_url": "https://chatgpt.com/c/two",
+                    "canonical_url": "https://chatgpt.com/c/two",
+                    "title": "Two",
+                    "messages": [],
+                    "visible_message_count": 0,
+                    "role_counts": {},
+                    "capture_confidence": "chrome_dom_snapshot",
+                    "limitations": ["unreadable"],
+                    "privacy": {"status": "warn", "findings": ["unreadable page"]},
+                    "fidelity": {"status": "warn", "findings": ["capture timed out"]},
+                },
+            ]
+            ingested = ingest_capture_payloads(root, job["job_id"], payloads)
+            self.assertEqual(ingested["status"], "previewed")
+            out = Path(tmp) / "selective.zip"
+            result = finalize_export(root, job["job_id"], out)
+            self.assertTrue(out.is_file())
+            self.assertEqual(result["manifest"]["conversation_count"], 1)
+            self.assertEqual(len(result["failures"]), 1)
+            self.assertEqual(result["job"]["status"], "complete")
+
+    def test_selective_export_cli_help_and_ingest_smoke(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            vault_path = Path(tmp) / "vault"
+            payload_file = Path(tmp) / "payloads.json"
+            payload_file.write_text(
+                json.dumps(
+                    [
+                        {
+                            "source_url": "https://chatgpt.com/c/one",
+                            "canonical_url": "https://chatgpt.com/c/one",
+                            "title": "One",
+                            "messages": [{"role": "user", "content": "hello"}],
+                            "visible_message_count": 1,
+                            "role_counts": {"user": 1},
+                            "capture_confidence": "chrome_dom_snapshot",
+                            "limitations": [],
+                            "privacy": {"status": "passed", "findings": []},
+                            "fidelity": {"status": "warn", "findings": []},
+                        }
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            cli = Path(__file__).resolve().parents[1] / "vaultgpt.py"
+            help_result = subprocess.run(
+                [sys.executable, str(cli), "selective-export", "--help"],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            self.assertIn("--ingest-payloads", help_result.stdout)
+            self.assertIn("selective-export", help_result.stdout)
+
+            ingest_result = subprocess.run(
+                [
+                    sys.executable,
+                    str(cli),
+                    "--vault-path",
+                    str(vault_path),
+                    "selective-export",
+                    "--ingest-payloads",
+                    str(payload_file),
+                    "--output",
+                    str(Path(tmp) / "out.zip"),
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            self.assertIn('"status": "ok"', ingest_result.stdout)
+            self.assertTrue((Path(tmp) / "out.zip").is_file())
 
 
 if __name__ == "__main__":
