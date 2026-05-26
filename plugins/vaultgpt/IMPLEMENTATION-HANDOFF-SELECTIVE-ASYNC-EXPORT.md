@@ -16,6 +16,24 @@ The current VaultGPT MVP-RC is foundation only. Reuse its local vault, privacy, 
 
 Use a dedicated git worktree/session for implementation.
 
+### Chrome Startup Recipe
+
+When the selective-export flow needs live ChatGPT capture, start from the real Chrome profile that carries the Codex Chrome Extension and the signed-in session:
+
+```bat
+cmd /c start chrome.exe --profile-directory="Profile 3" "https://chatgpt.com/"
+```
+
+Then use the Codex Chrome skill surface only:
+
+- `browser.user.openTabs()`
+- `browser.user.claimTab(tab)`
+- `tab.url()`
+- `tab.title()`
+- `tab.playwright.domSnapshot()`
+
+Do not use Playwright MCP, shell-driven bridge code, or the Codex in-app browser for this capture path.
+
 Requirements:
 
 - Create or use an isolated git worktree for the feature branch.

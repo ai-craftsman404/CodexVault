@@ -6,6 +6,23 @@ VaultGPT is an installable Codex plugin and MVP feature-complete release candida
 
 The VaultGPT package is release-candidate ready. Whole-repository publication still needs pre-existing root `.codexvault/` artifacts outside `plugins/vaultgpt` removed or excluded.
 
+## Working Chrome Startup Recipe
+
+Use this exact setup when the Chrome skill / Codex Chrome Extension runtime needs to be re-established for live capture testing:
+
+```bat
+cmd /c start chrome.exe --profile-directory="Profile 3" "https://chatgpt.com/"
+```
+
+Then, inside the Codex Chrome skill surface:
+
+1. Use `browser.user.openTabs()` to find the real ChatGPT tab.
+2. Use `browser.user.claimTab(tab)` on the matching tab returned by `openTabs()`.
+3. Read the claimed tab with `tab.url()`, `tab.title()`, and `tab.playwright.domSnapshot()`.
+4. Use the claimed tab as the only live capture source for VaultGPT.
+
+Do not use Playwright MCP, shell-driven browser bridge code, or the Codex in-app browser as a substitute for this path.
+
 ## Latest Important Commits
 
 - `8d35f90` Finalize VaultGPT release readiness

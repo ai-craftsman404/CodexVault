@@ -30,6 +30,22 @@ Important correction:
 - `--provider codex` should remain blocked unless a supported bridge exists.
 - Public preview uses assistant-mediated `@Chrome` capture plus `--ingest-payloads <json>`.
 
+Working Chrome startup recipe:
+
+```bat
+cmd /c start chrome.exe --profile-directory="Profile 3" "https://chatgpt.com/"
+```
+
+Then use only the Codex Chrome skill surface:
+
+- `browser.user.openTabs()`
+- `browser.user.claimTab(tab)`
+- `tab.url()`
+- `tab.title()`
+- `tab.playwright.domSnapshot()`
+
+Do not substitute Playwright MCP, shell-driven bridge code, or the Codex in-app browser for this path.
+
 ## Implementation Status From Build Session
 
 Implemented in dedicated worktree/session:
