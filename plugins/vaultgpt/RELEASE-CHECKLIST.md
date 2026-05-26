@@ -31,7 +31,7 @@
 - [x] Security and privacy notes
 - [x] Model-release resilience positioning
 - [x] Public installation instructions after final repo URL is known
-- [x] Live Codex Chrome capture verification notes
+- [x] Live Chrome skill capture verification notes
 
 ## Quality Gates
 
@@ -56,7 +56,7 @@
 - [x] Implicit VaultGPT search routing verified after reload/install
 - [x] Should-not-trigger behavior verified for unrelated cryptography prompt
 - [x] Installed Chrome save preview required confirmation before writing
-- [x] Installed save workflow capture scope accepted for `@Chrome` ChatGPT source
+- [x] Installed save workflow capture scope accepted for Chrome skill ChatGPT source
 - [x] Real-browser selected-chat capture verified with connected Chrome extension
 - [x] Search verified against Chrome-captured record
 - [x] ZIP export verified against Chrome-captured record
