@@ -2,12 +2,19 @@
 
 ## Current Status
 
-VaultGPT is an installable Codex plugin and MVP feature-complete release candidate with a working local engine and a verified `@Chrome` capture path.
+VaultGPT is an installable Codex plugin and MVP feature-complete release candidate with a working local engine and a verified Chrome skill capture path.
 
 The VaultGPT package is release-candidate ready. Whole-repository publication still needs pre-existing root `.codexvault/` artifacts outside `plugins/vaultgpt` removed or excluded.
 
 ## Latest Important Commits
 
+- `8d35f90` Finalize VaultGPT release readiness
+- `b9b3fd5` Record VaultGPT implicit Chrome preview pass
+- `c2c970c` Clarify VaultGPT Chrome native host blocker
+- `940fedf` Record VaultGPT Chrome gate retry
+- `c583e51` Update VaultGPT MVP progress docs
+- `23554a1` Record VaultGPT installed invocation gates
+- `dd5d3e3` Add VaultGPT handover notes
 - `4887943` Add VaultGPT synthetic export edge coverage
 - `fe381ec` Add VaultGPT lightweight fidelity review
 - `5f0d8c1` Add VaultGPT capture confidence metadata
@@ -34,23 +41,68 @@ The VaultGPT package is release-candidate ready. Whole-repository publication st
 - Manual prompt chains.
 - Folders, tags, pins, saved searches, unfiled inbox.
 - Installed plugin explicit invocation.
-- Connected `@Chrome` current active ChatGPT tab preview/save.
+- Connected Chrome skill current active ChatGPT tab preview/save.
 - Search/export verification against Chrome-captured record.
 - Installed implicit search routing.
 - Installed should-not-trigger behavior for unrelated cryptography prompt.
+- Installed implicit active-tab save preview.
+- Final public metadata.
+- Final VaultGPT package public-release scan.
 - 28 local VaultGPT tests passing.
+
+## 2026-05-23 Session Record
+
+Completed activities:
+
+- Continued from `plugins/vaultgpt/HANDOVER.md`.
+- Verified installed-plugin implicit search routing with query `Claude Code Kimi`; result returned `chat_a548c903b716a69a` via SQLite FTS5.
+- Verified should-not-trigger behavior for `Explain what a vault is in cryptography.`; VaultGPT did not route.
+- Retried Chrome skill active-tab testing multiple times against Chrome `Profile 3` and `https://chatgpt.com/c/69f75455-25d8-8391-a04d-5943d722c696`.
+- Documented blocked Chrome attempts when the Chrome skill could not see the selected profile, then later cleared the blocker when `openTabs()` exposed the ChatGPT tab.
+- Verified Chrome tab title/URL: `Claude Code vs Kimi`, matching the ChatGPT test URL.
+- Claimed the visible Chrome tab and confirmed visible ChatGPT messages were readable.
+- Ran implicit active-tab save preview without naming VaultGPT, stopping before save.
+- Verified preview evidence: 6 visible messages, role counts user 3 / assistant 3, privacy `passed`, capture confidence `chrome_accessibility_snapshot`, fidelity `warn` only because capture limitations are present.
+- Confirmed no Codex thread/project/environment context was captured during the final Chrome preview.
+- Finalized public metadata in `plugins/vaultgpt/.codex-plugin/plugin.json`.
+- Added public repository/contact/install metadata to `plugins/vaultgpt/README.md`.
+- Updated `plugins/vaultgpt/RELEASE-CHECKLIST.md`, `plugins/vaultgpt/design/test-matrix.md`, and this handover with pass/blocker status.
+- Added `.codexvault/` to `plugins/vaultgpt/.gitignore`.
+- Adjusted synthetic privacy-test strings so public scans do not flag test fixtures as real placeholder emails, tokens, or private paths.
+- Ran final VaultGPT verification: 28 tests passing, Python compileall passing, manifest JSON parsing, marketplace JSON parsing, scoped sensitive-pattern scan passing, and tracked-artifact scan passing for `plugins/vaultgpt`.
+- Committed only VaultGPT-related final release changes.
+
+Practical insights:
+
+- Use the Chrome skill for signed-in ChatGPT capture; the Codex in-app browser is not an acceptable MVP capture substitute.
+- `browser.tabs.selected()` can fail even when the desired ChatGPT tab is visible; `browser.user.openTabs()` plus `browser.user.claimTab()` is the reliable pattern for this workflow.
+- Chrome skill availability may depend on the current desktop network/region. In this session, Chrome became available again after switching the desktop network to a US region.
+- Missing Chrome native host registration can look similar to a VaultGPT failure, but it is an environment/plugin connectivity issue.
+- Broad Codex-thread capture must remain explicitly rejected as a failed pattern, even if it writes a syntactically valid vault record.
+- Accessibility/DOM snapshot capture is acceptable for MVP only when the preview labels confidence and limitations; official export remains the authoritative full-history backup path.
+- Public scans should distinguish real committed secrets/private paths from intentionally synthetic privacy-scanner fixtures.
+- VaultGPT package readiness and whole-repository publication readiness are different: the VaultGPT package is release-candidate ready, but root repo `.codexvault/` artifacts still block publishing the full repository.
+
+Branch/worktree insight:
+
+- Current VaultGPT branch: `codex/vaultgpt-strategy-notes`.
+- Latest VaultGPT release-readiness commit: `8d35f90`.
+- The branch is ahead of `origin/main` with the VaultGPT work.
+- VaultGPT package tree is clean after commit.
+- The Codex UI still shows a large diff because the wider worktree has unrelated dirty/deleted tracked files, especially pre-existing `.codexvault/staging/...` content and unrelated PremortemX/CodexVault changes.
+- Do not mix root `.codexvault/` cleanup or unrelated plugin changes into VaultGPT release commits.
 
 ## Critical Lessons Learned
 
 - Do not use Codex in-app browser for signed-in ChatGPT capture.
-- Use `@Chrome` with the connected Codex Chrome extension.
+- Use the Chrome skill with the connected Codex Chrome extension.
 - Primary MVP capture target is current active ChatGPT tab.
 - Specific ChatGPT URL is fallback/debug only.
 - Selected/multiple tabs are deferred.
 - Broad visible Codex thread capture is a failed pattern and must not be treated as MVP success.
 - Chrome accessibility snapshot is acceptable for MVP if labeled with capture confidence and limitations.
 - Fidelity review mitigates, but cannot prove, full completeness if the snapshot omits hidden/virtualized content.
-- Codex Chrome access may be region/network gated. In testing, `@Chrome` only became available again after switching the desktop network to a US region; if Chrome/extension are installed but `@Chrome` reports unavailable, check supported region/network before debugging VaultGPT.
+- Chrome skill access may be region/network gated. In testing, it only became available again after switching the desktop network to a US region; if Chrome/extension are installed but the Chrome skill reports unavailable, check supported region/network before debugging VaultGPT.
 
 ## Verified Chrome Capture Evidence
 
@@ -107,7 +159,7 @@ Save my current active ChatGPT tab to VaultGPT. Preview first and do not save un
 Expected:
 
 - VaultGPT activates without explicit plugin mention.
-- It uses `@Chrome`, not in-app browser.
+- It uses the Chrome skill, not in-app browser.
 - It previews title, URL, message count, roles count, privacy, capture confidence, limitations, folder/status, proposed ID.
 - It does not save before confirmation.
 

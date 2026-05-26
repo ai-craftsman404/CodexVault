@@ -30,6 +30,7 @@ def normalize_capture(payload: dict[str, Any]) -> dict[str, Any]:
             "type": source.get("type", payload.get("source_type", "manual_import")),
             "source_id": source.get("source_id", payload.get("source_id", record_id)),
             "captured_at": source.get("captured_at", payload.get("captured_at")),
+            "url": source.get("url", payload.get("source_url")),
         },
         "title": payload.get("title") or "Untitled chat",
         "model": {
