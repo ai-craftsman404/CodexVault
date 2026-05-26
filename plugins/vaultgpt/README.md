@@ -1,35 +1,6 @@
 # VaultGPT
 
-VaultGPT gives you the ChatGPT power-extension features people normally pay for, such as saved chats, folders, tags, search, exports, prompt libraries, and backups, but free, local-first, and powered by Codex instead of an opaque third-party browser extension.
-
-If your ChatGPT history has become valuable knowledge, VaultGPT helps you keep ownership of it: preview before saving, store it locally in open formats, search it later, reuse prompts, export backups, and keep an audit trail without handing your conversation archive to another extension vendor.
-
-It is designed to replace the most useful paid/capped workflows from popular ChatGPT browser extensions:
-
-- save useful ChatGPT conversations
-- organize chats with folders, tags, pins, and an inbox
-- search across saved chats and prompts
-- export or back up chats to open local formats
-- build a reusable prompt vault with variables and simple chains
-- review privacy before saving or exporting
-- keep an audit trail of what was captured and where it came from
-
-VaultGPT's core bet is simple: users should own their ChatGPT history locally, in open files, using Codex-native workflows instead of opaque browser-extension storage.
-
-## Why VaultGPT
-
-Many ChatGPT users already pay for third-party extensions because ChatGPT history becomes hard to manage at scale. The common paid features are not exotic: better search, folders, prompt libraries, bulk export, backups, tags, pins, and workflow shortcuts.
-
-VaultGPT targets that demand directly:
-
-- Free instead of subscription-gated.
-- Local-first instead of extension-cloud-first.
-- Codex-native instead of opaque third-party scraping.
-- Open formats instead of lock-in.
-- Explicit preview and confirmation instead of silent capture.
-- Privacy review and audit logs by default.
-
-The goal is not to win by adding more UI complexity. The goal is to give users the familiar high-value extension workflows they already understand, but in a safer Codex-powered package.
+VaultGPT is a free, local-first Codex plugin designed to replace paid ChatGPT power-extension workflows without relying on opaque third-party browser extensions.
 
 ## MVP Focus
 
@@ -48,6 +19,7 @@ The goal is not to win by adding more UI complexity. The goal is to give users t
 
 ## Positioning
 
+VaultGPT gives ChatGPT power-extension features for free, without forcing users to trust a third-party browser extension with their AI history.
 VaultGPT is positioned as the free, privacy-first alternative to paid ChatGPT productivity extensions.
 
 The adoption pitch:
@@ -126,8 +98,9 @@ Implemented and verified:
 - should-not-trigger behavior for unrelated cryptography prompts
 - 28 local VaultGPT tests
 
-Deferred hardening:
+Outstanding repo-publication gate:
 
+- remove pre-existing root `.codexvault/` artifacts outside the VaultGPT package before publishing the whole repository
 - real exported ChatGPT edge-case validation, deferred to post-MVP/public-beta unless a safe redacted sample becomes available
 
 ## Public Metadata
@@ -146,6 +119,8 @@ Until VaultGPT is split into a standalone repository, install it from this repos
 https://github.com/ai-craftsman404/CodexVault/tree/main/plugins/vaultgpt
 ```
 
+<<<<<<< HEAD
+=======
 ## User Workflows
 
 ### Simple Example: Save And Find One Useful Chat
@@ -264,7 +239,6 @@ Typical flow:
 - VaultGPT records capture confidence and fidelity status so users can see this limitation.
 - Official export import remains the more complete fallback for bulk historical archives.
 - Local vault data, official exports, and generated backups are private runtime data and should not be committed to git.
-
 ## Codex Chrome Availability
 
 VaultGPT's active-tab capture depends on the Codex Chrome extension and the Chrome skill runtime being available in the current desktop environment. If the Chrome skill reports that the browser or extension is unavailable, confirm that Codex Chrome access is supported for the current network region. During MVP testing, the final Chrome retry only passed after switching the desktop network to a US region; non-approved regions may block the bridge even when Chrome and the extension appear installed.
